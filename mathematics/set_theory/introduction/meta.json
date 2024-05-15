@@ -1,16 +1,12 @@
 {
-    "metadata" : {
-        "classification" : {
-            "subject": "Mathematics",
-            "topic": "Set Theory",
-            "subtopic": "Set Representation and Properties",
-        },
-        "views" : "3455",
-        "datePublished": "Jan 30, 2020",
-        "dateUpdated" : "Feb 2, 2024",
-        "title" : "Representations and Properties of Sets",
-        "description" : "Sets are a fundamental concept of mathematics. This article will introduce you to the concept of sets, their representations, and properties."
-    },
+    "subject": "Mathematics",
+    "topic": "Set Theory",
+    "subtopic": "Set Representation and Properties",
+    "views" : "3455",
+    "datePublished": "Jan 30, 2020",
+    "dateUpdated" : "Feb 2, 2024",
+    "title" : "Representations and Properties of Sets",
+    "description" : "Sets are a fundamental concept of mathematics. This article will introduce you to the concept of sets, their representations, and properties.",
     "objectives" : [
         "Understand the basic properties of sets",
         "Learn about the different ways to represent sets"
