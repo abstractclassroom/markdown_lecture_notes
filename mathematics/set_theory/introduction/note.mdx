@@ -1,3 +1,65 @@
-# Introduction
+# Introduction To Set Theory
 
-Hopefully this will work!
+Sets are among the most fundamental objects in mathematics.  They provide a mechanism for mathematicians and engineers to concisely analyze, reference, and categorize various objects. 
+In fact, a set is essentially an abstract container. 
+
+The example below represents a very traditional way of representing sets (curly braces). 
+
+$$ A = \{ \; 4,\; 6,\; 1,\; -3,\; 14,\; 99 \; \}$$
+
+In the example above, a set of numbers has been created and labeled $A$.  Once declared, the letter/symbol $A$ can be used to refer to this collection of values.  The elements of a set can be essentially anything, inluding other sets.  Consider the set $B$ composed of colors.
+
+$$B = \{ \text{blue}, \; \text{red},\; \text{black}\; \}$$
+
+Set $C$ (below) is a set where the elements are also sets.
+
+$$C = \{ \; \{ 1,2,3,4,5\}, \; \{\pi, 14, 2\} \;\}$$
+
+***
+
+## Set Elements
+
+The objects inside a set are called **elements**.  Suppose $A$ is a set that contains the element $14$. This fact can be represented symbolically as $14 \in A$. Mathematics is essentially a powerful language of symbols.  Mathematicians that SPEAK different languages can often communicate quite well using the symbolic language of mathematics.  
+Compare the concise symbolic representation relative to its wordy sentence form.
+
+$$\underbrace{-3 \in B}_{\text{Negative three is an element of set $B$}}$$
+
+***
+
+## Properties Of Sets 
+
+Sets have two fundamental properties. 
+1. The elements inside a set do not have an order.
+    * A set is like the spare pocket change jar in your bedroom.  You use the jar like a container and you only care about the items inside it and not their arrangement.  If you pick up the jar and shake it to mix up the items, you still have the same jar of objects. 
+2. Sets do not contain duplicates.
+    * This can be an abstract notion but rarely needs to be complicated.
+    * Adding the number 3 to the set $\{1,2,3\}$ would result in the same set $\{1,2,3\}$.  The number three would not appear twice.
+
+***
+
+## Methods To Represent Sets
+
+There are 3 primary ways of reprsenting sets.
+
+1.  **Sentence Form** - The elements of the set are basically described using sentences.
+    *   This method should be avoided if possible.
+    *   Tends to be very wordy. May lack necessary precision.  
+        * Example : Let $S$ be the set of whole numbers greater than or equal to twenty and less than or equal to 99.
+2.  **Roster Form** - Similar to a classroom roster, it is an explicit list of the elements of a set.
+    *   Very easy to understand.
+    *   Typically useful for very small sets or sets with elements that form obvious patterns.
+    *   Ellipsis can be used only if an obvious pattern can be established.     
+        * Example: $A = \{ 2,3,-4,9\}$
+        * Example: $B = \{ 1,2,3,...,99,100\}$
+        * Example: $\mathbb{N} = \{1,2,3,...\}$
+        * Example: $\mathbb{Z} = \{...-3,-2,-1,0,1,2,3,...\}$ 
+        * Bad Example: $K = \underbrace{ \{ 1,2, 5, 10, 17, ... \}}_{\text{Pattern Is Not Obvious}}$
+    *   Deciding on whether to use roster form may depend on the mathematical maturity of your audience.
+        * Example: $P = \{2,3,5,7,11,13,17,19,23,...\}$  (Prime Numbers)
+        * Example: $T = \{1,4,9,16,25,36,49,...\}$ (Perfect Squares)
+3.  **Set Builder Form** - Requires the most mathematical maturity to use. However, it becomes second nature once familiar.
+    *   Resembles a food recipe.  You have a list of ingredients and instructions on how to use the ingredients.
+    *   Often used when the need to be constructed or can be described using some form of construction.
+        * Example: $E = \{ 2k \; \mid \; k \in \mathbb{W}\} = \{0,2,4,6,8,10,...\}$   (Set of even numbers - whole numbers that are a multiple of two)
+        * Example: $O = \{ 2k+1 \; \mid \; k \in \mathbb{W}\} = \{1,3,5,7,9,...\}$  (Set of odd numbers - whole numbers that are one plus a multiple of two)
+
