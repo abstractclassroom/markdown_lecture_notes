@@ -1,0 +1,74 @@
+# Binary Set Operations 
+
+In the context of this set of notes, a binary operation takes two sets as inputs and produces a single set as an output.   Recall that addition, subtraction, multiplication, and division are binary operations on real numbers with dedicated symbols (+, -, etc).  Similarly, set theory also has a common set of binary operations with dedicated symbols.
+
+## Union Of Sets 
+
+Suppose $A$ and $B$ are sets.  The **union** of $A$ and $B$ is denoted $A \cup B$ and essentially combines the two sets into a single new set.  Recall that sets do not contain duplicates.  Consider the example below. 
+
+$$A = \{ 1,2,4,8, 7\}$$
+
+$$B = \{ 1,5,8,3,9\}$$
+
+$$A \cup B = \{ 1,2,4,8,7,5,3,9 \}$$
+
+Notice that the union essentially combined the two sets (without creating duplicates per set theory properties).
+
+The union of two sets can be described using set builder notation as shown by the expression below.
+
+$$A \cup B = \{ x \; \mid \; x \in A \; \text{ or } \; x \in B\}$$
+
+***
+
+## Intersection Of Sets 
+
+Suppose $A$ and $B$ are sets.  The **intersection** of $A$ and $B$ is denoted $A \cap B$ and will result in a set composed of elements that are in **both** $A$ and $B$.  Consider the example below. 
+
+$$A = \{ 1,2,4,8, 7\}$$
+
+$$B = \{ 1,5,8,3,9\}$$
+
+$$A \cap B = \{ 1,8 \}$$
+
+
+The intersection of two sets can be described using set builder notation as shown by the expression below.
+
+$$A \cap B = \{ x \; \mid \; x \in A \; \text{ and } \; x \in B\}$$
+
+***
+
+## Difference Of Two Sets
+
+Suppose $A$ and $B$ are sets.  The **difference** of $A$ and $B$ is denoted $A - B$ (or $A \backslash B$ ) and will result in a set containing the elements that are only in set $A$. Restated, it will be a set containing the elements of $A$ as long as they are not in set $B$. Consider the example below. 
+
+$$A = \{ 1,2,4,8, 7\}$$
+
+$$B = \{ 1,5,8,3,9\}$$
+
+$$A - B = \{ 2,4,7 \}$$
+
+Notice that $A - B$ are the elements of $A$ except for the numbers 1 and 8 because they were also elements of $B$.
+
+
+The difference of two sets can be described using set builder notation as shown by the expression below.
+
+$$A - B = \{ x \; \mid \; x \in A \; \text{ and } \; x \notin B\}$$
+
+***
+
+## Symmetric Difference Of Two Sets
+
+Suppose $A$ and $B$ are sets.  The **symmetric difference** of $A$ and $B$ is denoted $A \Delta B$ (or $A \ominus B$ ) and will result in a set containing the elements that are in set $A$ **or** $B$ but not in their intersection. Restated, it will be the union of $A$ and $B$ with the intersection removed. Consider the example below. 
+
+$$A = \{ 1,2,4,8, 7\}$$
+
+$$B = \{ 1,5,8,3,9\}$$
+
+$$A \Delta B = \{ 2,4,7,5,3,9 \}$$
+
+Notice that $A \Delta B$ is the union of the two sets except for the numbers 1 and 8 because they are in the intersection of $A$ and $B$.
+
+
+The symmetric difference of two sets can be described using set builder notation as shown by the expression below.
+
+$$A \Delta B = \{ x \; \mid \; x \in A \cup B \; \text{ and } \; x \notin A \cap B\}$$

@@ -1,0 +1,81 @@
+# Subsets
+
+Subsets are a useful but relatively simple concept.  Consider the two sets below.
+
+$$A = \{1,2,3,...,9,10\}$$
+
+$$B = \{2,4,6,8,10\}$$
+
+Notice that every element in set $B$ is also an element of set $A$.  As such, set $B$ is called a **subset** of set $A$. This is denoted symbolically as the expression below.
+
+$$B \subset A$$
+
+This reads as "set $B$ is a subset of set $A$".  Similar to how $3<4$ is equivalent to $4>3$, the subset notation can be flipped as shown below.
+
+$$A \supset B$$
+
+The above expression is not common but is read "set $A$ is a superset of set $B$". 
+
+Mathematicians often need to indicate that a set is not a subset of another set.  Consider the two sets below.
+
+$$S = \{1,5,7,13,25,-9\}$$
+
+$$T = \{1,5,7,12\}$$
+
+Notice the number 12 is an element of set $T$ but not an element of set $S$.  This implies that $T$ is not a subset of $S$ and is denoted symbolically below.
+
+$$T \not\subset S$$
+
+A slash through a mathematical symbol typicall appends the word "not" to negate the traditional meaning of the symbol.
+
+***
+
+## Trivial Subsets 
+
+Every subset has two automatic subsets, specifically the set itself and the empty set.   Suppose set $A$ is a set.  The two expressions below are true.
+
+$$ \emptyset \subset A$$ 
+
+$$ A \subset A$$
+
+Obviously every element of set $A$ is an element of set $A$.  So it is not surprising that a set is automatically a subset of itself.  The case where the empty set is a subset may be less clear.  
+
+The empty set being an automatic subset is an example of a **vacuously true** statement.  This deserves an explanation.
+
+#### **Proof** : The Empty Set Is Always A Subset 
+
+Let $A$ be a set of objects.  The expression $\emptyset \subset A$ must be true or false.  Claiming the statement is true may feel awkward and hard to prove directly.   So let us consider the alternative. Suppose the expression $\emptyset \subset A$ is false.  This would imply the empty set contains something that is not in set $A$.  However, that is a contradiction because the empty set is empty by definiton.  Clearly, the expression $\emptyset \subset A$ can not be false because that leads to a contradiction. It must be the case that $\emptyset \subset A$ is a true statement. Given the arbitrary way we defined set $A$, it must be the case that the empty set is always a subset. 
+
+It is worth noting a very important logical fact: **A true statement is a statement that can not lead to a contradiction**.   Whenever a statement is true simply because the alternative creates a contradiction the statement is said to be **vaciously true**.  Simply stated, it is true because the alternative is problematic.
+
+***
+
+## Proper Subsets 
+
+A mathematician may want to clearly indicate a subset is not empty and not equivalent to the set itself.  Simply stated, a mathematician may want to indicate a subset is not a trivial subset.  Suppose set $B$ is a subset of $A$ and $B$ is not a trivial subset of $A$.  
+
+* To demonstrate the set is nonempty (use cardinality symbol)
+    * $|B| > 0$
+* To demonstrate $B$ is not equivalent to $A$ (two options)
+    * $B \subsetneq A$ (notice the slash through the equality line)
+    * $B \neq A$ (Probably more clear and noticeable)
+
+Without proper clarification the expression $B \subset A$ would certainly imply $B$ could be a trivial subset of $A$.
+
+## Relationship To Cardinality 
+
+Obviously a subset can not be larger than the superset.   Assume $A$ and $B$ are sets where $B\subset A$.  The following must be true.
+
+$$|B| \leq |A|$$
+
+A subset of an infinite set may be finite or infinite.  Consider the following set. 
+
+$$\underbrace{\mathbb{W} = \{ 0,1,2,3,...\}}_{\text{Infinite Set}}$$ 
+
+$$\underbrace{A = \{2,4,6,8,...\}}_{\text{Infinite Set}} \subset \mathbb{W}$$ 
+
+$$\underbrace{B = \{2,4\}}_{\text{Finite Set}} \subset \mathbb{W}$$ 
+
+Notice that $A \subset \mathbb{W}$ and $|A| = \infty$.  Also notice that $B \subset \mathbb{W}$ and $|B| = 2$.
+
+There is one property that is certainly true.  **A subset of a countable set (finite or infinite) must also be countable**.  Simply stated, it is not possible for a countable set to have a subset that is uncountable.  Obviously, a countable set can not have a subset that is denser than the superset.
