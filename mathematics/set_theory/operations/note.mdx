@@ -18,6 +18,11 @@ The union of two sets can be described using set builder notation as shown by th
 
 $$A \cup B = \{ x \; \mid \; x \in A \; \text{ or } \; x \in B\}$$
 
+Below are some important properties to recognize
+
+* $A \subset (A \cup B)$ 
+* $B \subset (A \cup B)$
+
 ***
 
 ## Intersection Of Sets 
@@ -34,6 +39,11 @@ $$A \cap B = \{ 1,8 \}$$
 The intersection of two sets can be described using set builder notation as shown by the expression below.
 
 $$A \cap B = \{ x \; \mid \; x \in A \; \text{ and } \; x \in B\}$$
+
+Below are some important properties to recognize 
+
+* $(A \cap B)  \subset A$ 
+* $(A \cap B) \subset B$ 
 
 ***
 
@@ -54,6 +64,11 @@ The difference of two sets can be described using set builder notation as shown 
 
 $$A - B = \{ x \; \mid \; x \in A \; \text{ and } \; x \notin B\}$$
 
+Below are some important properties to recognize 
+
+* $(A-B) \subset A$ 
+* $(A-B) \cap B = \emptyset$
+
 ***
 
 ## Symmetric Difference Of Two Sets
@@ -72,3 +87,27 @@ Notice that $A \Delta B$ is the union of the two sets except for the numbers 1 a
 The symmetric difference of two sets can be described using set builder notation as shown by the expression below.
 
 $$A \Delta B = \{ x \; \mid \; x \in A \cup B \; \text{ and } \; x \notin A \cap B\}$$
+
+Below are some important properties to recognize 
+
+* $(A \Delta B) \subset A$
+* $(A \Delta B) \subset B$
+* $(A \Delta B) \subset (A \cup B)$
+* $(A \Delta B) \cap (A \cap B) =  \emptyset$ 
+
+
+## Precedence 
+
+Binary operations (union, intersection, difference, symmetric difference) have a higher precedence than comparison operations (subset notation).  Parenthesis are often added to help with readability. Below is an example.
+
+$$ (A \Delta B)  \subset (A \cup B) = \underbrace{\underbrace{A \Delta B}_{\text{ First}} \subset \underbrace{A \cup B}_{\text{Second}}}_{\text{Third}} $$
+
+Unlike with real numbers, where some binary operations hold a higher precedence (multiplication before addition), set binary operations have equal precedence.  They should be treated as left associative when chained together.  
+
+Be mindful of your audience on this matter. 
+
+* Folks coming from a database background may argue that **intersection** holds a higher precedence than **union** since that is the case in SQL queries.  
+* Folks may also incorrectly apply boolean logic. Notice that $\cap$ (intersection) could imply logical AND and $\cup$ (union) could imply logical OR.  The boolean operator $\land$ (AND) holds a higher precedence over $\lor$ (OR).  This should not be extended to set binary operations.  
+
+
+A quick Google search will demonstrate some confusion on this matter. As a result, **parenthesis should be used to remove any confusion**. 
