@@ -78,4 +78,47 @@ $$\underbrace{B = \{2,4\}}_{\text{Finite Set}} \subset \mathbb{W}$$
 
 Notice that $A \subset \mathbb{W}$ and $|A| = \infty$.  Also notice that $B \subset \mathbb{W}$ and $|B| = 2$.
 
-There is one property that is certainly true.  **A subset of a countable set (finite or infinite) must also be countable**.  Simply stated, it is not possible for a countable set to have a subset that is uncountable.  Obviously, a countable set can not have a subset that is denser than the superset.
+Below are some facts associated with cardinality and subsets. 
+ * A subset of a countable set (finite or infinite) must also be countable.  
+ * An uncountably infinite set can have finite, uncountably infintie, and countably infinite subsets. 
+ * If $A \subset B$ then $|A| \leq |B|$.
+ * If $A \subset B$ and $B \subset A$ then $A=B$.
+ * A subset of a finite set must also be finite.
+ * Suppose $A \subset B$ where $A$ is a finite set and $B$ is an infinite set.  The expression $|A| < |B|$ is acceptable.
+ * It is never appropriate to compare  the cardinalities (e.g. $<$, $>$, $=$, etc) of two infinite sets. Surprising relationships can happen between two infinite sets.  
+ * The notions of countable and uncountable infinite sets are part of an advanced field of mathematics called measure theory. 
+    * In general, be careful about comparing infinite sets (countable or uncountable).
+    * Strange and nonintuitive relationships can occur with infinite sets. 
+    * Infinite sets do not have a cardinality. Be careful about drawing conclusions between countable and uncountable sets beyond being able to enumerate (index) elements of a set.
+
+## Power Sets
+
+In some instances it may be necessary to consider a set and all possible subsets of the set.  Consider the set below.
+
+$$A = \{1,2,3,4\}$$
+
+The **power set** of $A$, denoted $\mathcal{P}(A)$, is a set consisting of all possible subsets of $A$ (including the trivial ones).
+
+$$
+\begin{align}
+\mathcal{P}(A) = \{ \;\; & \\
+& \emptyset, \\
+& \{1\}, \{2\}, \{3\}, \{4\}, \\
+& \{1,2\}, \{1,3\}, \{1,4\}, \{2,3\}, \{2,4\}, \{3,4\}, \\
+& \{1,2,3\}, \{1,2,4\}, \{1,3,4\}, \{2,3,4\}, \\
+& A \\
+\}
+\end{align}
+$$
+
+The power set is a set that contains other sets (namely all subsets of $A$). The power set elements are displayed on multiple lines to help with readability.
+
+ Consider the cardinality of $\mathcal{P}(A)$.
+
+$$ | \mathcal{P}(A) | = 16$$
+
+You may notice that 16 is a power of 2, specifically $16=2^4$.  It is not coincidental that $|A| = 4$.  In general, the cardinality of $\mathcal{P}(B)$ is simply two raised to the number of elements in set $B$.  This is formally represented by the expression below.
+
+$$| \mathcal{P}(A) | = 2^{|B|}$$
+
+
