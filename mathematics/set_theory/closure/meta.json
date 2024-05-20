@@ -1,19 +1,22 @@
 {
     "subject": "Mathematics",
     "topic": "Set Theory",
-    "subtopic": "Set Cardinality",
-    "views" : "994",
-    "datePublished": "May 15, 2024",
-    "dateUpdated" : "May 15, 2024",
-    "title" : "Finite and Infinite Sets",
-    "description" : "Counting the number of elements in a set is often very straightforward. However, when the set is infinite, the situation becomes more complicated. In this lesson, we will learn how to count the number of elements in a set, even when the set is infinite. We will also learn about the different sizes of infinite sets, and whether it is appropriate to compare them",
+    "subtopic": "Closure",
+    "views" : "223",
+    "datePublished": "May 18, 2024",
+    "dateUpdated" : "May 18, 2024",
+    "title" : "Set Closure",
+    "description" : "Set closure is an important and fundamental concept in various branches of mathematics, including algebra, topology, and analysis. In this lesson, we will explore the concept of set closure in detail.",
     "objectives" : [
-        "Know the difference between finite and infinite sets",
-        "Know how to count the number of elements in a set",
-        "Understand the concept of set cardinality",
-        "Understand the concept of countable and uncountable sets"
+        "Understand the concept of set closure",
+        "Determine whether a set is closed under a given operation",
+        "Identify examples of sets that are closed under various operations",
+        "Identify examples of sets that are not closed under various operations"
     ],
     "prerequisites" : [
-        "Basic knowledge of set theory"
+        "Basic knowledge of set theory",
+        "Understand set roster form",
+        "Understand set builder form"
     ]
 }
+

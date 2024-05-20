@@ -1,61 +1,142 @@
-# Set Cardinality
+# Set Closure
 
-The **cardinality** of a set is basically the number of elements contained in a set. Symbolically, the cardinality of a set is represented using the absolute value bars. Consider the set $A$ as an example below.
+Consider the set $E$ (even numbers) defined below.
 
-$$A = \{3,-2, 5, 8, 11 , 20\}$$
+$$E = \{0, 2, 4, 6, \ldots\}$$
 
-$$|A| = 6$$
+Notice that if you take any two elements from set $E$ and add them together, you get another element in the set. Simply stated, the sum of two even numbers is also an even number. In this particular case, we say that set $E$ is closed under the operation of addition.
 
-The expression $|A| = 6$ simply means that set $A$ contains 6 elements.
+***
 
-## Empty Set $\emptyset$
+## Formal Definition
 
-There is one set that is surprisingly simple but can very complex implications. The set that contains no elements is referred to as **the empty set**.  
+In mathematics and computer science, we often overload operations to take on different meanings. We add numbers differently than we add polynomials and matrices, but we still use the same symbol (e.g., +) to represent the operation. Mathematicians often overload common symbols to represent very abstract operations. At times, they may even use the symbol to serve as a general symbol with no specific operation in mind. Keep this in mind when we define set closure formally.
 
-The empty set can be symbolically denoted in two different ways.
-1. Modern typesetting fonts make the symbol $\emptyset$ the most common representation of the empty set. 
-    * This symbol has an interesting origin.  A rolling group of mathematicians published papers and held conferences under the name **Nicolas Bourbaki**. This group spanned the 1900s having 10-12 active members at a time.  Several popular mathematical symbols originated from this group.
-        * Are you familiar with the band T$\emptyset$P (Twenty One Pilots) and noticed the symbol in the band name?  
-            * One part of the song **Morph** references Nicolas Bourbaki.  
-            * They reference **Nico and the niners**.  
-            * Blurryface is a reference to this group of mathematicians. 
-2. Older textbooks would often use the symbol $\{ \}$.  This is intuitive because itt looks like a roster form set with nothing inside it.
+**Let $M$ be a set where $a, b \in M$. If $a+b \in M$ then $M$ is closed under the operation of $+$.**
 
-Obviously, the cardinality of the empty set is zero and is denoted symbolically below.
+Notice that $+$ is being used as a symbol to represent any operation. The statement above implies that if you pick **any** two elements from set $M$ and apply the operation $+$, the result will also be an element of set $M$.
 
-$$| \emptyset | = 0$$
+Mathematical maturity implies you are able to think beyond classical definitions and apply abstract logic.
 
-Be sure to notice the empty set symbol is not the same symbol as the number zero.  Recall that for numbers the absolute value bars indicate how far a value is from zero.  The reason we use absolute value bars to denote set cardinality is that it effectively measures how far a set is from the empty set.
+Closure applies to any pair of elements of a set and not just a select few. You must be able to prove it for all pairs of elements and not just examples from the set.
 
-Anytime a set is found to be empty it should be referred to as **the** empty set.  It is a trivial play on the fact sets do not have an order. Two empty sets are essentially equal.  As a result, we claim there is only one empty set.
+***
 
-## Infinite Sets 
+## Examples
 
-A set with a bounded number of elements is called a **finite** set.  However, some sets do not have a bounded number of elements.  The set of whole numbers, represented by the symbol $\mathbb{W}$, has an **infinite** number of elements and so it is called an **infinite** set.
+* Sets $\mathbb{N}, \mathbb{W}, \mathbb{Z}, \mathbb{Q}, \text{ and } \mathbb{R}$ are all closed under the traditional operations of addition and multiplication.
+* Sets $\mathbb{Z}, \mathbb{Q}, \text{ and } $\mathbb{R}$ are closed under the traditional operation of subtraction.
+* $\mathbb{N}$ is not closed under subtraction because $5, 7 \in \mathbb{N}$ but $5 - 7 = -2 \notin \mathbb{N}$.
+* $\mathbb{Q}^c$ is not closed under addition because $\pi, -\pi \in \mathbb{Q}^c$ and $\pi + (-\pi) = 0 \in \mathbb{Q}$.
+* The set of odd numbers $\{2k + 1 \; | \; k \in \mathbb{W}\}$ is not closed under traditional addition. (Adding two odd numbers results in an even number.)
+* $\mathbb{R}$ is not closed under traditional division because $0 \in \mathbb{R}$. Notice that $3, 0 \in \mathbb{R}$ but $\frac{3}{0} \notin \mathbb{R}$ (division by zero is undefined).
 
-Infinite sets do not have a cardinality and mathematicians use the infinity symbol $\infty$ to denote a nonexistent cardinality.  Consider the whole numbers below as an example.
+***
 
-$$\mathbb{W} = \{0,1,2,3,...\}$$
+## Proofs
 
-$$| \mathbb{W} | = \infty$$
+Proving a set is not closed under an operation only requires you to demonstrate one instance where it fails. Proving $\mathbb{R}$ is not closed under division only requires showing $\frac{3}{0}$ (an undefined instance). However, proving a set is closed under an operation means you must demonstrate it to be true for all possible pairs of elements. This can be tricky with large and infinite sets. This is where set-builder notation comes in handy.
 
-## Georg Cantor & Uncountable Sets
+***
 
-Georg Ferdinand Ludwig Philipp Cantor (concisely known as Georg Cantor) lived from 1845 to 1918 and is credited with the notion of uncountable sets.  **Countable** sets have elements that can be enumerated.  This implies you could assign each element a sequential number. 
+### Example Proof (Odd Numbers Closed Under Multiplication)
 
-* We could put a number on every chair in a stadium.
-* Theoretically we could assign a number to every grain of sand on a beach.
-* In some cases we can assign a number to every element of an infinite set.
-    * Obviously true since the whole numbers are sequential numbers starting at zero.
+Consider the set of odd numbers $O$ and prove the set is closed under multiplication.
 
-However, there are some sets that are so dense we could not assign a number to every element (even if we had infinite time).  The most classical case is the set of real numbers. 
+$$O = \{2k + 1 \; | \; k \in \mathbb{W}\} = \{1, 3, 5, 7, \ldots\}$$
 
-Uncountable sets are difficult to comprehend.  Some very famous open mathematical questions involve determining whether a set is countably or uncountably infinite.  Be familiar with the categories below.
+Let $a, b \in O$. This implies the expressions below for some $k_1, k_2 \in \mathbb{W}$.
 
-* **Finite Sets** 
-    * Always countable 
-    * Cardinality exists (it is a value)
-    * Bounded number of elements 
-* **Infinite Sets** 
-    * **Countably Infinite** - There are an infinite number of elements in the set and the elements can theoretically be enumerated.
-    * **Uncountably Infinite** - There are an infinite number of elements and they are so dense they can not be enumerated.
+$$a = 2k_1 + 1$$
+$$b = 2k_2 + 1$$ 
+
+Notice $k_1$ and $k_2$ represent a specific instance of a whole number without actually assigning a specific value. This will allow us to show a general result. Now we must show that $a \cdot b \in O$.
+
+$
+\begin{align}
+a \cdot b &= (2k_1 + 1) \cdot (2k_2 + 1) \\
+&= 2k_1 \cdot 2k_2 + 2k_1 \cdot 1 + 2k_2 \cdot 1 + 1 \cdot 1 \\
+&= 4 \cdot k_1 \cdot k_2 + 2 \cdot k_1 + 2 \cdot k_2 + 1 \\
+&= 2 \cdot \left(2 \cdot k_1 \cdot k_2 + k_1 + k_2 \right) + 1
+\end{align}
+$
+
+Recall that $k_1, k_2 \in \mathbb{W}$ and also $\mathbb{W}$ is closed under addition and multiplication. Creating a new variable $k_3$ helps condense the expression.
+
+$$k_3 = 2 \cdot k_1 \cdot k_2 + k_1 + k_2 \in \mathbb{W}$$
+
+This results in the following simplified result:
+
+$
+\begin{align}
+a \cdot b &= 2 \cdot \left(2 \cdot k_1 \cdot k_2 + k_1 + k_2\right) + 1 \\
+&= 2 \cdot k_3 + 1
+\end{align}
+$
+
+Finally, this demonstrates that $a \cdot b = 2 \cdot k_3 + 1$ for some $k_3 \in \mathbb{W}$. This implies $a \cdot b$ has the appropriate form for an odd number, which implies $a \cdot b \in O$.
+
+Given the arbitrary way we chose $a, b \in O$ and demonstrated that $a \cdot b \in O$, it must be the case that $O$ (set of odd numbers) is closed under the traditional operation of multiplication.
+
+$$\blacksquare$$
+
+***
+
+### Example Proof (Rationals Closed Under Addition)
+
+Prove $\mathbb{Q}$ (set of rational numbers) is closed under addition.
+
+Recall $\mathbb{Q} = \left\{ \frac{a}{b} \; | \; a, b \in \mathbb{Z} \; , \; b \neq 0 \right\}$.
+
+Let $m_1, m_2 \in \mathbb{Q}$ be defined below.
+
+$$m_1 = \frac{a_1}{b_1} \quad \text{where} \quad a_1, b_1 \in \mathbb{Z} \quad \text{and} \quad b_1 \neq 0$$
+
+$$m_2 = \frac{a_2}{b_2} \quad \text{where} \quad a_2, b_2 \in \mathbb{Z} \quad \text{and} \quad b_2 \neq 0$$
+
+We need to show that $m_1 + m_2 \in \mathbb{Q}$.
+
+$
+\begin{align}
+m_1 + m_2 &= \frac{a_1}{b_1} + \frac{a_2}{b_2} \\\\
+&= \underbrace{\frac{a_1}{b_1} \cdot \frac{b_2}{b_2} + \frac{a_2}{b_2} \cdot \frac{b_1}{b_1}}_{\text{Common Denominator}} \\\\
+&= \underbrace{\frac{a_1 \cdot b_2 + a_2 \cdot b_1}{b_1 \cdot b_2}}_{\text{Simplified}}
+\end{align}
+$
+
+We have a final result that requires explaining.
+
+* Recall that $b_1, b_2 \in \mathbb{Z}$ were non-zero integers. Recall that the integers are closed under multiplication. This implies that $b_1 \cdot b_2 \neq 0$ and $b_1 \cdot b_2 \in \mathbb{Z}$.
+* Recall that $a_1, a_2, b_1, b_2 \in \mathbb{Z}$. The integers are closed under multiplication and addition.
+    * $a_1 \cdot b_2 \in \mathbb{Z}$
+    * $a_2 \cdot b_1 \in \mathbb{Z}$
+    * $(a_1 \cdot b_2 + a_2 \cdot b_1) \in \mathbb{Z}$
+
+Let $a, b \in \mathbb{Z}$ be defined below.
+
+$$a = (a_1 \cdot b_2 + a_2 \cdot b_1)$$
+
+$$b = b_1 \cdot b_2$$
+
+Notice that $b \neq 0$ since $b_1 \neq 0$ and $b_2 \neq 0$. The usage of $a$ and $b$ will simplify our result to the expression below.
+
+$
+\begin{align}
+m_1 + m_2 &= \frac{a_1 \cdot b_2 + a_2 \cdot b_1}{b_1 \cdot b_2} = \frac{a}{b}
+\end{align}
+$
+
+To summarize, $m_1 + m_2 = \frac{a}{b}$ where $a, b \in \mathbb{Z}$ and $b \neq 0$. Given the arbitrary nature of $m_1$ and $m_2$, it must be the case that $\mathbb{Q}$ (set of rational numbers) is closed under the traditional operation of addition.
+
+$$\blacksquare$$
+
+### Black Square Explanation
+
+You may have noticed a black square at the end of the proofs above. Mathematicians often need to mark the end of a proof. There are different ways of representing the end of a proof.
+
+* Black Square ($\blacksquare$) - Paul Halmos is credited with using a black square at the end of a proof. This is probably the most accepted form of finalizing a mathematical proof.
+* QED - The letters QED are an acronym for the Latin phrase **quod erat demonstrandum**. This Latin phrase translates to **what was to be shown**. Traditionally, proofs start (or imply) a statement about what needs to be shown. The black square or QED essentially indicates what was required has been shown (proven).
+
+### Mathematical Theory and Proofs
+
+Mathematical theory is essentially a collection of proofs. Unlike some areas of research where theory represents a conjecture or popular belief supported by empirical facts, mathematical theory consists of a collection of proofs accepted by the whole community of mathematicians. Mathematical proofs tend to build upon each other. Notice how the example proofs above rely on proven assumptions (e.g., integers are closed under addition and multiplication). Assumptions in mathematical proofs must be proven facts, not just empirical facts that appear to be true. This prevents entire branches of mathematical research from collapsing when an assumption is found to be false. **THIS IS VERY IMPORTANT TO UNDERSTAND!!**
