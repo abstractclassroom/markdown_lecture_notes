@@ -338,9 +338,19 @@ $$
 
 Notice one example used an abstract notion related to rotations of a square and the other traditiona matrices.  In this particular case we would say these two groups (despite being different scenarios and operations) are **isomorphic**.  The prefix **iso** meaning  **same** and **morphic** meaningin **shape** we see the two groups have the **same shape**.  Determining whether two groups are isomorphic is very challenging and often too difficult even for large super computers in some cases.  In this particular example the mapping was fairly straightforward. 
 
+Suppose $G$ and $H$ are isomorphic groups.  This is often symbollically represented as shown below.
+
+$G \cong H$
+
 Isomorphic representations are often useful in converting groups into more computational friendly representations.  Implementing square rotations in code could be tricky.  Matrices are obviously better.  However, there is one final representation that is much more concise.
+
+We can first define the general form for all the matrices.
 
 $M(\theta, r) = \begin{bmatrix}
 \cos \theta & -\sin \theta \\
 (-1)^r \sin \theta & (-1)^r \cos \theta
-\end{bmatrix}$ where $\theta \in \{ 0, \frac{\pi}{2}, \pi, \frac{3\pi}{2}\}$ and $r \in \{0,1\}$.
+\end{bmatrix}$ 
+
+Then use set builder form to create the set.
+
+$G = \{ M(\theta, r) \; \mid \; \theta \in \{ 0, \frac{\pi}{2}, \pi, \frac{3\pi}{2}\}  , \;\; r \in \{0,1\} \;\;\}$
