@@ -2,16 +2,571 @@
 
 A binary operation is simply an operation with two inputs.  Traditional operations like addition and multiplication are examples of such operations. Binary logic operations are essentially operations traditionally found in programming languages and digital circuits.  The inputs are from the set below.
 
-$$\{\underbrace{\text{true}}_{1}, \underbrace{\text{false}}_{0}\}$$
+$$\{\text{false}, \text{true}\} \;\; \text{or} \;\; \{0,1\}$$
 
-Operations on a set must be closed.  This means that the result of the operation will also be an element in the set.  As a result every binary logic operation will have an operation table like the one below where $x\in \{0,1\}$.
+Operations on a set must be closed.  This means that the result of the operation will also be an element in the set.  As a result every binary logic operation will have an operation table like the one below where $x_{i,j}\in \{0,1\}$.
 
-\begin{tabular}{|c|c|c|}
+$$
+\begin{array}{c|cc}
+ & 0 & 1 \\
 \hline
-\diagbox{$A$}{$B$} & 0 & 1 \\
+0 & x_{0,0} & x_{0,1} \\
+1 & x_{1,0} & x_{1,1} \\
+\end{array}
+$$
+
+Notice there are 2 possible values for each of the four potential outcomes of the binary logic operations.  This means there are $2^{4}=16$ different operation tables.  Every possible operation table represents a logic operation with a specific name.
+
+To help keep track of the operations imagine that we flatten the operation table to look like the tuple below.
+
+$$(x_{0,0}, x_{0,1}, x_{1,0}, x_{1,1})$$
+
+
+
+This will effectively allow us to enumerate and track each of the 16 logic gates.  
+
+Assume the left operand is $A$ and the right operand is $B$.  
+
+
+$$
+\begin{array}{|c|c|l|}
 \hline
-0 & $x$ & $x$ \\
+ & \textbf{Symbolic Representation} & \textbf{Description} \\
 \hline
-1 & $x$ & $x$ \\
+1 & \bot & \text{False} \\
 \hline
-\end{tabular}
+2 & A \land B & \text{$A$ and $B$} \\
+\hline
+3 & A \land \lnot B & \text{$A$ and not $B$} \\
+\hline
+4 & A & \text{$A$ (right operand $B$ is present but the result only relies on $A$)} \\
+\hline
+5 & \lnot A \land B & \text{not $A$ and $B$} \\
+\hline
+6 & B & \text{$B$ (left operand $A$ is present but the result only relies on $B$)} \\
+\hline
+7 & A \oplus B & \text{Exclusive OR (XOR)} \\
+\hline
+8 & A \lor B & \text{OR} \\
+\hline
+9 & \lnot (A \lor B) & \text{NOR} \\
+\hline
+10 & \lnot (A \oplus B) & \text{XNOR} \\
+\hline
+11 & \lnot B & \text{not $B$} \\
+\hline
+12 & A \impliedby B & \text{$A$ implied by $B$} \\
+\hline
+13 & \lnot A & \text{not $A$} \\
+\hline
+14 & A \implies B & \text{$A$ implies $B$} \\
+\hline
+15 & \lnot (A \land B) & \text{NAND} \\
+\hline
+16 & \top & \text{True} \\
+\hline
+\end{array}
+$$
+
+
+Notice the following symbols 
+* Boolean Literal $\bot$ (false)
+* Boolean Literal $\top$ (true)
+* Negation $\lnot$ (invert boolean value)
+
+The sections below provide a brief description and the operation table associated with each of the 16 binary logic operations.  Below are a few assumptions about the operation tables below.
+
+* The value 0 will represent false.
+* The value 1 will represent true.
+* The left label column represents the potential values for the left operand $A$.
+* The top label row represents the potential values for the right operand $B$.
+
+For example consider the operation table below 
+
+$$
+\begin{array}{c|cc}
+ A \lor B & 0 & 1 \\
+\hline
+0 & 0 & 0 \\
+1 & 0 & 1 \\
+\end{array}
+$$
+
+The table above concisely represents the following information
+
+* $\bot \lor \bot = \bot$
+* $\bot \lor \top = \top$
+* $\top \lor \bot = \top$
+* $\top \lor \top = \top$
+
+***
+
+### False Operation
+
+The **FALSE** operation is very simple. Regardless of the operand values, the operation will always return the literal false.
+
+$$
+\begin{array}{c|cc}
+ \bot & 0 & 1 \\
+\hline
+0 & 0 & 0 \\
+1 & 0 & 0 \\
+\end{array}
+$$
+
+This operate represents a form of negated tautology. 
+
+---
+
+### AND Operation
+
+The **AND** operation returns true only if both operands are true.
+
+$$
+\begin{array}{c|cc}
+ A \land B & 0 & 1 \\
+\hline
+0 & 0 & 0 \\
+1 & 0 & 1 \\
+\end{array}
+$$
+
+The table above concisely represents the following information:
+
+- $\bot \land \bot = \bot$
+- $\bot \land \top = \bot$
+- $\top \land \bot = \bot$
+- $\top \land \top = \top$
+
+---
+
+### A and not B Operation
+
+The **A and not B** operation returns true only if A is true and B is false.
+
+$$
+\begin{array}{c|cc}
+ A \land \lnot B & 0 & 1 \\
+\hline
+0 & 0 & 0 \\
+1 & 1 & 0 \\
+\end{array}
+$$
+
+The table above concisely represents the following information:
+
+- $\bot \land \lnot \bot = \bot$
+- $\bot \land \lnot \top = \bot$
+- $\top \land \lnot \bot = \top$
+- $\top \land \lnot \top = \bot$
+
+---
+
+### A Operation
+
+The **A** operation returns the value of A regardless of the value of B.
+
+$$
+\begin{array}{c|cc}
+ A & 0 & 1 \\
+\hline
+0 & 0 & 0 \\
+1 & 1 & 1 \\
+\end{array}
+$$
+
+This operation essentially disregards the right operand and simply becomes equivalent to the value of the left operand. 
+
+---
+
+### Not A and B Operation
+
+The **not A and B** operation returns true only if A is false and B is true.
+
+$$
+\begin{array}{c|cc}
+ \lnot A \land B & 0 & 1 \\
+\hline
+0 & 0 & 1 \\
+1 & 0 & 0 \\
+\end{array}
+$$
+
+The table above concisely represents the following information:
+
+- $\lnot \bot \land \bot = \bot$
+- $\lnot \bot \land \top = \top$
+- $\lnot \top \land \bot = \bot$
+- $\lnot \top \land \top = \bot$
+
+---
+
+### B Operation
+
+The **B** operation returns the value of B regardless of the value of A.
+
+$$
+\begin{array}{c|cc}
+ B & 0 & 1 \\
+\hline
+0 & 0 & 1 \\
+1 & 0 & 1 \\
+\end{array}
+$$
+
+This operation essentially disregards the left operand and simply becomes equivalent to the value of the right operand. 
+
+---
+
+### Exclusive OR (XOR) Operation
+
+The **Exclusive OR (XOR)** operation returns true only if one of the operands is true and the other is false.
+
+$$
+\begin{array}{c|cc}
+ A \oplus B & 0 & 1 \\
+\hline
+0 & 0 & 1 \\
+1 & 1 & 0 \\
+\end{array}
+$$
+
+The table above concisely represents the following information:
+
+- $\bot \oplus \bot = \bot$
+- $\bot \oplus \top = \top$
+- $\top \oplus \bot = \top$
+- $\top \oplus \top = \bot$
+
+---
+
+### OR Operation
+
+The **OR** operation returns true if either operand is true.
+
+$$
+\begin{array}{c|cc}
+ A \lor B & 0 & 1 \\
+\hline
+0 & 0 & 1 \\
+1 & 1 & 1 \\
+\end{array}
+$$
+
+The table above concisely represents the following information:
+
+- $\bot \lor \bot = \bot$
+- $\bot \lor \top = \top$
+- $\top \lor \bot = \top$
+- $\top \lor \top = \top$
+
+---
+
+### NOR Operation
+
+The **NOR** operation returns true only if both operands are false.
+
+$$
+\begin{array}{c|cc}
+ \lnot (A \lor B) & 0 & 1 \\
+\hline
+0 & 1 & 0 \\
+1 & 0 & 0 \\
+\end{array}
+$$
+
+The table above concisely represents the following information:
+
+- $\lnot (\bot \lor \bot) = \top$
+- $\lnot (\bot \lor \top) = \bot$
+- $\lnot (\top \lor \bot) = \bot$
+- $\lnot (\top \lor \top) = \bot$
+
+---
+
+### XNOR Operation
+
+The **XNOR** operation returns true if both operands are equal.
+
+$$
+\begin{array}{c|cc}
+ \lnot (A \oplus B) & 0 & 1 \\
+\hline
+0 & 1 & 0 \\
+1 & 0 & 1 \\
+\end{array}
+$$
+
+The table above concisely represents the following information:
+
+- $\lnot (\bot \oplus \bot) = \top$
+- $\lnot (\bot \oplus \top) = \bot$
+- $\lnot (\top \oplus \bot) = \bot$
+- $\lnot (\top \oplus \top) = \top$
+
+---
+
+
+### Not B Operation
+
+The **NOT B** operation returns the negation of B.
+
+$$
+\begin{array}{c|cc}
+ \lnot B & 0 & 1 \\
+\hline
+0 & 1 & 0 \\
+1 & 1 & 0 \\
+\end{array}
+$$
+
+This operation essentially disregards the left operand and simply becomes equivalent to the negated value of the right operand. 
+
+---
+
+### A Implied By B
+
+The **A implied by B** operation returns false only if B is true and A is false.
+
+$$
+\begin{array}{c|cc}
+ A \impliedby B & 0 & 1 \\
+\hline
+0 & 1 & 0 \\
+1 & 1 & 1 \\
+\end{array}
+$$
+
+Notice the implication arrow can be flipped to create equivalent expressions.
+
+$$(B \implies A) = (A \impliedby B) $$
+
+The table above concisely represents the following information:
+
+- $\bot \impliedby \bot = \top$
+- $\bot \impliedby \top = \bot$
+- $\top \impliedby \bot = \top$
+- $\top \impliedby \top = \top$
+
+---
+
+### Not A Operation
+
+The **not A** operation returns the negation of A.
+
+$$
+\begin{array}{c|cc}
+ \lnot A & 0 & 1 \\
+\hline
+0 & 1 & 1 \\
+1 & 0 & 0 \\
+\end{array}
+$$
+
+This operation essentially disregards the right operand and simply becomes equivalent to the negated value of the left operand. 
+
+---
+
+### A implies B Operation
+
+The **A implies B** operation returns false only if A is true and B is false.
+
+$$
+\begin{array}{c|cc}
+ A \implies B & 0 & 1 \\
+\hline
+0 & 1 & 1 \\
+1 & 0 & 1 \\
+\end{array}
+$$
+
+The table above concisely represents the following information:
+
+- $\bot \implies \bot = \top$
+- $\bot \implies \top = \top$
+- $\top \implies \bot = \bot$
+- $\top \implies \top = \top$
+
+---
+
+### NAND Operation
+
+The **NAND** operation returns true unless both operands are true.
+
+$$
+\begin{array}{c|cc}
+ \lnot (A \land B) & 0 & 1 \\
+\hline
+0 & 1 & 1 \\
+1 & 1 & 0 \\
+\end{array}
+$$
+
+The table above concisely represents the following information:
+
+- $\lnot (\bot \land \bot) = \top$
+- $\lnot (\bot \land \top) = \top$
+- $\lnot (\top \land \bot) = \top$
+- $\lnot (\top \land \top) = \bot$
+
+---
+
+### True Operation
+
+The **TRUE** operation is very simple. Regardless of the operand values, the operation will always return the literal true.
+
+$$
+\begin{array}{c|cc}
+ \top & 0 & 1 \\
+\hline
+0 & 1 & 1 \\
+1 & 1 & 1 \\
+\end{array}
+$$
+
+The table above concisely represents the following information:
+
+- $\top \land \top = \top$
+- $\top \land \bot = \top$
+- $\bot \land \top = \top$
+- $\bot \land \bot = \top$
+
+## Tautology 
+
+In logic theory a **tautology** is essentially an expression that will always evaluate to true.  Below are some examples.
+
+* $\top \lor A = \top$
+* $\lnot A \lor \lnot A = \top$
+* $\bot \implies A = \top$
+
+Notice that in both examples above it does not matter the boolean value of $A$ the result was always true.  
+
+## Contradiction 
+
+In logic theory a **contradiction** is the opposite of a tautology.  A contradiction is an expression that always results in a boolean false.  Below are examples of a contradiction.
+
+* $\bot \land A = \bot$
+* $A \land \lnot A = \bot$
+
+Notice that in each case the result will always result in a boolean false regardless of the value of $A$.
+
+---
+
+## Commutative Binary Logic Operations
+
+Most of the well-known binary operations that appear in programming languages are commutative.  For example the AND operation is commutative (operand order does not matter) as shown below.
+
+$$A \land B = B \land A$$
+
+Commutative operations have operation tables that are symmetric with respect to the main diagonal (upper right to lower left). Notice that $A \implies B$ is not commutative.
+
+Below is the complete list of the 8 commutative binary logic operations.
+
+* FALSE ($\bot$) 
+* AND 
+* XOR 
+* OR 
+* NOR 
+* XNOR 
+* NAND 
+* TRUE ($\top$)
+
+---
+
+## Unary Operation 
+
+A unary operation is an operation that only has a right operand. In logic theory the negation $\lnot$ is the unary operation.  Below demonstrates is usage and impact. 
+
+* $\lnot \top = \bot$
+* $\lnot \bot = \top$
+
+---
+
+
+## Simplifying Compound Operations
+
+Operations can be chained together to form complex results.  However, if the entire expression only depends on two distinct inputs the result will always be equivalent to one of the 16 logic gates shown above.
+
+Let's check out an example by considering the example below.
+
+$$(A \implies B) \land (B \implies A)$$
+
+Notice there are three different operations in the expression above.  Notice the parenthesis are used to enforce an order on the operations. This is a compound expression because it involves more than one operation.  However, the compound expression only relies on the inputs $A$ and $B$.  If you analyze the potential values of $A$ and $B$ you get the operation table below that represents the possible outputs from the expression above.
+
+$$
+\begin{array}{c|cc}
+ \lnot (A \oplus B) & 0 & 1 \\
+\hline
+0 & 1 & 0 \\
+1 & 0 & 1 \\
+\end{array}
+$$
+
+Does this table look familiar?  It should, it is the exclusive XNOR operation table.
+
+Compound expressions involving only two inputs can **ALWAYS** be simplified to one of the 16 operations outlined above.  This is true because there are only 16 possible operation tables for boolean binary operations. 
+
+Notice what the bi-directional implication (XNOR) in the exmple is implying.  The output is true only when the two inputs are equal.  This operation essentially represents a test for equality (denoted $A == B$) in programming languages.  
+
+A common trick in mathematics to demonstrate equivalence is to show to objects imply each other.
+
+---
+
+## Universal Operation 
+
+A **universal** operation is an operation that can be chained with itself to form all other operations.
+
+Notice in the example for simplying compound operations we used the IMPLICATION operation along with the AND operation to construct the XNOR operation.  Consider the  compound expression of two inputs below.  Notice how it only implements the NAND operation and simplifies to the XNOR operation.
+
+
+$$A \text{ XNOR } B = (A \text{ NAND } (A \text{ NAND } B)) \text{ NAND } (B \text{ NAND } (A \text{ NAND } B))$$
+
+Here comes something exciting!
+
+**ALL 16 OPERATIONS CAN BE REPRESENTED AS A COMPOUND EXPRESSION USING ONLY NAND OPERATIONS**
+
+This is why NAND is considered a universal operation.  All other operations can be constructed using the NAND operation.  
+
+Complicated digital circuits are often created using NAND gates.  The NOR operation is also a universal operation. 
+
+The two universal binary logic operations are listed below.
+
+* NAND 
+* NOR 
+
+You may notice that the NAND and NOR operations are simply the negation of the AND and OR operations respectively.  Neither of the two (AND/OR) are capable of generating the single unary operation $\lnot$ as a compound expression using only AND/OR (one or the other but not mixing them).  This is why AND/OR are not considered universal operations.  
+
+---
+
+## Precedence (Order of Operations)
+
+Boolean logic has an order of operations.  Though complicated, you can derive all order of operations by knowing the following precedence rules
+
+1. Grouping symbols ()
+2. Negation $\lnot$ 
+3. AND $\land$
+4. OR $\lor$
+
+Consider the following example. 
+
+$$(A \land B) \lor C$$
+
+The example above uses grouping symbols but they are not necessary due to precedence. The expression below is equivalent to the one above because the AND operation would be calculated first.
+
+$$A \land B \lor C$$
+
+Recall that NAND and NOR are universal gates.  This implies that all operations can be represented/expanded using only NAND and NOR operations (one or the other not both).  Recall that NAND/NOR is AND/OR with a negation.  All other precedence of operations can be determined using this fact.  To work it out is quite cumbersome.  As a result, here are a few precedence rules explicitly given. 
+
+1. Grouping symbols ()
+2. Negation $\lnot$ 
+3. AND $\land$
+4. OR $\lor$
+5. XOR $\oplus$
+6. Implication $\implies$
+
+**Given that compound expressions can be difficult to read, it is often best to add grouping symbols even when they are not needed**
+
+
+---
+
+
