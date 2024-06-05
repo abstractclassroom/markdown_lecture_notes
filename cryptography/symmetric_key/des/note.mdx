@@ -1,0 +1,69 @@
+# Data Encryption Standard (DES)
+
+In 1973 the National Bureau of Standards (NBS), the predecessor to the NIST, issued a public request for researchers and corporations to submit an algorithm that could serve as a standard method for encryption.  This request came at a time when encryption was being implemented but not in a standard fashion.  Digital networks and computers were becoming more common and so there was a need to have one standard encryption scheme.  The new standard was to be named the **Data Encryption Standard**.
+
+## LUCIFER
+
+A researcher at IBM named Horst Feistel created and refined a series of block ciphers during 1971 that was labelled LUCIFER.  Corporations often have an incentive to drive the direction of standards and so IBM submitted LUCIFER to the NSB as a candidate for DES.  The National Security Agency (NSA) has always maintained a staff of high caliber mathematicians and was asked to review LUCIFER.  The NSA proposed some modifications which included reducing the key size from 128 bits to 56 bits.  It was claimed the 128 bit key might reduce performance.  
+
+LUCIFER implemented an algorithm that entailed 16 rounds of something known as a Fiestel structure.  The NSA made a few modifications to strengthen LUCIFER.  
+
+In 1977, IBM's LUCIFER and the modifications were accepted as the NSB's Data Encryption Standard and published in Publication 46 of the Federal Information Processing Standard (FIPS).
+
+## Conspiracies
+
+Many researchers voiced concerns about the NSA's modifications and recommendations.  There were fears the NSA may have implemented a **trap door** into the DES algorithm allowing it to decrypt sensitive data.  Later publications, some mentioned in RFC 4772 (2006), demonstrated that IBM was aware LUCIFER might be vulnerable to some differential cryptoanalsys attacks.  Despite the conspiracy theories, DES became the first government approved encryption standard in 1977.  RFC 4772 (published 2006) indicates it was still around as a legacy system in the early 2000s.  During the early 1990's a variation of DES was widely used and was known as **Triple DES (3DES)**.  NIST publication 800-67 and FIPS 46-3 standardized 3DES in the late 1990's.  
+
+The NIST (formerly NSB) issued a new request for comments to establish an **Advanced Encryption Standard (AES)**.  The call was answered and in 2001 an algorithm was accepted and standardized as the **AES** and was incorporated into FIPS.
+
+## DES & 3DES Deprecated
+
+Below is a rough historical timeline of how DES and 3DES was deprecated and removed from FIPS 
+
+* 1999 - FIPS Publication 46-3 deprecated DES and suggested the use of 3DES as an alternative. 
+* 2001 - AES was identified as a far superior encryption algorithm was adopted as a standard in FIPS Publication 197.
+* 2017 - NIST Special Publication 800-131A deprecated 3DES.  This meant it should not be used for new applications requiring encryption.   However, new applications could incorporate 3DES in order to decrypt existing data.  Afterall, 3DES had been used for at least two decades and 3DES encrypted documents lingered.
+* 2019 - NIST Special Publication 800-131A Revision 1 reaffirmed the deprecation of 3DES.
+* 2023 - NIST removed DES and 3DES from FIPS 140-3 Annex A (Cryptographic Modules). This meant DES and 3DES could not longer be implemented in any applications for the federal government. 
+
+DES is very difficult to demonstrate manually.  However, it is relatively simple to understand on a high-level.  It has tremendous historical importance and people wanting careers in the computing industry should be familar with the story of DES.
+
+## DES Algorithm
+
+The DES algorithm has the following stages.
+
+1. 64 bit blocks of the original plaintext message are used as inputs. 
+2. There is an initial permutation on the bits. Essentially a static swapping of the bits. 
+3. The 64 permuted bits are particitioned into two groups known as the Left and Right partitions. 
+4. Both Left and Right halves have 16 rounds Fiestel iterations applied using the encryption key.
+5. The two halves are combined and a final permutation applied to the bits.
+6. The result is a 64 bit block of ciphertext
+
+
+### Initial Permutation Stage 
+
+The plaintext is partitioned into 64 bit blocks. A static permutation is applied to each plaintext block.  The matrix $P$ below represents the initial permutation in functional form. Let $B_i$ be the $i$th bit position in the 64 bit block (zero being first index).  The permutation matrix indicates that the bit in coordinate $8 \cdot i + j$ should be swapped with the bit in position $P_{i,j}$ ($i$th row and $j$th column of matrix P).
+
+$$
+P = \begin{bmatrix}
+58 & 50 & 42 & 34 & 26 & 18 & 10 & 2 \\
+60 & 52 & 44 & 36 & 28 & 20 & 12 & 4 \\
+62 & 54 & 46 & 38 & 30 & 22 & 14 & 6 \\
+64 & 56 & 48 & 40 & 32 & 24 & 16 & 8 \\
+57 & 49 & 41 & 33 & 25 & 17 &  9 & 1 \\
+59 & 51 & 43 & 35 & 27 & 19 & 11 & 3 \\
+61 & 53 & 45 & 37 & 29 & 21 & 13 & 5 \\
+63 & 55 & 47 & 39 & 31 & 23 & 15 & 7
+\end{bmatrix}
+$$
+
+Remember we are implementing bitwise swaps on a 64bit array. Below is a bitwise function to accomplish this task. 
+
+    int64_t swap_bits(int64_t x, int i, int j) {
+        if ((x >> i) & 1) != ((x >> j) & 1) {
+            int64_t mask = (1 << i) | (1 << j);
+            x = x ^ mask;
+        }
+        return x;
+    }
+

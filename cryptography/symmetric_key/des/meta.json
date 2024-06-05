@@ -1,0 +1,20 @@
+{
+    "subject": "Cryptography",
+    "topic": "Symmetric Key Cryptography",
+    "subtopic": "Data Encryption Standard (DES)",
+    "views" : "2239",
+    "datePublished": "June 4, 2024",
+    "dateUpdated" : "June 4, 2024",
+    "title" : "Data Encryption Standard (DES)",
+    "description" : "The Data Encryption Standard (DES) is a symmetric-key block cipher algorithm for the encryption of digital data. DES is considered insecure by modern standards and is no longer recommended for use. However, DES has a rich history as being the first encryption standard to be widely adopted.",
+    "objectives" : [
+        "Familiar with the history of DES",
+        "The algorithm associated with DES"
+    ],
+    "prerequisites" : [
+        "Basic understanding of symmetric key cryptography",
+        "Basic understanding of block ciphers",
+        "Basic understanding of encryption and decryption",
+        "Basic understanding of binary arithmetic"
+    ]
+}
