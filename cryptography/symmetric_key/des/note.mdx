@@ -42,7 +42,7 @@ The DES algorithm has the following stages.
 
 ### Initial Permutation Stage 
 
-The plaintext is partitioned into 64 bit blocks. A static permutation is applied to each plaintext block.  The matrix $P$ below represents the initial permutation in functional form. Let $B_i$ be the $i$th bit position in the 64 bit block (zero being first index).  The permutation matrix indicates that the bit in coordinate $8 \cdot i + j$ should be swapped with the bit in position $P_{i,j}$ ($i$th row and $j$th column of matrix P).
+The plaintext is partitioned into 64 bit blocks. A static permutation is applied to each plaintext block.  The matrix $P$ below represents the initial permutation in functional form. Let $B_i$ be the $i$th bit position in the 64 bit block (zero being first index).  The permutation matrix indicates that the bit in coordinate $8 \cdot (i-1) + (j-1)$ should be swapped with the bit in position $(P_{i,j} -1$ ($i$th row and $j$th column of matrix P).
 
 $$
 P = \begin{bmatrix}
@@ -59,11 +59,34 @@ $$
 
 Remember we are implementing bitwise swaps on a 64bit array. Below is a bitwise function to accomplish this task. 
 
-    int64_t swap_bits(int64_t x, int i, int j) {
-        if ((x >> i) & 1) != ((x >> j) & 1) {
-            int64_t mask = (1 << i) | (1 << j);
-            x = x ^ mask;
+    int64_t swap_bits(int64_t x) {
+        int ip_table[64] = {
+            57, 49, 41, 33, 25, 17, 9, 1,
+            59, 51, 43, 35, 27, 19, 11, 3,
+            61, 53, 45, 37, 29, 21, 13, 5,
+            63, 55, 47, 39, 31, 23, 15, 7,
+            56, 48, 40, 32, 24, 16, 8, 0,
+            58, 50, 42, 34, 26, 18, 10, 2,
+            60, 52, 44, 36, 28, 20, 12, 4,
+            62, 54, 46, 38, 30, 22, 14, 6
+        };
+        int64_t result = 0;
+        for (int i=0; i<64; i++) {
+            result |= ((x >> (64 - ip_table[i])) & 1) << (63 - i);
         }
-        return x;
+        return result;
     }
+
+The C code snippet above basically does the following for each iteration of $i$:
+
+1. Gets the relevant value from the initial permutation table.
+2. 64 - ip_table[$i$] calculates the bit position that will be swapped.
+3. Right shifts the bits of $x$ to put it in the least significant bit position.
+4. AND 1 effectively gets the value of the bit in the least significant bit position.
+5. That least significant bit is shift over to position $i$.
+6. The value is then bitwise OR with the running result.
+
+The effect is to construct bit by bit the permuted bit value. 
+
+Once the bits of the plaintext block have been permuted the bits are split into two equal parts. 
 
