@@ -1,0 +1,159 @@
+# Simplifying Logic Expressions 
+
+Logic expressions can appear very complex but actually equivalent to very simple operations.  Consider the logic expression below.
+
+$$(A \lor B) \lor \lnot B \implies A \lor B \land \lnot B$$
+
+A logic expression that contains only two variables, in this case $A$ and $B$, will always be equivalent to one of the 16 binary logic operations. Constructing a logic operation table is one option.  Below demonstrates all possible combinations of $A$ and $B$ being evaluated in the expression. Assume that $0=\bot$ and $1 = \top$.  The first evaluation of $A=0$ and $B=0$ has been expanded to demonstrate the appropriate order of operations.
+
+$$
+\begin{align}
+&\overbrace{(0 \lor 0) \lor \lnot 0 \implies 0 \lor 0 \land \lnot 0}^{A=0 \;,\; B=0} \\
+&= \underbrace{(0 \lor 0)}_{0} \lor \lnot 0 \implies 0 \lor 0 \land \lnot 0\\
+&= 0 \lor \lor \underbrace{\lnot 0}_{1} \implies 0 \lor 0 \land \underbrace{\lnot 0}_{1}\\
+&= 0 \lor 1 \implies 0 \lor \underbrace{0 \land 1}_{0} \\
+&= \underbrace{0 \lor 1}_{1} \implies \underbrace{0 \lor 0}_{0} \\
+&= 1 \implies 0 \\
+&= 0 \\\\
+&\overbrace{(1 \lor 0) \lor \lnot 0 \implies 1 \lor 0 \land \lnot 0}^{A=1 \;,\; B=0} = 1 \\\\
+&\overbrace{(0 \lor 1) \lor \lnot 1 \implies 0 \lor 1 \land \lnot 1}^{A=0 \;,\; B=1} = 0\\\\
+&\overbrace{(1 \lor 1) \lor \lnot 1 \implies 1 \lor 1 \land \lnot 1}^{A=1 \;,\; B=1} =1
+\end{align}
+$$
+
+The table below combines the evaluation results above.
+
+$$
+\begin{array}{c|cc}
+ & B_0 & B_1 \\
+\hline
+A_0 & 0 & 0 \\
+A_1 & 1 & 1 \\
+\end{array}
+$$
+
+Notice the operation table implies the boolean value of $B$ does not impact the output.  The expression only relies on the value of $A$.
+
+$$((A \lor B) \lor \lnot B \implies A \lor B \land \lnot B) = A$$
+
+## Mathematical Logic Analysis 
+
+The example above can be proven using logical simplifications without comparing operation tables.  Recall the following tautologies and contradictions
+
+* $A \lor \lnot A = \top$
+* $A \land \lnot A = \bot$
+* $\top \lor A = \top$
+* $\bot \lor A = A$
+* $\top \land A = A$
+* $\bot \land A = \bot$
+* $\bot \implies A = \top$
+* $\top \implies A = A$
+* $(A \land B) \lor B = B$
+
+Consider the expression simplifications below using the rules above. Underbraces are used to provide some guideance on simplifications such as operation precedence, associativity, precedence, tautologies, and contradictions.
+
+$$
+\begin{align}
+&\;\;\underbrace{(A \lor B) \lor \lnot B}_{ \text{ Associative }} \implies A \lor B \land \lnot B \\
+&=A \lor \underbrace{(B \lor \lnot B)}_{\top} \implies A \lor \underbrace{B \land \lnot B}_{\text{ Precedence}} \\
+&=\underbrace{(A \lor \top)}_{\top} \implies A \lor \underbrace{(B \land \lnot B)}_{\bot} \\
+&=\top \implies \underbrace{A \lor \bot}_{A}\\
+&=\underbrace{\top \implies A}_{A} \\
+&=A
+\end{align}
+$$
+
+In this example, mathematical simplifications may have been more time consuming that comparing operation tables.  However, there are some instances where the expression can be simplified but may entail more than two inputs.
+
+## Logical Expanded Forms 
+
+Recall that NAND and NOR operations represent universal operations. To keep the conversation simple we will only consider the popular NAND operation. NAND can certainly generate all operations but the structure of that conversion may not be easy to create or even read.  Fortunately, using AND and OR operations we can expand (simplify) complicated logic expressions into a form relatively easy to achieve and read. 
+
+Neither AND or OR operations alone can generate a negation.  However, a combination of AND and OR operations can form all possible operations and logic expressions.  There are two methods/forms for achieving AND/OR expanded form.
+
+1. **Conjunctive Normal Form (CNF)** - Associated OR operations joined together by AND operations.
+    * Example : $(A \lor B) \land (\lnot A \lor B) \land (\lnot A \lor \lnot B)$
+    * Commonly used in SAT Solvers (Prolog, Clingo Z3) and computational logic.
+    * The structure is said to be a conjuction (chain of AND operations) of disjunctions (OR operations).
+    * Product-Of-Sums type structure
+2. **Disjunctive Normal Form (DNF)** - Associated AND operations joined together by OR operations.
+    * Example : $(A \land B) \lor (\lnot A \land B) \lor (\lnot A \land \lnot B)$
+    * Commonly used in digital circuits and for simplifying logical expressions.
+    * The structure is said to be a disjunction (chain of OR operations) of conjunctions (AND operations).
+    * Sum-Of-Products type structure
+
+For simplifying logical expressions DNF is more common because all parenthesis can be removed due to the operator presence the AND operation has over the OR operation.
+
+## Demorgan's Laws
+
+British mathematician Augustus De Morgan (1806 - 1871) was involved in algebraic and logic research.  He formulated a set of rules that form a basis for modern logic theory.  Below is a list that summarizes what is nown known as De Morgan's Laws.
+
+* $\lnot ( A \land B) = \lnot A \lor \lnot B$
+* $\lnot ( A \lor B) = \lnot A \land \lnot B$
+
+Consider the example below. 
+
+$\lnot ( \lnot A \lor B)$
+
+This is not in DNF or CNF form.  However, we can apply De Morgan's laws to simplify the expression. We are essentially distributing the negation through the parenthesis so that we can remove the parenthesis.
+
+$\lnot (\lnot A) \land \lnot B = A \land \lnot B$
+
+Notice we have an expression without parenthesis.  Without De Morgan's laws we would not be able to remove parenthesis which is a necessary tool for simplifying logical statements.
+
+## Distributive Properties
+
+Distribution is another handy tool for simplifying logical expressions.  
+
+1. The AND operation distributes over the OR operation.
+2. The OR operation distributes over the AND operation.
+
+Take a look at the expression  below. 
+
+$A \land (B \lor C)$
+
+In the above example, we can distribute the AND operation over the OR operation as shown below. 
+
+$A \land (B \lor C) = (A \land B) \lor (A \land C)$
+
+Notice how the distributive property was used to simplify the expression into a DNF structured expression.  The distributive property  is often used many times before an expression is considered to be CNF or DNF.
+
+## Complex Simplification Example 
+
+Consider the logical expression below.
+
+$\lnot \left( \left( \left(A \land \lnot B \right) \lor C \right) \lor \left( \left( A \land C \right) \land \lnot B \right) \right)$
+
+Notice the mix of negations and operations.  The steps below demonstrate how to convert the expression into an equivalent DNF expression.
+
+1. Apply De Morgan's Laws to distribute the negation. Notice how the middle operation switched from OR to AND and the operands negated.
+$\lnot ((A \land \lnot B) \lor C) \land \lnot ((A \land C) \land \lnot B)$
+2. Apply De Morgans's Laws on each of the operands to distribute their negations. 
+    * $\lnot ((A \land \lnot B) \lor C) = \lnot(A \land \lnot B) \land \lnot C $
+    * $\lnot ((A \land C) \land \lnot B) = \lnot(A \land C) \lor \lnot ( \lnot B)$
+    * Apply De Morgan's Laws again and remove double negations
+        * $\lnot(A \land \lnot B) \land \lnot C = (\lnot A \lor \lnot(\lnot B)) \land C  = (\lnot A \lor B) \land C$
+        * $\lnot(A \land C) \lor \lnot ( \lnot B) = (\lnot A \lor \lnot C) \lor B$
+    * Combine results 
+        * $((\lnot A \lor B) \land \lnot C) \land ((\lnot A \lor \lnot C) \lor B)$
+3. Remove unnecessary parenthesis 
+    * $((\lnot A \lor  B) \land \lnot C) \land (\lnot A \lor \lnot C \lor B)$
+    * AND Associates
+        * $(\lnot A \lor  B) \land (\lnot C \land (\lnot A \lor \lnot C \lor B))$
+    * Simplify  
+        * $\lnot C \land (\lnot A \lor \lnot C \lor B) = \lnot C$
+    * Combine Results 
+        * $(\lnot A \lor  B) \land \lnot C$
+4. Distribute AND over OR 
+    * $(\lnot A \lor  B) \land \lnot C = (\lnot A \land \lnot C) \lor (B \land \lnot C)$
+
+5. Recognize Results Are DNF 
+
+The DNF expression equivalent is shown below. 
+
+$\lnot A \land \lnot C \lor B \land \lnot C$
+
+Remember that precedence rules state AND must be evaluated before OR so not parenthesis are necessary.  The expression is a disjunction of conjunctions.
+
+
+$\lnot \left( \left( \left(A \land \lnot B \right) \lor C \right) \lor \left( \left( A \land C \right) \land \lnot B \right) \right) = \lnot A \land \lnot C \lor B \land \lnot C$

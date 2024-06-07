@@ -1,0 +1,19 @@
+{
+    "subject": "Logic",
+    "topic": "Binary Expressions",
+    "subtopic": "Simplyfying Binary Expressions",
+    "views" : "774",
+    "datePublished": "June 5, 2024",
+    "dateUpdated" : "June 5, 2024",
+    "title" : "Simplyfying Binary Expressions",
+    "description" : "Very complicated binary logic expressions can be simplified to a more recognizeable form. This is done by applying the rules of binary logic. This lesson will teach you how to simplify binary logic expressions.",
+    "objectives" : [
+        "Understand how to simplify binary logic expressions",
+        "Apply the rules of binary logic to simplify binary logic expressions",
+        "Recognize the simplified form of binary logic expressions",
+        "Understand and apply DeMorgan's Theorem to simplify binary logic expressions"
+    ],
+    "prerequisites" : [
+        "Basic understanding of the 16 binary logic operations"
+    ]
+}
