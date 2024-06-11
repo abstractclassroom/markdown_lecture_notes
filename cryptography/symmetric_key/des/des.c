@@ -127,7 +127,7 @@ static const char Sbox[8][4][16] = {
     }
 };
 
-uint64_t des(uint64_t input, uint64_t key, char mode) {
+uint64_t des(uint64_t initial_bit_block, uint64_t key, char mode) {
     
     int i, j;
     char row, column;
@@ -143,18 +143,18 @@ uint64_t des(uint64_t input, uint64_t key, char mode) {
     uint64_t s_input = 0;
     uint64_t permuted_choice_1 = 0;
     uint64_t permuted_choice_2 = 0;
-    uint64_t init_perm_res = 0;
-    uint64_t inv_init_perm_res = 0;
+    uint64_t initial_bit_perm = 0;
+    uint64_t inv_initial_bit_perm = 0;
     uint64_t pre_output = 0;
     
     // create permutation
     for (i = 0; i < 64; i++) {
-        init_perm_res <<= 1;  //shift elements to left to add new LSB 
-        init_perm_res |= (input >> (64-IP[i])) & 1; //add new LSB 
+        initial_bit_perm <<= 1;  //shift elements to left to add new LSB 
+        initial_bit_perm |= (initial_bit_block >> (64-IP[i])) & 1; //add new LSB 
     }
     
-    left = (uint32_t) ((init_perm_res & 0xffffffff00000000) >> 32);
-    right = (uint32_t) init_perm_res & 0x00000000ffffffff;
+    left = (uint32_t) ((initial_bit_perm & 0xffffffff00000000) >> 32);
+    right = (uint32_t) initial_bit_perm & 0x00000000ffffffff;
     
     // key only has 56 bits after removing parity bits
     for (i = 0; i < 56; i++) {
@@ -210,17 +210,17 @@ uint64_t des(uint64_t input, uint64_t key, char mode) {
     }
     pre_output = (((uint64_t) right) << 32) | (uint64_t) left;   
     for (i = 0; i < 64; i++) {
-        inv_init_perm_res <<= 1;
-        inv_init_perm_res |= (pre_output >> (64-FP[i])) & 1;
+        inv_initial_bit_perm <<= 1;
+        inv_initial_bit_perm |= (pre_output >> (64-FP[i])) & 1;
     }
-    return inv_init_perm_res;
+    return inv_initial_bit_perm;
 }
 
 int main(int argc, const char * argv[]) {    
-    uint64_t input = 0x01A1D6D039776742;
+    uint64_t initial_bit_block = 0x01A1D6D039776742;
     uint64_t key = 0x7CA110454A1A6E57;
-    uint64_t result = input;
-    result = des(input, key, 'e');
+    uint64_t result = initial_bit_block;
+    result = des(initial_bit_block, key, 'e');
     printf ("Ciphertext: %016llx\n", result);
     exit(0);
     
