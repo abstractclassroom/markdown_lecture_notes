@@ -127,50 +127,61 @@ static const char Sbox[8][4][16] = {
     }
 };
 
+static inline uint64_t permuate_plaintext_block(uint64_t initial_bit_block) {
+    uint64_t result = 0;
+    for (int i = 0; i < 64; i++) {
+        result <<= 1;  //shift elements to left to add new LSB 
+        result |= (initial_bit_block >> (64-IP[i])) & 1; //add new LSB 
+    }
+    return result;
+}
+
+static inline void split_perm_msg_block(uint64_t permutated_msg_block, uint32_t *left, uint32_t *right) {
+    *left = (uint32_t) ((permutated_msg_block & 0xffffffff00000000) >> 32);
+    *right = (uint32_t) permutated_msg_block & 0x00000000ffffffff;
+}
+
 uint64_t des(uint64_t initial_bit_block, uint64_t key, char mode) {
     
     int i, j;
     char row, column;
 
-    uint32_t C = 0;
-    uint32_t D = 0;
+
     uint32_t left = 0;
     uint32_t right = 0;
     uint32_t s_output = 0;
     uint32_t f_function_res = 0;
     uint32_t temp = 0;
     uint64_t sub_key[16] = {0};
-    uint64_t s_input = 0;
+    uint64_t expanded_rhs = 0;
     uint64_t permuted_choice_1 = 0;
     uint64_t permuted_choice_2 = 0;
-    uint64_t initial_bit_perm = 0;
-    uint64_t inv_initial_bit_perm = 0;
+    uint64_t permutated_msg_block = 0;
+    uint64_t inv_permutated_msg_block = 0;
     uint64_t pre_output = 0;
     
-    // create permutation
-    for (i = 0; i < 64; i++) {
-        initial_bit_perm <<= 1;  //shift elements to left to add new LSB 
-        initial_bit_perm |= (initial_bit_block >> (64-IP[i])) & 1; //add new LSB 
-    }
+    permutated_msg_block = permuate_plaintext_block(initial_bit_block);
     
-    left = (uint32_t) ((initial_bit_perm & 0xffffffff00000000) >> 32);
-    right = (uint32_t) initial_bit_perm & 0x00000000ffffffff;
+    uint32_t perm_msg_block_left_32;
+    uint32_t perm_msg_block_right_32;
+    split_perm_msg_block(permutated_msg_block, &perm_msg_block_left_32, &perm_msg_block_right_32);
+
     
     // key only has 56 bits after removing parity bits
     for (i = 0; i < 56; i++) {
         permuted_choice_1 <<= 1;
         permuted_choice_1 |= (key >> (64-PC1[i])) & 1;
     }
-    C = (uint32_t) ((permuted_choice_1 >> 28) & 0x000000000fffffff);
-    D = (uint32_t) (permuted_choice_1 & 0x000000000fffffff);
+    uint32_t left_28 = (uint32_t) ((permuted_choice_1 >> 28) & 0x000000000fffffff);
+    uint32_t right_28 = (uint32_t) (permuted_choice_1 & 0x000000000fffffff);
     
     for (i = 0; i< 16; i++) {
         for (j = 0; j < shift_map[i]; j++) {
-            C = 0x0fffffff & (C << 1) | 1 & (C >> 27);
-            D = 0x0fffffff & (D << 1) | 1 & (D >> 27);
+            left_28 = 0x0fffffff & (left_28 << 1) | 1 & (left_28 >> 27);
+            right_28 = 0x0fffffff & (right_28 << 1) | 1 & (right_28 >> 27);
         }
         permuted_choice_2 = 0;
-        permuted_choice_2 = (((uint64_t) C) << 28) | (uint64_t) D ;
+        permuted_choice_2 = (((uint64_t) left_28) << 28) | (uint64_t) right_28 ;
         sub_key[i] = 0;
         
         for (j = 0; j < 48; j++) {       
@@ -180,22 +191,22 @@ uint64_t des(uint64_t initial_bit_block, uint64_t key, char mode) {
     }
 
     for (i = 0; i < 16; i++) {
-        s_input = 0;
+        expanded_rhs = 0;
         for (j = 0; j< 48; j++) {
-            s_input <<= 1;
-            s_input |= (uint64_t) ((right >> (32-E[j])) & 1);
+            expanded_rhs <<= 1;
+            expanded_rhs |= (uint64_t) ((perm_msg_block_right_32 >> (32-E[j])) & 1);
         }
-        s_input = (mode=='d') ? s_input ^ sub_key[15-i] : s_input ^ sub_key[i];
+        expanded_rhs = (mode=='d') ? expanded_rhs ^ sub_key[15-i] : expanded_rhs ^ sub_key[i];
         for (j = 0; j < 8; j++) {
             // 0x0000840000000000 = 56 and 52 bit positions set to 1
             uint64_t mask = 0x0000840000000000;
             mask >>= 6*j;
-            char row = (char) ((s_input & mask) >> (42-6*j));
+            char row = (char) ((expanded_rhs & mask) >> (42-6*j));
             row = (row >> 4) | row & 0x01;
             // 0x0000780000000000 = 55, 54, 53, 52 bit positions set to 1
             mask = 0x0000780000000000;
             mask >>= 6*j;
-            column = (char) ((s_input & (mask)) >> (43-6*j));
+            column = (char) ((expanded_rhs & (mask)) >> (43-6*j));
             s_output <<= 4;
             s_output |= (uint32_t) (Sbox[j][row][column] & 0x0f);
         }    
@@ -204,16 +215,16 @@ uint64_t des(uint64_t initial_bit_block, uint64_t key, char mode) {
             f_function_res <<= 1;
             f_function_res |= (s_output >> (32 - P[j])) & 1;
         }
-        temp = right;
-        right = left ^ f_function_res;
-        left = temp;
+        temp = perm_msg_block_right_32;
+        perm_msg_block_right_32 = perm_msg_block_left_32 ^ f_function_res;
+        perm_msg_block_left_32 = temp;
     }
-    pre_output = (((uint64_t) right) << 32) | (uint64_t) left;   
+    pre_output = (((uint64_t) perm_msg_block_right_32) << 32) | (uint64_t) perm_msg_block_left_32;   
     for (i = 0; i < 64; i++) {
-        inv_initial_bit_perm <<= 1;
-        inv_initial_bit_perm |= (pre_output >> (64-FP[i])) & 1;
+        inv_permutated_msg_block <<= 1;
+        inv_permutated_msg_block |= (pre_output >> (64-FP[i])) & 1;
     }
-    return inv_initial_bit_perm;
+    return inv_permutated_msg_block;
 }
 
 int main(int argc, const char * argv[]) {    

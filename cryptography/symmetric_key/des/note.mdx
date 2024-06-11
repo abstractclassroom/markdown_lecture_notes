@@ -16,7 +16,7 @@ Many researchers voiced concerns about the NSA's modifications and recommendatio
 
 The NIST (formerly NSB) issued a new request for comments to establish an **Advanced Encryption Standard (AES)**.  The call was answered and in 2001 an algorithm was accepted and standardized as the **AES** and was incorporated into FIPS.
 
-## DES & 3DES Deprecated
+## DES Deprecated
 
 Below is a rough historical timeline of how DES and 3DES was deprecated and removed from FIPS 
 
@@ -42,20 +42,29 @@ The DES algorithm has the following stages.
 
 ### Initial Permutation Stage 
 
-The plaintext is partitioned into 64 bit blocks. A static permutation is applied to each plaintext block.  The matrix $P$ below represents the initial permutation in functional form. Let $B_i$ be the $i$th bit position in the 64 bit block (zero being first index).  The permutation matrix indicates that the bit in coordinate $8 \cdot (i-1) + (j-1)$ should be swapped with the bit in position $(P_{i,j} -1$ ($i$th row and $j$th column of matrix P).
+The plaintext is partitioned into 64 bit blocks. A static permutation is applied to each plaintext block.  The matrix $P$ below represents the initial permutation in functional form. 
 
 $$
-P = \begin{bmatrix}
-58 & 50 & 42 & 34 & 26 & 18 & 10 & 2 \\
-60 & 52 & 44 & 36 & 28 & 20 & 12 & 4 \\
-62 & 54 & 46 & 38 & 30 & 22 & 14 & 6 \\
-64 & 56 & 48 & 40 & 32 & 24 & 16 & 8 \\
-57 & 49 & 41 & 33 & 25 & 17 &  9 & 1 \\
-59 & 51 & 43 & 35 & 27 & 19 & 11 & 3 \\
-61 & 53 & 45 & 37 & 29 & 21 & 13 & 5 \\
-63 & 55 & 47 & 39 & 31 & 23 & 15 & 7
-\end{bmatrix}
+\begin{align}
+P = (&\\
+&58 , 50 , 42 , 34 , 26 , 18 , 10 , 2, \\
+&60 , 52 , 44 , 36 , 28 , 20 , 12 , 4, \\
+&62 , 54 , 46 , 38 , 30 , 22 , 14 , 6, \\
+&64 , 56 , 48 , 40 , 32 , 24 , 16 , 8, \\
+&57 , 49 , 41 , 33 , 25 , 17 ,  9 , 1, \\
+&59 , 51 , 43 , 35 , 27 , 19 , 11 , 3, \\
+&61 , 53 , 45 , 37 , 29 , 21 , 13 , 5, \\
+&63 , 55 , 47 , 39 , 31 , 23 , 15 , 7 \\
+&)
+\end{align}
 $$
+
+Below provides a quick example of how to use the initial permutation map $P$.
+
+* The bit in position 1 gets swapped with the bit in position 58.
+* The bit in position 2 gets swapped with the bit in position 50.
+* The bit in position 3 gets swapped with the bit in position 42.
+* etc 
 
 Remember we are implementing bitwise swaps on a 64bit array. Below is a bitwise function to accomplish this task. 
 
@@ -74,7 +83,7 @@ Remember we are implementing bitwise swaps on a 64bit array. Below is a bitwise 
 
     for (i = 0; i < 64; i++) {
         initial_bit_perm <<= 1;  //shift elements to left to add new LSB 
-        initial_bit_perm |= (initial_bit_block >> (64-IP[i])) & 1; //add new LSB 
+        initial_bit_perm |= (initial_bit_block >> (64-IP[i])) , 1; //add new LSB 
     }
 
 The C code snippet above basically does the following for each iteration of $i$:
@@ -96,5 +105,87 @@ The C code snippet above basically does the following for each iteration of $i$:
 
 The effect is to construct bit by bit the permuted bit value. 
 
-Once the bits of the plaintext block have been permuted the bits are split into two equal parts. 
+Once the bits of the plaintext block have been permuted the bits are split into two equal parts.  
 
+
+### Expander Maps 
+
+The DES algorithm splits the permuted bits into two 32-bit partitions. The right half of the split must be expanded from 32 bits to 48 bits.  An expander map $E$ is used to perform this action and is provided as an array below.
+
+$$
+\begin{align}
+E = (&\\
+    &32,  1,  2,  3,  4,  5,  \\
+     &4,  5,  6,  7,  8,  9,  \\
+     &8,  9, 10, 11, 12, 13, \\
+    &12, 13, 14, 15, 16, 17, \\
+    &16, 17, 18, 19, 20, 21, \\
+    &20, 21, 22, 23, 24, 25, \\
+    &24, 25, 26, 27, 28, 29, \\
+    &28, 29, 30, 31, 32,  1\\
+&)
+\end{align}
+$$
+
+The array $E$ has 48 entries filled with values from 1 to 32.  Below outlines the expansion algorithm. 
+
+* Create an empty 48 bit array (potentially a 64 bit array and only use 48 LSB portion)
+* Let $b = E_i$ (value in the $i$ coordinate of array $E$). 
+    * The $i$th entry in the new 48 bit array will be value in the $b$ coordinate of the original 32 bit array.
+
+Below is a C bit implementation of this expansion.
+
+    uint64_t expanded_rhs = 0;
+    for (j = 0; j< 48; j++) {
+        expanded_rhs <<= 1;
+        expanded_rhs |= (uint64_t) ((right >> (32-E[j])) & 1);
+    }
+
+Below is a description of the operation of the expansion code. 
+
+* **expanded_rhs** will be the 48 bit expanded version of the right-hand side of permuted bits. 
+    * The 48 bit value will be created one bit at a time. 
+    * The operator **<<=** shifts the array to the left one bit to make room for the new bit in the LSB position.
+* The **right** hand side of the permuted bits are analyzed one bit at a time.
+    * The right hand side (rhs) bits are shifted to the right to make the bit found in the table in the LSB position. 
+    * AND operation with the LSB determines whether the bit position is a 1 or a 0.
+* The **or equal** operation updates the new zero in the LSB position of the 48 bit array to match the LSB position of shifted (by expansion map) right hand side bits. 
+
+
+### Key Schedule processes 
+
+DES uses a key that is 64 bits long. However, only 56 of the bits are used because every 8th bit is a parity checksum bit.  Similar to how the initial permutation and expander maps operate, the **Permutated Choice 1 (PC1)** map permutes the bits and removes the 8 parity bits.   The PC1 map is provided below. 
+
+$$
+\begin{align}
+PC1 = (& \\
+    &57, 49, 41, 33, 25, 17,  9, \\
+    & 1, 58, 50, 42, 34, 26, 18, \\
+    &10,  2, 59, 51, 43, 35, 27, \\
+    &19, 11,  3, 60, 52, 44, 36, \\
+    &63, 55, 47, 39, 31, 23, 15, \\
+    & 7, 62, 54, 46, 38, 30, 22, \\ 
+    &14,  6, 61, 53, 45, 37, 29, \\
+    &21, 13,  5, 28, 20, 12,  4 \\
+&)
+\end{align}
+$$
+
+The resuling 56 bit array is partitioned into two 28 bit arrays. This can be accomplished using bit masks as shown below. 
+
+    left_28 = (uint32_t) ((permuted_choice_1 >> 28) & 0x000000000fffffff);
+    right_28 = (uint32_t) (permuted_choice_1 & 0x000000000fffffff);
+
+
+The two 28 bit arrays are passed through 16 **fiestel** rounds where the bits will be rotated (left shifts with edge bits carrying over to the LSB position). The number of shifts depend on the round number but are generally 1 to 2 rotations per round. 
+
+The **shift map** below has 16 entries and determines how many shifts will happen on the $i$th round of the 16 rounds.
+
+$$shift_map = (1,  1,  2,  2,  2,  2,  2,  2,  1,  2,  2,  2,  2,  2,  2,  1)$$
+
+The bit implementation to represent 
+
+
+### S-Boxes 
+
+There are 8 s-boxes found in the DES algorithm. 
