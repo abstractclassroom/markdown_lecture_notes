@@ -141,6 +141,15 @@ static inline void split_perm_msg_block(uint64_t permutated_msg_block, uint32_t 
     *right = (uint32_t) permutated_msg_block & 0x00000000ffffffff;
 }
 
+static inline uint64_t permute_key_remove_parity_bits(uint64_t key) {
+    uint64_t result = 0;
+    for (int i = 0; i < 56; i++) {
+        result <<= 1;
+        result |= (key >> (64-PC1[i])) & 1;
+    }
+    return result;
+}
+
 uint64_t des(uint64_t initial_bit_block, uint64_t key, char mode) {
     
     char row, column;
@@ -150,7 +159,6 @@ uint64_t des(uint64_t initial_bit_block, uint64_t key, char mode) {
     uint32_t temp = 0;
     uint64_t sub_key[16] = {0};
     uint64_t expanded_rhs = 0;
-    uint64_t permuted_choice_1 = 0;
     uint64_t permuted_choice_2 = 0;
     uint64_t permutated_msg_block = 0;
     uint64_t inv_permutated_msg_block = 0;
@@ -163,13 +171,9 @@ uint64_t des(uint64_t initial_bit_block, uint64_t key, char mode) {
     split_perm_msg_block(permutated_msg_block, &perm_msg_block_left_32, &perm_msg_block_right_32);
 
     
-    // key only has 56 bits after removing parity bits
-    for (int i = 0; i < 56; i++) {
-        permuted_choice_1 <<= 1;
-        permuted_choice_1 |= (key >> (64-PC1[i])) & 1;
-    }
-    uint32_t left_28 = (uint32_t) ((permuted_choice_1 >> 28) & 0x000000000fffffff);
-    uint32_t right_28 = (uint32_t) (permuted_choice_1 & 0x000000000fffffff);
+    uint64_t perm_1_key_56 = permute_key_remove_parity_bits(key);
+    uint32_t left_28 = (uint32_t) ((perm_1_key_56 >> 28) & 0x000000000fffffff);
+    uint32_t right_28 = (uint32_t) (perm_1_key_56 & 0x000000000fffffff);
     
     for (int i = 0; i< 16; i++) {
         for (int j = 0; j < shift_map[i]; j++) {
