@@ -59,32 +59,40 @@ $$
 
 Remember we are implementing bitwise swaps on a 64bit array. Below is a bitwise function to accomplish this task. 
 
-    int64_t swap_bits(int64_t x) {
-        int ip_table[64] = {
-            57, 49, 41, 33, 25, 17, 9, 1,
-            59, 51, 43, 35, 27, 19, 11, 3,
-            61, 53, 45, 37, 29, 21, 13, 5,
-            63, 55, 47, 39, 31, 23, 15, 7,
-            56, 48, 40, 32, 24, 16, 8, 0,
-            58, 50, 42, 34, 26, 18, 10, 2,
-            60, 52, 44, 36, 28, 20, 12, 4,
-            62, 54, 46, 38, 30, 22, 14, 6
-        };
-        int64_t result = 0;
-        for (int i=0; i<64; i++) {
-            result |= ((x >> (64 - ip_table[i])) & 1) << (63 - i);
-        }
-        return result;
+    uint64_t initial_bit_perm = 0;
+
+    static const char IP[64] = {
+        58, 50, 42, 34, 26, 18, 10,  2, 
+        60, 52, 44, 36, 28, 20, 12,  4, 
+        62, 54, 46, 38, 30, 22, 14,  6, 
+        64, 56, 48, 40, 32, 24, 16,  8, 
+        57, 49, 41, 33, 25, 17,  9,  1, 
+        59, 51, 43, 35, 27, 19, 11,  3, 
+        61, 53, 45, 37, 29, 21, 13,  5, 
+        63, 55, 47, 39, 31, 23, 15,  7
+    };
+
+    for (i = 0; i < 64; i++) {
+        initial_bit_perm <<= 1;  //shift elements to left to add new LSB 
+        initial_bit_perm |= (initial_bit_block >> (64-IP[i])) & 1; //add new LSB 
     }
 
 The C code snippet above basically does the following for each iteration of $i$:
 
-1. Gets the relevant value from the initial permutation table.
-2. 64 - ip_table[$i$] calculates the bit position that will be swapped.
-3. Right shifts the bits of $x$ to put it in the least significant bit position.
-4. AND 1 effectively gets the value of the bit in the least significant bit position.
-5. That least significant bit is shift over to position $i$.
-6. The value is then bitwise OR with the running result.
+1. Description of variables
+    * **initial_bit_block** is a 64 bit plaintext message block represented as a **uint64_t** typed variable.
+    * **IP** is the initial permutation map.
+    * **initial_bit_perm** will be the result of the **initial_bit_block** after the permutation map **IP** has been applied to it.
+2. The **for loop**
+    * Each iteration of the loop will update the result **initial_bit_perm** one bit at a time. 
+        * Each update will add a new bit in the **least significant bit (LBS)** position (right-most position).
+        * At the start of each iteration the bits of **initial_bit_perm** are left-shifted by one bit.  This preserves the result and makes the far right (LSB) bit zero. Effectively this makes room for the new bit the iteration will create.
+    * The **OR EQUAL** operator expression
+        * The LSB will be flipped to **1** or kept **0** based on the result of the expression on the right of the **OR EQUAL** operator. 
+        * The expression to apply the initial permutation does the following
+            * Shifts the bits of the original plaintext message block by the value found in the $i$th position of the **IP** array. 
+            * The bit in the LSB position (plaintext block) after shifting is determined using the AND boolean operation and the number 1. This results in a 64 bit value where all bits are zero except for potentially the last bit (LSB).  The LSB of this 64 bit array 
+
 
 The effect is to construct bit by bit the permuted bit value. 
 
