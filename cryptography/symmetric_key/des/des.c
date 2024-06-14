@@ -206,8 +206,16 @@ uint64_t des(uint64_t initial_bit_block, uint64_t key, char mode) {
 }
 
 int main(int argc, const char * argv[]) {    
-    uint64_t initial_bit_block = 0x01A1D6D039776742;
-    uint64_t key = 0x7CA110454A1A6E57;
+    // uint64_t initial_bit_block = 0x01A1D6D039776742;
+    // uint64_t value = 0xab12cd34ef56fe78;
+    uint32_t value = 0xab12cd34;
+    uint64_t re = apply_map(value, E, 32, 48);
+    // uint64_t re = apply_map(value, IP, 64, 64);
+    printf ("Mapped: %016llx\n", re);
+    uint64_t initial_bit_block = 0xcafebabedeadbeef;
+    // uint64_t key = 0x7CA110454A1A6E57;
+    uint64_t key = 0x11aa22bb33cc44dd;
+    printf ("Mapped Key: %016llx\n", apply_map(key, PC1, 64, 56 ));
     uint64_t result = initial_bit_block;
     result = des(initial_bit_block, key, 'e');
     printf ("Ciphertext: %016llx\n", result);
