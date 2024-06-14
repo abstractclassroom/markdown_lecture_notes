@@ -1,0 +1,19 @@
+{
+    "subject": "Mathematics",
+    "topic": "Number Theory",
+    "subtopic": "Totient Function",
+    "views" : "873",
+    "datePublished": "June 13, 2024",
+    "dateUpdated" : "June 13, 2024",
+    "title" : "Euler's Totient Function",
+    "description" : "Euler's Totient Function makes superizingly frequent appearances in number theory. It is a simple function that counts the number of positive integers less than n that are coprime to n.",
+    "objectives" : [
+        "Understand the definition of Euler's Totient Function",
+        "Apply Totient Function Formula",
+        "Use the properties of the totient function to help calculate the totient of a number"
+    ],
+    "prerequisites" : [
+        "Basic understanding of prime numbers",
+        "Basic arithmetic skills"
+    ]
+}
