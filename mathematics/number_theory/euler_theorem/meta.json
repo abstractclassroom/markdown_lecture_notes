@@ -1,0 +1,20 @@
+{
+    "subject": "Mathematics",
+    "topic": "Number Theory",
+    "subtopic": "Euler's Theorem",
+    "views" : "1788",
+    "datePublished": "June 16, 2024",
+    "dateUpdated" : "June 16, 2024",
+    "title" : "Euler's Theorem",
+    "description" : "Euler's Theorem is the basis for a very popular public key encryption algorithm called RSA. Euler's theorem is often referenced in general number theory.  This set of lecture notes will provide a historical and applicable context for Euler's Theorem.",
+    "objectives" : [
+        "Understand Fermat's Little Theorem",
+        "Understand Euler's Theorem",
+        "Understand how Euler's Theorem is used in RSA encryption"
+    ],
+    "prerequisites" : [
+        "Basic understanding of prime numbers",
+        "Basic knowledge of modular arithmetic",
+        "Basic understanding of Euler's Totient Function"
+    ]
+}
