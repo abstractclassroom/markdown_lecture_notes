@@ -1,0 +1,85 @@
+# Euler's Totient Function 
+
+Euler's totient function of a value $n$ is the number of integers greater than 1 and less than $n$ and relatively prime to $n$.  This may seem like an arbitrary calculation, but it is used frequently in number theory.
+
+Two numbers $m,n \in \mathbb{N}$ are relatively prime if their greatest common divisor is 1, denoted $GCD(m,n) = 1$.
+
+The totient function of $n$ is denoted $\varphi(n)$
+
+## Example Totient Function Calculation 
+
+Calculate $\varphi(9)$ as an example. 
+
+Identify all integers less than 9 that are relatively prime to 9.
+
+$$
+\begin{align}
+GCD(1,9) &= 1 \\\\
+GCD(2,9) &= 1 \\\\
+GCD(3,9) &= 3 \\\\
+GCD(4,9) &= 1 \\\\
+GCD(5,9) &= 1 \\\\
+GCD(6,9) &= 3 \\\\
+GCD(7,9) &= 1 \\\\
+GCD(8,9) &= 1 
+\end{align}
+$$
+
+There are 6 value less than 9 that are relatively prime to 9.  Therefore the totient of $9$ is $6$ denoted below. 
+
+$$\varphi(9) = 6$$
+
+
+## Totient Function Properties
+
+Below are some properties of the totient function. 
+
+* $1 \leq \varphi(n) < n$ 
+    * We never consider the value itself 
+    * The number 1 is always relatively prime to any positive integer.
+* $\varphi(p) = p-1$ where $p$ is a prime number. 
+    * The only numbers that are not relatively prime to a prime number are multiplies of that prime.  A multiple of a prime can not be smaller than the prime. 
+* $\varphi(p^n) = p^n - p^{n-1}$
+* If $GCD(n,m) = 1$ then $\varphi(n \cdot m) = \varphi(n) \cdot \varphi(m)$
+
+Below is a single example that demonstrates all the properties above. 
+
+$$
+\begin{align}
+\varphi(7875) &= \varphi( 3^2 \cdot 5^3 \cdot 7)\\\\
+&=  \underbrace{\varphi(3^2) \cdot \varphi(5^3) \cdot \varphi(7)}_{\text{Relatively Prime (3,5,7)}} \\\\
+&= \underbrace{\left(3^2 - 3^1 \right)}_{\varphi(3^2)} \cdot \underbrace{\left( 5^3 - 5^2\right)}_{\varphi(5^3)} \cdot \underbrace{(7-1)}_{\varphi(7)} \\\\
+&= 6 \cdot 100 \cdot 6 \\\\
+&= 3600
+\end{align}
+$$
+
+Notice applying the properties is much easier than iterating through all values from 1 to 7874 testing whether they are relatively prime to 7875.  In fact, there is no reason to iterate at all. All numbers can be represented in prime factored form which means you can always apply the above properties. 
+
+
+## Totient Function Formula
+
+Below is the general totient function.  It is effectively a formula that condenses the properties above. 
+
+$\varphi(n) = n \cdot \prod\limits_{p \mid n} \left(1 - \frac{1}{p}\right)$
+
+The product iterates over all the prime that divide the value $n$.  This is denoted in the product index as $p \mid n$. 
+
+Consider the example $\varphi(7875)$. The prime numbers that divide 7875 are 3,5, and 7
+
+$$
+\begin{align}
+\varphi(7875) &= 7875 \cdot \prod\limits_{p \in \{3,5,7\}} \left( 1 - \frac{1}{p} \right) \\\\
+&= 7875  \cdot \left(1- \frac{1}{3} \right)  \cdot \left( 1 - \frac{1}{5} \right) \cdot \left( 1 - \frac{1}{7} \right) \\\\
+&= 7875  \cdot \frac{2}{3} \cdot  \frac{4}{5} \cdot  \frac{6}{7} \\\\
+&= 7875 \cdot \frac{  2  \cdot 4  \cdot 6 }{3 \cdot 5 \cdot 7}  \\\\
+&= \frac{7875 \cdot 48}{105} \\\\
+&= 3600
+\end{align}
+$$
+
+## Closing Remarks 
+
+Euler's totient function is a very handy tool that appears frequently in number theory. The foundation for some public key encryption algorithms requires knowledge of the totient function. This set of notes only serves to provide a brief introduction.  You are encouraged to read further and gain insight on all the generalizations that entail Euler's totient function.  The Wikipedia link provides some useful starting points. 
+
+[Euler's Totient Function - Wikipedia](https://en.wikipedia.org/wiki/Euler%27s_totient_function)

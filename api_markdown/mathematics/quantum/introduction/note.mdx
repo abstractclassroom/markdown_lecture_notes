@@ -1,0 +1,111 @@
+# Quantum Computing 
+
+Quantum mechanics is the new playground for experimental physics.  Fortunately, quantum computing can be modeled mathematically using very familiar group theory. 
+
+A classical computer register is composed of bits that permit the digital values of 0 and 1.  Similarly, a quantum register is composed of qubits that can accept many other values.  Perhaps overly simplistic but you can imagine a qubit can be assigned analog values while a classical bit can only be assigned digital values.
+
+## Qubits 
+
+A qubit is a contraction of the phrase **quantum bit** and represents the basic unit of **quantum information**. Qubits are often represented using **Dirac** notation (known as a **ket**) to represent a quantum state. The quantum state values are essentially linear combinations of an orthonormal basis.  The vectors in the standard orthonormal basis are show below in **ket** and vector form.
+
+$$
+\begin{align}
+\left| 0 \right\rangle &= \begin{bmatrix}1 \\ 0 \end{bmatrix} \\\\
+\left| 1 \right\rangle &= \begin{bmatrix}0 \\ 1 \end{bmatrix}
+\end{align}
+$$
+
+The value of a general qubit $\psi$ is expressed a linear combination shown below.
+
+$$
+\begin{align}
+ \left| \psi \right\rangle &= \alpha \left| 0 \right\rangle + \beta \left| 1 \right\rangle \\\\
+  &= \alpha \cdot \begin{bmatrix}1 \\ 0 \end{bmatrix} + \beta \begin{bmatrix}0 \\ 1 \end{bmatrix} \\\\
+  &= \begin{bmatrix}\alpha \\ \beta \end{bmatrix} \text{ where } \alpha,\beta \in \mathbb{C} \text{ and } |\alpha|^2 + |\beta|^2 = 1
+ \end{align}
+ $$
+
+Mathematical modeling of qubits requires that they be unit vectors.  So the expression above also imply condition below.
+
+$$ \left| \psi \right\rangle = \begin{bmatrix}\alpha \\ \beta \end{bmatrix} \text{ where } \alpha,\beta \in \mathbb{C} \text{ and } |\alpha|^2 + |\beta|^2 = 1$$
+
+A qubit that has a value that is not equivalent to one of the computational basis qubits is said to be in a **superposition** state. 
+
+## Quantum Register 
+
+Multiple qubits can be combined to form a **quantum register**.   Consider the qubits $\psi_1$ and $\psi_2$ defined below.
+
+$$
+\begin{align}
+\left| \psi_1 \right\rangle &= \begin{bmatrix}\alpha_1 \\ \beta_1 \end{bmatrix} \\\\
+\left| \psi_2 \right\rangle &= \begin{bmatrix}\alpha_2 \\ \beta_2 \end{bmatrix}
+\end{align}
+$$
+
+The quantum register $\psi$ composed of $\psi_1$ and $\psi_2$ is shown below. 
+
+$$\left| \psi \right \rangle = \left| \psi_1 \right \rangle \otimes \left| \psi_2 \right \rangle$$
+
+Notice the $\otimes$ symbol typically used to denote the kronecker product for matrices.  The Kronecker product the matrix construction used to form the vectors representing quantum registers.
+
+$$
+\begin{align}
+\left| \psi \right \rangle &= \left| \psi_1 \right \rangle \otimes \left| \psi_2 \right \rangle \\\\
+&= \begin{bmatrix}\alpha_1 \\ \beta_1 \end{bmatrix} \otimes \begin{bmatrix}\alpha_2 \\ \beta_2 \end{bmatrix} \\\\
+&= \begin{bmatrix} \alpha_1 \cdot \begin{bmatrix} \alpha_2 \\ \beta_2 \end{bmatrix} \\ \beta_1 \cdot \begin{bmatrix} \alpha_2 \\ \beta_2 \end{bmatrix} \end{bmatrix} \\\\
+&= \begin{bmatrix} \alpha_1 \cdot \alpha_2 \\ \alpha_1 \cdot \beta_2 \\ \beta_1 \cdot \alpha_2 \\ \beta_1 \cdot \beta_2 \end{bmatrix}
+\end{align}
+$$
+
+Notice the Kronecker product of two unit vectors results in a unit vector as demonstrated below. 
+
+$$
+\begin{align}
+&|\alpha_1 \cdot \alpha_2|^2 + |\alpha_1 \cdot \beta_2|^2 + |\beta_1 \cdot \alpha_2|^2 + |\beta_1 \cdot \beta_2|^2 \\\\
+= &|\alpha_1|^2 \cdot  |\alpha_2|^2 + |\alpha_1|^2 \cdot |\beta_2|^2 + |\beta_1|^2 \cdot |\alpha_2|^2 + |\beta_1|^2 \cdot |\beta_2|^2 \\\\
+=& |\alpha_1|^2 \underbrace{\left(|\alpha_2|^2 + |\beta_2|^2 \right)}_{1} + |\beta_1|^2 \cdot \underbrace{\left(|\alpha_2|^2 + |\beta_2|^2 \right)}_{1} \\\\
+=& |\alpha_1|^2 + |\beta_1|^2 \\\\
+=& 1
+\end{align}
+$$ 
+
+Since the Kronecker product can be treated as a left associative operation, the Kronecker product of any number of unit vectors will be a unit vector.
+
+Notice a quantum register of computational basis qubits forms another orthonormal computational basis as shown below. Also notice the shorthand ket notation for the quantum registers.
+
+$$
+\begin{align}
+\left| 00 \right \rangle = \left| 0 \right \rangle \otimes \left| 0 \right \rangle = \begin{bmatrix} 1 \\0 \end{bmatrix} \otimes \begin{bmatrix} 1 \\0 \end{bmatrix} = \begin{bmatrix} 1 \cdot \begin{bmatrix} 1 \\ 0 \end{bmatrix} \\ 0 \cdot \begin{bmatrix} 1 \\ 0 \end{bmatrix} \end{bmatrix}  =  \begin{bmatrix} 1 \\ 0 \\ 0 \\ 0 \end{bmatrix} \\\\
+\left| 01 \right \rangle = \left| 0 \right \rangle \otimes \left| 1 \right \rangle = \begin{bmatrix} 1 \\0 \end{bmatrix} \otimes \begin{bmatrix} 0 \\1 \end{bmatrix} = \begin{bmatrix} 1 \cdot \begin{bmatrix} 0 \\ 1 \end{bmatrix} \\ 0 \cdot \begin{bmatrix} 0 \\ 1 \end{bmatrix} \end{bmatrix}  =  \begin{bmatrix} 0 \\ 1 \\ 0 \\ 0 \end{bmatrix} \\\\
+\left| 10 \right \rangle = \left| 1 \right \rangle \otimes \left| 0 \right \rangle = \begin{bmatrix} 0 \\1 \end{bmatrix} \otimes \begin{bmatrix} 1 \\0 \end{bmatrix} = \begin{bmatrix} 0 \cdot \begin{bmatrix} 1 \\ 0 \end{bmatrix} \\ 1 \cdot \begin{bmatrix} 1 \\ 0 \end{bmatrix} \end{bmatrix}  =  \begin{bmatrix} 0 \\ 0 \\ 1 \\ 0 \end{bmatrix} \\\\
+\left| 11 \right \rangle = \left| 1 \right \rangle \otimes \left| 1 \right \rangle = \begin{bmatrix} 0 \\1 \end{bmatrix} \otimes \begin{bmatrix} 0 \\1 \end{bmatrix} = \begin{bmatrix} 0 \cdot \begin{bmatrix} 0 \\ 1 \end{bmatrix} \\ 1 \cdot \begin{bmatrix} 0 \\ 1 \end{bmatrix} \end{bmatrix}  =  \begin{bmatrix} 0 \\ 0 \\ 0 \\ 1 \end{bmatrix} 
+\end{align}
+$$
+
+
+To generalize, consider a quantum register $Q$ composed of $n$ qubits where the quantum state of qubit $q_i$ is expressed in terms of the standard orthonormal computational base shown below.
+
+$$q_i = \alpha_i \left | 0 \right \rangle + \beta_i \left | 1 \right \rangle = \begin{bmatrix} \alpha_i \\ \beta_i \end{bmatrix}$$
+
+The quantum register $Q$ can be expressed as shown below.
+
+$$
+\begin{align}
+Q &= \left| q_1\ldots q_n \right \rangle =\bigotimes_{i=0}^{n-1} \left | q_i  \right \rangle = \begin{bmatrix}  v_1 \in \mathbb{C} \\ \vdots \\ v_{2^n} \in \mathbb{C} \end{bmatrix}  \text{ where } \sum\limits_{i=1}^{2^n} |v_i|^2 = 1 
+\end{align}
+$$
+
+## Entanglement
+
+Quantum **entanglement** the core of quantum computing.  Entanglement is where computing power can be exponentially enhanced.  Recall that a qubit can have a value that is equivalent to a computation basis qubit or a form of affine linear combination.  Qubits that are not equivalent to a computational basis qubit is said to be in **superposition**.  Superposition implies entanglement. The expression below demonstrates the mathematical representation of qubits in a register being entangled.  
+
+$$\frac{1}{\sqrt{2}} ( \left| 00 \right \rangle + \left | 11 \right \rangle) = \frac{1}{\sqrt{2}} \cdot \begin{bmatrix}1 \\ 0 \\ 0 \\ 1 \end{bmatrix}$$
+
+The value $\frac{1}{\sqrt{2}}$ is called the normalization constant.   It is required for the vector to be a unit vector. 
+
+$$ \underbrace{\left( \frac{1}{\sqrt{2}} \cdot 1 \right)^2}_{\frac{1}{2}} + \underbrace{\left( \frac{1}{\sqrt{2}} \cdot 0 \right)^2}_{0} + \underbrace{\left( \frac{1}{\sqrt{2}} \cdot 0 \right)^2}_{0} + \underbrace{\left( \frac{1}{\sqrt{2}} \cdot 1 \right)^2}_{\frac{1}{2}} = 1$$
+
+
+
+
+

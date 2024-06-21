@@ -1,0 +1,327 @@
+# RSA Encryption 
+
+Symmetric key encryption algorithms, like AES, are relatively fast.  Symmetric key encryption algorithms can be implemented as hardware instruction sets making them even more efficient. In order to use symmetric key encryption, both end points have to have the encryption key.  This means they must exchange the key before they can establish encrypted communication channels. This is very limiting because computers often communicate in an ad-hoc fashion.  Consumers often visit online retail stores for the first time.  How can secure communication be established when visiting a website for the first time?
+
+Asymmetric encryption provides a solution and has formally been around since the late 1970's.  
+
+## Asymmetric Encryption Overview 
+
+Unlike symmetric key encryption, two different keys are required for public-key (asymmetric encryption). 
+
+1. Public Key 
+    * Does not have to be kept secret.
+    * Openly shared with anyone requesting it.
+    * Used to encrypt messages.
+2. Private Key 
+    * Must be kept secret.
+    * Used to decrypt messages  
+
+Encryption and decryption act like inverse functions in both symmetric and asymmetric key encryption. However, asymmetric encryption is often created using abstract mathematics that makes deriving the decryption key (private key), using the encryption key (public key), computationaly nearly impossible.   The complicated abstract mathematical algorithms associated with public-key encryption are difficult (potentially impossible) to implement using simple bitwise functions (masks, shifts, boolean operations, etc) making them computationally expensive.
+
+---
+
+## Physical Analogy
+
+At this point it may not be clear how aymmetric key works at a high level.  Let us consider a physical analogy as an example. 
+
+Suppose Bob wants to send Alice an encrypted message.  Below are some overly simplified steps to accomplish this task.
+
+1. Bob notifies Alice he needs to send a secret message. 
+2. Alice sends Bob a container with an **unlocked** padlock inside it. 
+3. Bob writes his message down, places it into the box, then locks the container with the unlocked pad lock that Alice provided.
+4. Bob sends the locked box to Alice.
+5. Alice receives the box and unlocks it with the only key that she kept with her. 
+6. Alice reads the message in the box. 
+
+If Alice wants to reply she notifies Bob and then Bob sends a box with an unlocked pad log. 
+
+In the example above we have the following analogies.
+
+1. Unlocked Pad Lock - This represents the public key.  It is basically how the sender will encrypt the message.  
+2. Alice's Key - This represents the private key.  It is basically how the receiver decrypts the message. 
+
+Obviously phyiscal boxes can not be transported through wires across the Internet.  However, this basically describes the idea of seperating the encryption from the decryption keys. 
+
+---
+
+## RSA Encryption Algorithm 
+
+Below are the general steps to use RSA encryption.
+
+#### Generating Public Key 
+
+Below are the steps to generating the public key for RSA encryption.
+
+1. Two large prime numbers $p$ and $q$ are generated.
+2. The number $n = p \cdot q$ is calculated. 
+3. A value $e$ (not Euler's constant) is selected such that $1 < e < \varphi(n)$ and $GCD(e,\varphi(n))=1$.  
+    * Notice this is hinting to Euler's Theorem.
+    * Notice that $\varphi(n)$ is easy to calculate given the prime factorization is known.  Specifically, $\varphi(n) = (p-1)\cdot(q-1)$.
+4. The **public key** is the ordered pair $(e,n)$. 
+    * This value is transmitted to anyone wanting to send an encrypted message. 
+
+#### Encrypting Messages Using Public Key 
+
+Below details how RSA is used to encrypt messages using RSA.
+
+1. Long messages are broken up into chunks.  Let the message $M$ be broken up into $n$ chunks as $\{m_1, m_2,...,m_n\}$.
+2. Each ciphertext block $c_i$ is related to a message block $m_i$ as $c_i = m_i^e \text{ mod n}$
+    * Expressions with large exponents are calculated using successive squaring.
+    * Message chunks are essentially bit streams that can be treated as integers (binary converted to integer). The integer equivalent of $m_i$ must be less than $n$ since it is the modular arithmetic base value.  Modular arithmetic will allow values from 0 to $n-1$.  
+
+The ciphertext blocks are transmitted to the receiver. 
+
+#### Generating Private Key 
+
+Below details how the private key is created using RSA. 
+
+1. Calculate the value $e^{-1} \text{ mod } \varphi(n)$
+    * Modular arithmetic effectively forms a group under multiplication. 
+    * The value $e^{-1}$ is a unique value such that $1 < e^{-1} < n$ and $e \cdot e^{-1} \equiv \text{ mod } \varphi(n)$.
+    * This can be calculated using the Euclidean Algorithm. 
+2. The private key is the ordered pair $(d,n)$.
+
+The private key is kept secret and used to decrypt ciphertext blocks. 
+
+#### Decryption Using Private Key 
+
+Below details how to use the private key to decrypt ciphertext blocks. 
+
+1. Every ciphertext block $c_i$ is converted to message block $m_i$ using the formula $m_i \equiv c_i^d \text{ mod } n$.
+2. The message blocks are converted back to character string chunks and concatenated back together. 
+
+---
+
+## RSA Encryption Bit Sizes 
+
+The NIST publishes recommended bit sizes for RSA encryption.  The publication refers to modulus sizes as the number of bits (binary form) of the product of the two prime numbers.  Currently values ranging from 2048 to 4096 are common.  Typically the two prime numbers are half the size so their product is the correct bit size. 
+
+Logarithms are used to calculate the number of digits in a number.  For example consider the value below.
+
+$\log_{10}(4564) \approx 3.659$
+
+The base 10 logarithm of 4564 is 3.659.  Notice the value 4564 is a 4 digit number.  Notice the same number in base 2. 
+
+$4564_{10} = 1000111010100_2$
+
+Taking the log base 2 of 4564 gives roughly the number of binary digits required to represent 4564 in binary form.
+
+$\log_2(4564) \approx 12.156$
+
+We can use logarithms to determine the number of base 10 digits a 4096 modulus will have. 
+
+$$\log_2(x) = 4096 \implies x = 2^{4096} \implies \log_{10}(x) = \log_{10}\left(2^{4096} \right) = 4096 \cdot \log_{10}2 \approx 1233.01$$
+
+An RSA 4096 bit modulus is a value having 1234 digits (base 10).  Just for reference, this value is magnitudes larger than the number of atoms that compose the visible universe which is roughly a 120 digit number. 
+
+
+#### RSA Strength 
+
+Supercomputers are obviously very power machines at performing mathematical computations.  However, even the largest of the supercomputers cannot factor extremely large integers without taking an enormous amount of time.  Despite knowing the modulus value is the product of two prime numbers, it would be impossible for very large supercomputers to factor a typical RSA modulus value in a time shorter than  several thousand years.  The strength of RSA encryption relies largely on our inability to factor large integers effeciently.  Restated, the power of RSA encryption relies on the mystery surrounding the distribution of the prime numbers. 
+
+---
+
+## RSA Example 
+
+For this example we will use trivially sized prime numbers. Actual RSA prime values would be too large to even consider.   
+
+1. Select two prime numbers $p = 37$ and $q=23$.
+2. Calculate their product $n = 37 \cdot 23 = 851$.
+    * Also calculate $\varphi(851) = (37-1)\cdot (23-1) = 36*22 = 792$
+3. Select a value $1 < e < \varphi(851) = 792$ where GCD(e,\varphi(n)) = 1.
+    * Notice the value $5$ works.
+4. The **public key** is $(5,851)$
+
+Suppose Bob notifies Alice he needs to send an encrypted message.  Alice sends Bob the ordered pair $(5,851)$.
+
+#### Message Block Stage
+
+Suppose Bob needs to transmit the bit sequence shown below to Alice.
+
+$$1001101001001101101011001$$
+
+Notice the calculation below indicates the bit sequence must be broken up in to message chunks no larger than 9 binary digits.  
+
+$\log_2(851) = 9.3733$
+
+The bit stream would have to be broken up into the following chunks.
+
+$$\underbrace{100110100}_{m_1} \; \underbrace{100110110}_{m_2} \; \underbrace{1011001}_{m_3}$$
+
+Now we need to convert the binary chunks into base 10 equivalent integers. 
+
+$$
+\begin{align}
+m_1 &= 100110100_2 = 308 \\
+m_2 &= 100110110_2 = 310 \\
+m_3 &= 1011001_2 = 89 \\
+\end{align}
+$$
+
+
+#### Block Encryption Stage 
+
+Bob now converts each of the message blocks to ciphertext blocks. Notice Bob only needs to do successive squaring once since the exponent is so small. Remember that modular arithmetic can be computed in steps.  The modular arithmetic is performed using 851 as the modulus.
+
+First calculate the following 
+
+$c_1 \equiv 308^5 \text{ mod } 851$
+
+This is shown below. 
+
+$$
+\begin{align}
+308^2 &= \underbrace{94864}_{111 \cdot 851 + 403} \equiv 403 \\
+308^4 &= \left(308^2 \right)^2 \equiv 403^2 = \underbrace{162409}_{190\cdot 851 + 719} \equiv 719 \\
+308^5 &=  308^4 \cdot 308 \equiv 719 \cdot 308 = \underbrace{221452}_{260 \cdot 851 + 192} \equiv 192
+\end{align}
+$$
+
+THe above calculations imply  $c_1 = 192$.
+
+Using the same steps Bob calculates $c_2 \equiv 310^5 \text{ mod } 851$
+
+$$
+\begin{align}
+310^2 &= \underbrace{96100}_{112 \cdot 851 + 788} \equiv 788 \\
+310^4 &= \left(318^2 \right)^2 \equiv 788^2 = \underbrace{620944}_{729\cdot 851 + 565} \equiv 565 \\
+310^5 &=  310^4 \cdot 310 \equiv 565 \cdot 310 = \underbrace{175150}_{205 \cdot 851 + 695} \equiv 695
+\end{align}
+$$
+
+The calculations above imply  $c_2 = 695$
+
+Bob now calculates $c_3 \equiv 89^5 \text{ mod } 851$
+
+$$
+\begin{align}
+89^2 &= \underbrace{7921}_{9 \cdot 851 + 262} \equiv 262 \\
+89^4 &= \left(89^2 \right)^2 \equiv 262^2 = \underbrace{68644}_{80 \cdot 851 + 564} \equiv 564 \\
+89^5 &=  89^4 \cdot 89 \equiv 564 \cdot 89 = \underbrace{50196}_{58 \cdot 851 + 838} \equiv 838
+\end{align}
+$$
+
+The final ciphertext block $c_3 = 838$.
+
+Bob transmits the cipher text (as ordered pairs) $(192,695,838)$
+
+#### Decryption Key (Private Key)
+
+In order to decrypt the ciphertext blocks, Alice must derive the decryption key.
+
+Alice needs to find the value $e^{1} \text{ mod } \varphi(851)$
+
+Using the euclidean algorithm we have the following:
+
+$$
+\begin{align}
+792 &= 158 \cdot 5 + 2 \\
+5 &= 2 \cdot 2  + 1 \\
+2 &= 2 \cdot 1 + 0 
+\end{align}
+$$
+
+Once reaching the stopping point of a zero remainder. Alice can now use reverse substitution to find a solution to the equation $5x + 792y =1$.
+
+$$
+\begin{align}
+1 &= 5- 2 \cdot 2 \\
+&= 5-2 \cdot (792 - 158 \cdot 5) \\
+&= 5 \cdot (2*158 + 1) - 2 \cdot 792 \\
+&= 5 \cdot 317 - 2 \cdot 792
+\end{align}
+$$
+
+Notice why the above works. This is a linear combination of the following values 
+
+$$5x + 792y = 1$$
+
+Notice that we are applying modular arithmetic with the modulus being 792.  This implies $792y \equiv 0 \text{ mod} 792$.  This leaves the fact that $5x =1 \text{ mod } 792$ which implies that the value $x$ is the inverse of 5.  In this case $x=317$.
+
+
+
+Notice we have a linear combination of 5 and 792.  The coefficient of 5, specifically 317 is the inverse of $e$. We now have the value $e^{-1}$
+
+$$e^{-1} = 317$$
+
+
+
+Alice now has $d = e^{-1} \equiv 317$.  Just to demonstrate notice the following group theory relationship of $e$ and $e^{-1}$.
+
+$e^{-1} \cdot e \equiv 317 \cdot 5 \equiv 1 \text{ mod } 792$
+
+The **private key** is the ordered pair $(317, 851)$.  To be clear, public and private keys are often reused and are often generated at the same time.  The same public and private key pairs can be used for multiple sessions.  This step of calculating the private key is only done once on a machine (unless the key is upgraded to a higher strength).
+
+#### Decrypt Ciphertext Blocks 
+
+Now that Alice has the decryption key she can decrypt the ciphertext blocks. 
+
+Decrypt ciphertext block $c_1$.  Again successive squaring will be used to shortcut the algorithm. 
+
+$$
+\begin{align}
+192^{2} & \equiv 271 \\
+192^{4} & \equiv 255 \\
+192^{8} & \equiv 349 \\
+192^{16} & \equiv 108 \\
+192^{32} & \equiv 601 \\
+192^{64} & \equiv 377 \\
+192^{128} & \equiv 12 \\
+192^{256} & \equiv 144 \\
+192^{288} & \equiv 192^{256} \cdot 192^{32} \equiv 593 \\
+192^{304} & \equiv 192^{288} \cdot 192^{16} \equiv  219 \\
+192^{312} & \equiv 192^{304} \cdot 192^{8} \equiv  692 \\
+192^{316} & \equiv  192^{312} \cdot 192^{4} \equiv  303 \\
+192^{317} & \equiv 192^{316} \cdot 192 \equiv  308
+\end{align}
+$$
+
+Notice the value 308 is the original first message block.
+
+$$m_1 = 308$$
+
+This is repeated for the rest of the message blocks. 
+
+$$
+\begin{align}
+695^{2} & \equiv 508 \\
+695^{4} & \equiv 211 \\
+695^{8} & \equiv 269 \\
+695^{16} & \equiv 26 \\
+695^{32} & \equiv 676 \\
+695^{64} & \equiv 840 \\
+695^{128} & \equiv 121 \\
+695^{256} & \equiv 174 \\
+695^{288} & \equiv 695^{256} \cdot 695^{32} \equiv 186 \\
+695^{304} & \equiv 695^{288} \cdot 695^{16} \equiv  851 \\
+695^{312} & \equiv 695^{304} \cdot 695^{8} \equiv  556 \\
+695^{316} & \equiv  695^{312} \cdot 695^{4} \equiv  729 \\
+695^{317} & \equiv 695^{316} \cdot 695 \equiv  310
+\end{align}
+$$
+
+$$m_2 = 310$$
+
+Finally for the last block 
+
+$$
+\begin{align}
+838^{2} & \equiv 169 \\
+838^{4} & \equiv 478 \\
+838^{8} & \equiv 416 \\
+838^{16} & \equiv 303 \\
+838^{32} & \equiv 752 \\
+838^{64} & \equiv 440 \\
+838^{128} & \equiv 423 \\
+838^{256} & \equiv 219 \\
+838^{288} & \equiv 838^{256} \cdot 838^{32} \equiv 445 \\
+838^{304} & \equiv 838^{288} \cdot 838^{16} \equiv  377 \\
+838^{312} & \equiv 838^{304} \cdot 838^{8} \equiv  248 \\
+838^{316} & \equiv  838^{312} \cdot 838^{4} \equiv  255 \\
+838^{317} & \equiv 838^{316} \cdot 838 \equiv  89
+\end{align}
+$$
+
+$$m_3 = 89$$
+
+

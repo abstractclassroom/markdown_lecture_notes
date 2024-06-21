@@ -1,0 +1,225 @@
+# Ring Theory 
+
+At a very young age people are taught that we can add and multiply numbers.  Notice that we also add and multiply matrices.  We can also add and multiply polynomials.  Ring theory establishes the basis for how we can overload the operations of $+$ and $\cdot$ so they can be applied to very abstract objects.
+
+A ring $R$ is a set with two well-defined operations that have very specific properties.  A ring is often denoted as $R(+,\cdot)$ and has the following properties.
+
+* A ring is a set with two operations defined on the elements $+$ and $\cdot$
+* Under $+$ the ring forms an abelian group. 
+* The operation $\cdot$ must have the following properties 
+    * Closure ( $a,b \in R$ then $a\cdot b \in R$)
+    * There must be a multiplicative identity ( $a \cdot I = I \cdot a = a$ for all $a \in R$)
+    * Must be associative. ( $a \cdot (b \cdot c) = (a \cdot b) \cdot c$ for all $a,b,c \in R$)
+    * There is no requirement for multiplicative inverses.  
+* The operation $\cdot$ must distribute over $+$.   ($a \cdot (b +c) = a \cdot b + a \cdot c$ for all $a,b,c \in R$ )
+
+Any structure that requires both addition and multiplication (matrices, polynomials, etc) will implement some form of ring.
+
+Typically the additive identity (identity under the operation of $+$) is denoted as $0$.  The multiplicative identity (identity under the operation of $\cdot$ is denoted as $1$).
+
+***
+
+## Classic Rings 
+
+Below are some examles of classical rings 
+
+* $\mathbb{Z}$ is a ring under the traditional operations of addition and multiplication.
+* $\mathbb{R}$ is a ring under the traditional operations of addition and multiplication.
+* $\mathbb{Q}$ is a ring under the traditional operations of addition and multiplication.
+* $\mathbb{C}$ is a ring under the traditional operations of addition and multiplication.
+
+Notice there is not requirement for the operation $\cdot$ to have inverses.  This allows sets containing zero to be rings (zero has no multiplicative inverse ).
+
+***
+
+## Matrix Rings
+
+Square matrices can be added and multiplied. In order to perform matrix addition and multiplication, the elements need to be added and multiplied.  Traditionally, the elements of a matrix are values.  However, the elements of a matrix can be any object that belongs to a ring.  This is a very powerful concept.  This means the elements of a matrix can be other matrices, polynomials, or numbers as long as the elements belong to a ring.  
+
+Matrices whose elements are from a ring will also form a new matrix ring.
+
+It is important to become familiar with ring notation. 
+
+* $M_4(\mathbb{Z})$ - This is a ring of $4\times4$ matrices whose elements are from the ring of integers. 
+* $M_8(\mathbb{R})$ - This is a ring of $8 \times 8$ matrices whose elements are from the ring of real numbers.
+
+***
+
+## Polynomial Rings 
+
+Similar to matrices, polynomials are structures that can be used to form new rings using other rings.  
+
+If the coefficients of a set of polynomials are from a common ring, the set of polynomials will also be a ring. 
+
+* $\mathbb{Z}[x]$ is the ring of polynomials whose coefficients are from the ring of integers.
+* $\mathbb{R}[x]$ is the ring of polynomials whose coefficients are from the ring of real numbers.
+
+***
+
+## Complicated structures 
+
+Rings structures can become quite complex.  Consider some of the examples below.
+
+* $M_7 \left( \mathbb{Z}[x] \right)$ - The ring of $7\times 7$ matrices whose elements are polynomials with coefficients from the ring of integers.
+* $M_4 \left(\mathbb{C} \right)[x]$ - The ring of polynomials whose coefficients are $4 \times 4$ matrices  where the matrix elements are from the ring of complex numbers.
+
+***
+
+## Example Ring (Boolean)
+
+This example provides a demonstration where exhaustive brute force methods are used to verify a ring.
+
+Let $R = \{0,1\}$. Also let $+$ be the XOR boolean operation and $\cdot$ be the AND operation.  
+
+Below shows the cayley table for the operation $+$
+
+$$
+\begin{array}{c|cc}
++ & 0 & 1 \\
+\hline
+0 & 0 & 1 \\
+1 & 1 & 0 \\
+\end{array}
+$$
+
+* All the elements in the table are in the set $R$.
+* The table implies the value 0 is the identity.
+* The table is symmetric implying commutative (abelian)
+* Each element has an inverse. Every element is its own inverse $-0 = 0$ and $-1 = 1$.
+* Below is an exhaustive proof that the elements associate under $+$.
+
+The $2^3=8$ cases below demonstrate exhastively that $+$ is associative.
+
+$$a + (b+c) = (a+b) +c \quad \forall a,b,c \in R$$
+
+$$
+\begin{align}
+&\text{Case 1:} \quad a = 0, \, b = 0, \, c = 0 \\
+&\underbrace{\overbrace{(0 + 0)}^{0} + 0}_{\text{Left Associative}} = 0 = \underbrace{0 + \overbrace{(0 + 0)}^{0}}_{\text{Right Associative}} \\\\
+
+&\text{Case 2:} \quad a = 0, \, b = 0, \, c = 1 \\
+&\underbrace{\overbrace{(0 + 0)}^{0} + 1}_{\text{Left Associative}} = 1 = \underbrace{0 + \overbrace{(0 + 1)}^{1}}_{\text{Right Associative}} \\\\
+
+&\text{Case 3:} \quad a = 0, \, b = 1, \, c = 0 \\
+&\underbrace{\overbrace{(0 + 1)}^{1} + 0}_{\text{Left Associative}} = 1 = \underbrace{0 + \overbrace{(1 + 0)}^{1}}_{\text{Right Associative}} \\\\
+
+&\text{Case 4:} \quad a = 0, \, b = 1, \, c = 1 \\
+&\underbrace{\overbrace{(0 + 1)}^{1} + 1}_{\text{Left Associative}} = 0 = \underbrace{0 + \overbrace{(1 + 1)}^{0}}_{\text{Right Associative}} \\\\
+
+&\text{Case 5:} \quad a = 1, \, b = 0, \, c = 0 \\
+&\underbrace{\overbrace{(1 + 0)}^{1} + 0}_{\text{Left Associative}} = 1 = \underbrace{1 + \overbrace{(0 + 0)}^{0}}_{\text{Right Associative}} \\\\
+
+&\text{Case 6:} \quad a = 1, \, b = 0, \, c = 1 \\
+&\underbrace{\overbrace{(1 + 0)}^{1} + 1}_{\text{Left Associative}} = 0 = \underbrace{1 + \overbrace{(0 + 1)}^{1}}_{\text{Right Associative}} \\\\
+
+&\text{Case 7:} \quad a = 1, \, b = 1, \, c = 0 \\
+&\underbrace{\overbrace{(1 + 1)}^{0} + 0}_{\text{Left Associative}} = 0 = \underbrace{1 + \overbrace{(1 + 0)}^{1}}_{\text{Right Associative}} \\\\
+
+&\text{Case 8:} \quad a = 1, \, b = 1, \, c = 1 \\
+&\underbrace{\overbrace{(1 + 1)}^{0} + 1}_{\text{Left Associative}} = 1 = \underbrace{1 + \overbrace{(1 + 1)}^{0}}_{\text{Right Associative}}
+\end{align}
+$$
+
+The above clearly shows that $R(+) is an abelian group.
+
+
+Now we will consider the operation $\cdot$ (AND).  The operation table is provided below. 
+
+$$
+\begin{array}{c|cc}
+\cdot & 0 & 1 \\
+\hline
+0 & 0 & 0 \\
+1 & 0 & 1 \\
+\end{array}
+$$
+
+Notice that all the elements in the table are elements of $R$ (proves closure). 
+
+All $2^3$ cases below will demonstrate that $\cdot$ is an associative operation for the elements of $R$.
+
+$$
+\begin{align}
+&\text{Case 1:} \quad a = 0, \, b = 0, \, c = 0 \\
+&\underbrace{\overbrace{(0 \cdot 0)}^{0} \cdot 0}_{\text{Left Associative}} = 0 = \underbrace{0 \cdot \overbrace{(0 \cdot 0)}^{0}}_{\text{Right Associative}} \\
+
+&\text{Case 2:} \quad a = 0, \, b = 0, \, c = 1 \\
+&\underbrace{\overbrace{(0 \cdot 0)}^{0} \cdot 1}_{\text{Left Associative}} = 0 = \underbrace{0 \cdot \overbrace{(0 \cdot 1)}^{0}}_{\text{Right Associative}} \\
+
+&\text{Case 3:} \quad a = 0, \, b = 1, \, c = 0 \\
+&\underbrace{\overbrace{(0 \cdot 1)}^{0} \cdot 0}_{\text{Left Associative}} = 0 = \underbrace{0 \cdot \overbrace{(1 \cdot 0)}^{0}}_{\text{Right Associative}} \\
+
+&\text{Case 4:} \quad a = 0, \, b = 1, \, c = 1 \\
+&\underbrace{\overbrace{(0 \cdot 1)}^{0} \cdot 1}_{\text{Left Associative}} = 0 = \underbrace{0 \cdot \overbrace{(1 \cdot 1)}^{1}}_{\text{Right Associative}} \\
+
+&\text{Case 5:} \quad a = 1, \, b = 0, \, c = 0 \\
+&\underbrace{\overbrace{(1 \cdot 0)}^{0} \cdot 0}_{\text{Left Associative}} = 0 = \underbrace{1 \cdot \overbrace{(0 \cdot 0)}^{0}}_{\text{Right Associative}} \\
+
+&\text{Case 6:} \quad a = 1, \, b = 0, \, c = 1 \\
+&\underbrace{\overbrace{(1 \cdot 0)}^{0} \cdot 1}_{\text{Left Associative}} = 0 = \underbrace{1 \cdot \overbrace{(0 \cdot 1)}^{0}}_{\text{Right Associative}} \\
+
+&\text{Case 7:} \quad a = 1, \, b = 1, \, c = 0 \\
+&\underbrace{\overbrace{(1 \cdot 1)}^{1} \cdot 0}_{\text{Left Associative}} = 0 = \underbrace{1 \cdot \overbrace{(1 \cdot 0)}^{0}}_{\text{Right Associative}} \\
+
+&\text{Case 8:} \quad a = 1, \, b = 1, \, c = 1 \\
+&\underbrace{\overbrace{(1 \cdot 1)}^{1} \cdot 1}_{\text{Left Associative}} = 1 = \underbrace{1 \cdot \overbrace{(1 \cdot 1)}^{1}}_{\text{Right Associative}}
+\end{align}
+$$
+
+At this point it has been shown the operation  $\cdot$ is closed and associative.
+
+Now we must demonstrate that the operation $\cdot$ distributes over the opeation of $+$.
+
+Typically a mathematician will make an arguement for why one operation distributes over another operation.  There are situations where it needs to be demonstrated using brute force calculations.  Below is a brute force demonstration for an exhaustive proof that $\cdot$ distributes over $+$.
+
+Each of the cases demonstrate the direct computation results in the same value as the distributive equivalent.
+
+$$a \cdot (b + c) = a \cdot b + a \cdot c$$
+
+Each case requires 3 elements and each element will have one of two possible values. As a result, there are $2^3=8$ cases.
+
+$$
+\begin{align}
+&\text{Case 1:} \quad a = 0, \, b = 0, \, c = 0 \\ 
+&\underbrace{0 \cdot \overbrace{(0 + 0)}^{0}}_{\text{Direct}} = 0 = \underbrace{\overbrace{(0 \cdot 0)}^{0} + \overbrace{(0 \cdot 0)}^{0}}_{\text{Distribute}} \\\\
+
+&\text{Case 2:} \quad a = 0, \, b = 0, \, c = 1 \\ 
+&\underbrace{0 \cdot \overbrace{(0 + 1)}^{1}}_{\text{Direct}} = 0 = \underbrace{\overbrace{(0 \cdot 0)}^{0} + \overbrace{(0 \cdot 1)}^{0}}_{\text{Distribute}} \\\\
+
+&\text{Case 3:} \quad a = 0, \, b = 1, \, c = 0 \\ 
+&\underbrace{0 \cdot \overbrace{(1 + 0)}^{1}}_{\text{Direct}} = 0 = \underbrace{\overbrace{(0 \cdot 1)}^{0} + \overbrace{(0 \cdot 0)}^{0}}_{\text{Distribute}} \\\\
+
+&\text{Case 4:} \quad a = 0, \, b = 1, \, c = 1 \\ 
+&\underbrace{0 \cdot \overbrace{(1 + 1)}^{0}}_{\text{Direct}} = 0 = \underbrace{\overbrace{(0 \cdot 1)}^{0} + \overbrace{(0 \cdot 1)}^{0}}_{\text{Distribute}} \\\\
+
+&\text{Case 5:} \quad a = 1, \, b = 0, \, c = 0 \\ 
+&\underbrace{1 \cdot \overbrace{(0 + 0)}^{0}}_{\text{Direct}} = 0 = \underbrace{\overbrace{(1 \cdot 0)}^{0} + \overbrace{(1 \cdot 0)}^{0}}_{\text{Distribute}} \\\\
+
+&\text{Case 6:} \quad a = 1, \, b = 0, \, c = 1 \\ 
+&\underbrace{1 \cdot \overbrace{(0 + 1)}^{1}}_{\text{Direct}} = 1 = \underbrace{\overbrace{(1 \cdot 0)}^{0} + \overbrace{(1 \cdot 1)}^{1}}_{\text{Distribute}} \\\\
+
+&\text{Case 7:} \quad a = 1, \, b = 1, \, c = 0 \\ 
+&\underbrace{1 \cdot \overbrace{(1 + 0)}^{1}}_{\text{Direct}} = 1 = \underbrace{\overbrace{(1 \cdot 1)}^{1} + \overbrace{(1 \cdot 0)}^{0}}_{\text{Distribute}} \\\\
+
+&\text{Case 8:} \quad a = 1, \, b = 1, \, c = 1 \\ 
+&\underbrace{1 \cdot \overbrace{(1 + 1)}^{0}}_{\text{Direct}} = 0 = \underbrace{\overbrace{(1 \cdot 1)}^{1} + \overbrace{(1 \cdot 1)}^{1}}_{\text{Distribute}}
+\end{align}
+$$
+
+At this point the following has been demonstrated:
+
+* $R(+)$ is an abelian group 
+    * The set is nonempty $R = \{0,1\}$
+    * The elements of $R$ are closed under the operation of $+$.
+    * There is an identity under the operation $+$, specifically $0$.
+    * Every element has an inverse (every element is it's own inverse).
+    * The operation $+$ is associative.
+    * The operation $+$ is commutative (abelian)
+* The operation $\cdot$ has the following properties when applied to $R$:
+    * The elements are closed under the operation $\cdot$.
+    * The operation $\cdot$ is associative.
+* The operation $\cdot$ distributes over $+$
+
+This all demonstrates $R(\text{XOR}, \text{AND})$ forms a ring.
+
+Notice all the work involved for just a two element set.  The effort increases exponentially as the number of elements increase.  It is best to provide proofs for the statements rather than attempt to use brute force methods.  Sometimes it can not be avoided.  This was only offered as a demonstration for brute force proofs. It could have been simplified.

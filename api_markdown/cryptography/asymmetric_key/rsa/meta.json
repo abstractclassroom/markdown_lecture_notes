@@ -1,0 +1,21 @@
+{
+    "subject": "Cryptography",
+    "topic": "Asymmetric Encryption",
+    "subtopic": "RSA Encryption",
+    "views" : "1402",
+    "datePublished": "June 21, 2024",
+    "dateUpdated" : "June 21, 2024",
+    "title" : "RSA Encryption",
+    "description" : "RSA is probably the most widely used form of public-key encryption. It is based on the difficulty of factoring large numbers. The security of RSA relies on the fact that it is easy to multiply large prime numbers together, but very difficult to factor the product of two large prime numbers. In this lesson, we will discuss the mathematics behind RSA encryption and how it is used to secure communications over the internet.",
+    "objectives" : [
+        "Understand how Euler's Theorem is used in RSA encryption",
+        "Understand how the public and private keys are generated in RSA encryption",
+        "Understand how RSA encryption is used to secure communications over the Internet"
+    ],
+    "prerequisites" : [
+        "Basic understanding of prime numbers",
+        "Basic knowledge of modular arithmetic",
+        "Basic understanding of Euler's Totient Function",
+        "Basic understanding of Euler's Theorem"
+    ]
+}

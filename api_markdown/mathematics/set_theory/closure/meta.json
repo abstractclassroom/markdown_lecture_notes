@@ -1,0 +1,22 @@
+{
+    "subject": "Mathematics",
+    "topic": "Set Theory",
+    "subtopic": "Closure",
+    "views" : "223",
+    "datePublished": "May 18, 2024",
+    "dateUpdated" : "May 18, 2024",
+    "title" : "Set Closure",
+    "description" : "Set closure is an important and fundamental concept in various branches of mathematics, including algebra, topology, and analysis. In this lesson, we will explore the concept of set closure in detail.",
+    "objectives" : [
+        "Understand the concept of set closure",
+        "Determine whether a set is closed under a given operation",
+        "Identify examples of sets that are closed under various operations",
+        "Identify examples of sets that are not closed under various operations"
+    ],
+    "prerequisites" : [
+        "Basic knowledge of set theory",
+        "Understand set roster form",
+        "Understand set builder form"
+    ]
+}
+

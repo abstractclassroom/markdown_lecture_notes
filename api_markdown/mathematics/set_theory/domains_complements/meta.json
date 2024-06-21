@@ -1,0 +1,20 @@
+{
+    "subject": "Mathematics",
+    "topic": "Set Theory",
+    "subtopic": "Domains and Complements",
+    "views" : "674",
+    "datePublished": "May 16, 2024",
+    "dateUpdated" : "May 16, 2024",
+    "title" : "Domains and Complements",
+    "description" : "This lecture note will cover the concepts of domains and complements in set theory.  We will also explore the relationship between sets and their complements, and how to find the complement of a set with respect to a given universal set (domain).",
+    "objectives" : [
+        "Understand why a domain must be specified when discussing complements",
+        "Define the complement of a set with respect to a domain",
+        "The relationship between a set and its complement"
+    ],
+    "prerequisites" : [
+        "Basic knowledge of set theory",
+        "Familiar with set operations (union, intersection, etc.)",
+        "Understanding of subsets"
+    ]
+}

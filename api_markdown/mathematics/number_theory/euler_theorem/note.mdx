@@ -1,0 +1,123 @@
+# Euler's Theorem
+
+Euler's theorem is considered by number theorists to be a fundamental concept.  Euler's theorem generalizes Fermat's Little Theorem which is the underlying strength of RSA encryption.
+
+---
+
+## Fermat's Little Theorem 
+
+Pierre de Fermat was a 1600's lawyer that had a very strong talent for mathematics.  He is often considered the founder of modern number theory.  Despite being a gifted mathematician that discovered interesting relationships in number theory, many of his proofs ranged from clumsy to likely exaggerated. To offer proof of his exaggerations, he claimed in a publication (Diophantus' Arithmetica) to have derived an elegant proof that no $a,b,c \in \mathbb{N}$ solution exists for $n>2$ to the equation $a^n + b^n = c^2$.  Fermat claimed the proof would not fit in the margin.  This claim was not proved until 1994 when Andrew Wiles proved the conjecture using mathematical information published at least 100 years after Fermat made this claim.  
+
+Fermat is credited with Fermat's Little Theorem and is stated mathematically below.
+
+$a^{p-1} = 1 \text{ mod } p$ where $GCD(a,p) = 1$ and $p$ is a prime value.
+
+---
+
+### Example of Fermat's Little Theorem 
+
+Consider the values below.
+
+$$
+\begin{align}
+a &= 4 \\
+p &= 11
+\end{align}
+$$
+
+Notice that $a$ and $p$ are relatively prime (their GCD is 1). If we calculate the following expression we see Fermat's Little Theorem holds.
+
+$$\frac{a^{p-1}}{p} = \frac{4^{10}}{11} = \frac{1048576}{11} = 95325\;R1$$
+
+The remainder is 1 which means the expression is congruent (notion of equivalence in modular arithmetic) to 1 mod 11.
+
+---
+
+## Property of Modular Arithmetic 
+
+Modular arithmetic of a prime creates a set of values that form a group under modular arithmetic. These groups are known as residue groups.  This implies that successive squaring can be implemented to make calculations much easier.  Consider the following values.
+
+$$
+\begin{align}
+a &= 8 \\
+p &= 37
+\end{align}
+$$
+
+Notice the values above are applicable to Fermat's Little Theorem. This example will demonstrate how this can be shown without calculating the value $8^{36}$ power (overflows most calculators). First consider the value $8^2$
+
+$$8^2 = 64 \equiv 27 \text{ mod } 37$$
+
+Since These values form a group we have the following:
+
+$$8^4 \equiv \left(8^2 \right)^2 \equiv 27^2 \equiv 26 \text{ mod } 37$$
+
+Squaring agin gives the expression below. 
+
+$$8^8 \equiv \left( 8^4 \cdot 8^4 \right) \equiv 26^2 \equiv 10 \text{ mod } 37$$
+
+One more time 
+
+$$8^{16} \equiv \left(8^8 \cdot 8^8 \right) \equiv 10^2 \equiv 26 \text{ mod } 37$$
+
+One more time 
+
+$$8^{32} \equiv \left(8^{16} \cdot 8^{16} \right) \equiv 10^2 \equiv 10 \text{ mod } 37$$
+
+Keep in mind that we only want to go to $8^{36}$  Squaring again will not help but multiplying by $8^4$ will put us at the target. 
+
+$$8^{36} \equiv 8^{32+4} \equiv 8^{32} \cdot 8^{4} \equiv 10 \cdot 26 \equiv 1 \text{ mod } 37$$
+
+Just to be clear on the arithmetic notice that $10 \cdot 26 = 260$.  Notice the following expression implies the above result. 
+
+$$260 = 7 \cdot 37 + 1  \implies 260 \equiv 1 \text{ mod } 37$$
+
+Notice there were approximately 6 iterations to calculate $8^{36}$ using successive squaring.  A simple approach would have required a calculator that could handle a 30+ digit number like $8^{36}$. Simplying iterating using modular arithmetic would have required approx 36 iterations.   RSA encryption deals with extremely large exponents that are calculated using successive squaring.
+
+---
+
+## Euler's Generalization 
+
+Euler was able to formalize Fermat's Little Theorem into a broader expression. Assume that $a$ and $n$ are coprime (their GCD is 1) then the following is Euler's theorem and uses Euler's totient function $\varphi$
+
+$$a^{\varphi(n)} \equiv 1 \text{ mod } n$$
+
+Notice that Euler's theorem is very similar to Fermat's Little Theorem.  In fact, Fermat's Little Theorem is a special case of Euler's Theorem where $n$ is a prime number. Notice that Euler's version does not require the modular operation value to be a prime number. 
+
+---
+
+## Euler's Theorem Example 
+
+Consider the following values and notice they are relatively prime (greatest common divisor is 1).
+
+$$
+\begin{align}
+n &= 48 \\
+a &= 35
+\end{align}
+$$
+
+Notice that neither value is a prime number but they are relatively prime to each other.  We will show the expression below holds. 
+
+$$35^{\varphi(48)} \equiv 1 \text{ mod } 48$$
+
+First notice the calculation of the totient function shown below. 
+
+$$\varphi(48) = \varphi(2^4 \cdot 3) = \left( 2^4 - 2^3 \right) \cdot (3-1) = 8\cdot 2 = 16$$
+
+Using this value in the original expression gives the expression below. 
+
+$$35^{16} \equiv 1 \text{ mod } 48$$
+
+Using successive squaring we demoonstrate the expression above is true and avoid handling large integers.
+
+$$
+\begin{align}
+35^2 &\equiv 25  \text{ mod } 48 \\
+35^4 &\equiv 25^2 \equiv 1 \text{ mod } 48 \\
+35^8 &\equiv 1^2 \equiv 1 \text{ mod } 48 \\
+35^{16} &\equiv 1^2 \equiv 1 \text{ mod } 48
+\end{align}
+$$
+
+Notice this calculation became trivial at the $35^4$ iteration when the value became 1.   It is common for values to degenerate quickly.   This is why only certain large values are used in RSA encryption to avoid degenerative values.  Lots of research has went into improving RSA encryption in the form of analyzing which values are vulnerable to attacks or degenerate in computations. 

@@ -1,0 +1,20 @@
+# Data Encryption Standard (DES)
+
+In 1973 the National Bureau of Standards (NBS), the predecessor to the NIST, issued a public request for researchers and corporations to submit an algorithm that could serve as a standard method for encryption.  This request came at a time when encryption was being implemented but not in a standard fashion.  Digital networks and computers were becoming more common and so there was a need to have one standard encryption scheme.  The new standard was to be named the **Data Encryption Standard**.
+
+## LUCIFER
+
+A researcher at IBM named Horst Feistel created and refined a series of block ciphers during 1971 that was labelled LUCIFER.  Corporations often have an incentive to drive the direction of standards and so IBM submitted LUCIFER to the NSB as a candidate for DES.  The National Security Agency (NSA) has always maintained a staff of high caliber mathematicians and was asked to review LUCIFER.  The NSA proposed some modifications which included reducing the key size from 128 bits to 56 bits.  It was claimed the 128 bit key might reduce performance.  
+
+LUCIFER implemented an algorithm that entailed 16 rounds of something known as a Fiestel structure.  The NSA made a few modifications to strengthen LUCIFER.  
+
+In 1977, IBM's LUCIFER and the modifications were accepted as the NSB's Data Encryption Standard and published in Publication 46 of the Federal Information Processing Standard (FIPS).
+
+## Conspiracies
+
+Many researchers voiced concerns about the NSA's modifications and recommendations.  There were fears the NSA may have implemented a **trap door** into the DES algorithm allowing it to decrypt sensitive data.  Later publications, some mentioned in RFC 4772 (2006), demonstrated that IBM was aware LUCIFER might be vulnerable to some differential cryptoanalsys attacks.  Despite the conspiracy theories, DES became the first government approved encryption standard in 1977.  RFC 4772 (published 2006) indicates it was still around as a legacy system in the early 2000s.  During the early 1990's a variation of DES was widely used and was known as **Triple DES (3DES)**.  NIST publication 800-67 and FIPS 46-3 standardized 3DES in the late 1990's.  
+
+The NIST (formerly NSB) issued a new request for comments to establish an **Advanced Encryption Standard (AES)**.  The call was answered and in 2001 an algorithm was accepted and standardized as the **AES** and was incorporated into FIPS.
+
+## Algorithm 
+

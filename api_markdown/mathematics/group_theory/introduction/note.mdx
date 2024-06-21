@@ -1,0 +1,356 @@
+# Introduction to Group Theory
+
+A group $G$ is a set with a well-defined operation $+$ (operation symbol may differ) on the elements.  A group must satisfy the properties listed below.
+
+* A group is a set of objects 
+* The group has a single operation that is well-defined for all elements in the set. This operation may be traditional (e.g. addition) or an abstract operation defined for a single use.
+* The elements of the group (set) must be closed under the operation.
+* There must exist a unique identity element $0 \in G$, such that $a +0 = 0+a = a$ for all $a \in G$.
+* For every element in the group, the element must have a unique inverse. When the operation is applied to an element and it's inverse the result is the group identity.  Symbollically, if $a \in G$ then there exists $-a \in G$ such that $a + (-a) = 0$.
+* The operation on the elements must be associative. Symbollically, $a + b +c = (a+b)+c = a + (b+c)$ for all $a,b,c \in G$.
+
+*** 
+
+## Group Example
+
+Consider the set of integers $\mathbb{Z}$ along with the operation of traditional addition.  To determine whether the set and the operation forms a group we must run check each of the required properties.
+
+* The set has been defined as the set of integers $\mathbb{Z}$
+* The operation is well-defined on all elements of the set. (Addition is pairwise defined for all integers)
+* $\mathbb{Z}$ is closed under addition because we know anytime we add to integers we get another integer.
+* The element $0 \in \mathbb{Z}$ is the identity. $a + 0 = 0 + a = a$ for all $a \in \mathbb{Z}$.
+* Every element has an inverse, specifically if $a \in \mathbb{Z}$ then $-a \in \mathbb{Z}$ such that $a + (-a) = 0$.  To clarify with an example, the inverse of 3 is -3.
+* Integer addition is associative.
+
+This operation on the set forms a a group.  It is common to use notation like $G = \mathbb{Z}$ and $G(+)$ is the group. To explain, $G$ is often the letter used to represent the set and $G(+)$ defines the set with an operation to designate a group.
+
+***
+
+## Advanced Group Example
+
+Consider the group of integers modulo $4$.   Take any integer and calculate the quotient and remainder when dividing the integer by the number 4.   
+
+$$
+\begin{align}
+\frac{0}{4}  &\rightarrow R = 0 \\\\
+\frac{1}{4}  &\rightarrow R = 1 \\\\
+\frac{2}{4}  &\rightarrow R = 2 \\\\
+\frac{3}{4}  &\rightarrow R = 3 \\\\
+\frac{4}{4}  &\rightarrow R = 0 \\\\
+\frac{5}{4}  &\rightarrow R = 1 \\\\
+\frac{6}{4}  &\rightarrow R = 2 \\\\
+\frac{7}{4}  &\rightarrow R = 3 \\\\
+\frac{8}{4}  &\rightarrow R = 0 \\\\
+\frac{9}{4}  &\rightarrow R = 1 \\\\
+\frac{10}{4}  &\rightarrow R = 2 \\\\
+\frac{11}{4}  &\rightarrow R = 3 \\\\
+\frac{12}{4}  &\rightarrow R = 0 \\\\
+\frac{13}{4}  &\rightarrow R = 1 \\\\
+\frac{14}{4}  &\rightarrow R = 2 \\\\
+\frac{15}{4}  &\rightarrow R = 3 
+\end{align}
+$$
+
+Notice how the remainder keeps cycling through the values show in the set $G$ below. This is referred to as the set of integers modulo 4 and is denoted as $\mathbb{Z}/4 \mathbb{Z}$ (It can be expanded to any modulo value).  Putting the remainders inside a set gives the set $G$ below.  Recall that sets do not contain duplicates.
+
+$$G = \{0,1,2,3\}$$
+
+
+
+Define the operation $\cdot$ to be the expression below  where righthand side $+$ is the traditional addition operation.
+
+$a \cdot b =  (a + b) \mod 4$
+
+It is not necessary to construct the operation table but it can be a helpful visualization.  When the operation for a group is explicitly defined in table form, the table is known as a **Cayley Table** (named after 1800's British mathematician Arthur Cayley)
+
+$$
+\begin{array}{c|cccc}
+\cdot & 0 & 1 & 2 & 3 \\
+\hline
+0 & 0 & 1 & 2 & 3 \\
+1 & 1 & 2 & 3 & 0 \\
+2 & 2 & 3 & 0 & 1 \\
+3 & 3 & 0 & 1 & 2 \\
+\end{array}
+$$
+
+Every value inside the cayley table is in the set $G$.  This implies the set is closed under the custom operation $\cdot$.  Notice the element $0$ acts like an identity element.  They cayley table makes finding an identity very easy.  Simply look for a column/row that mirrors the label column/row.
+
+$$
+\begin{align}
+&0 \cdot 0 = 0 \\
+& 0 \cdot 1 = 1 \cdot 0 = 1 \\
+& 0 \cdot 2 = 2 \cdot 0 = 2 \\
+& 0 \cdot 3 = 3 \cdot 0 = 3 
+\end{align}
+$$
+
+
+Inverse elements for this group may be surprising.  Recall the inverse for an element $a \in G$ is denoted $-a$ and is the element in the group $-a \in G$ such that $a \cdot (-a) = 0$ (identity).
+
+Notice that the negation symbol is only a symbol.  Unlike integers, there are not **negative** values in this group.  However, the inverses do exist and are provided below.  In case you are not familiar, the symbol $\implies$ essentially means **implies**.
+
+$$
+\begin{align}
+0 \cdot 0 = 0 \implies -0 = 0 \\\\
+1 \cdot 3 = 0 \implies -1 = 3 \\\\
+2 \cdot 2 = 0 \implies -2 = 2 \\\\
+3 \cdot 1 = 0 \implies -3 = 1 
+\end{align}
+$$
+
+As with integers and regular addition,  the inverse of an inverse is the original value.  This makes the notation $-(-a) = a$ for all $a \in G$ very convenient and portable.
+
+In some cases it is necessary to check associativity in a brute force manner (all possible combinations). That would require $4^3 = 64$ tedious calculations in this case.  However, addition and modulo arithmetic are known to be associative.
+
+Notice that we have verified all required properties of a group.  
+
+* The is $G = \{0,1,2,3\}$
+* The operation $\cdot$ is defined as addition modulo 4.
+* The set $G$ is closed under the operation $\cdot$
+* The set contains an identity $0$.
+* Every element in the set contains an inverse that is also in the set under the operation $\cdot$
+* The operation is associative on the elements.
+
+We can now indicate we have a group using the notation $G(\cdot)$.  
+
+This example was labeled an advanced example.  However, the label is very relative and group examples can be much more advanced and abstract.  
+
+
+
+## Matrix Group Example
+
+The examples are groups/sets containing numbers.  Groups can be composed of a variety of objects.  Consider the eight $3 \times 3$ matrices below.
+
+
+$$
+\begin{align}
+a_0 &= \begin{pmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+\end{pmatrix} \\\\
+a_1 &= \begin{pmatrix}
+1 & 0 & 0 \\
+0 & 0 & 1 \\
+0 & 1 & 0 \\
+\end{pmatrix} \\\\
+a_2 &= \begin{pmatrix}
+0 & 1 & 0 \\
+1 & 0 & 0 \\
+0 & 0 & 1 \\
+\end{pmatrix} \\\\
+a_3 &= \begin{pmatrix}
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+1 & 0 & 0 \\
+\end{pmatrix} \\\\
+a_4 &= \begin{pmatrix}
+0 & 0 & 1 \\
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+\end{pmatrix} \\\\
+a_5 &= \begin{pmatrix}
+0 & 0 & 1 \\
+0 & 1 & 0 \\
+1 & 0 & 0 \\
+\end{pmatrix} \\\\
+a_6 &= \begin{pmatrix}
+1 & 0 & 0 \\
+0 & 0 & 1 \\
+0 & 1 & 0 \\
+\end{pmatrix} \\\\
+a_7 &= \begin{pmatrix}
+0 & 0 & 1 \\
+0 & 1 & 0 \\
+1 & 0 & 0 \\
+\end{pmatrix}
+\end{align}
+$$
+
+As a set $G = \{a_0, a_1,\ldots, a_7\}$, these matrices form a group under the operation ($\cdot$) defined to be standard matrix multiplication.  The cayley table associated with this set and operation is shown below.
+
+$$
+\begin{array}{c|cccccccc}
+\cdot & a_0 & a_1 & a_2 & a_3 & a_4 & a_5 & a_6 & a_7 \\
+\hline
+a_0 & a_0 & a_1 & a_2 & a_3 & a_4 & a_5 & a_6 & a_7 \\
+a_1 & a_1 & a_0 & a_3 & a_2 & a_5 & a_4 & a_7 & a_6 \\
+a_2 & a_2 & a_3 & a_0 & a_1 & a_6 & a_7 & a_4 & a_5 \\
+a_3 & a_3 & a_2 & a_1 & a_0 & a_7 & a_6 & a_5 & a_4 \\
+a_4 & a_4 & a_7 & a_6 & a_5 & a_0 & a_3 & a_2 & a_1 \\
+a_5 & a_5 & a_6 & a_7 & a_4 & a_1 & a_2 & a_3 & a_0 \\
+a_6 & a_6 & a_5 & a_4 & a_7 & a_2 & a_1 & a_0 & a_3 \\
+a_7 & a_7 & a_4 & a_5 & a_6 & a_3 & a_0 & a_1 & a_2 \\
+\end{array}
+$$
+
+The identity element is $a_0$. 
+
+**Inverse notation for groups elements may differ**.  Groups that have operations similar to traditional addition represent inverses using negation ($-$).  Groups with operations that implement an operation similar to multiplication will use exponent style inverse notation $a^{-1}$.  Since we are dealing with matrices and traditional matrix multiplication for the operation, the exponent notation is being used. 
+
+Notice the inverse mapping of this group 
+
+$$
+\begin{align}
+&a_0 \cdot a_0 = a_0 \implies (a_0)^{-1} = a_0 \\\\
+&a_1 \cdot a_1 = a_0 \implies (a_1)^{-1} = a_1 \\\\
+&a_2 \cdot a_2 = a_0 \implies (a_2)^{-1} = a_2 \\\\
+&a_3 \cdot a_3 = a_0 \implies (a_3)^{-1} = a_3 \\\\
+&a_4 \cdot a_4 = a_0 \implies (a_4)^{-1} = a_4 \\\\
+&a_5 \cdot a_7 = a_0 \implies (a_5)^{-1} = a_7 \\\\
+&a_6 \cdot a_6 = a_0 \implies (a_6)^{-1} = a_6 \\\\
+&a_7 \cdot a_5 = a_0 \implies (a_7)^{-1} = a_5 \\\\
+\end{align}
+$$
+
+Traditional matrix multiplication is known to be associative.
+
+The cayley table and standard knowledge about matrix multiplication imply that all properties are met for this set and operation to form a group which can be denoted $G(\cdot)$.
+
+***
+
+## Abelian Groups
+
+Associativity is a requirement for the operation in a group.  Some groups have operations that are also commutative (order does not matter). All the examples above are examples of groups with commutative operations. 
+
+$$a \cdot b = b \cdot a$$
+
+An abelian group will have a symmetric (transpose equal to original) cayley tables.
+
+Commutative is a common label in mathematics, however it is not typically used in group theory.  Commutative groups are called **abelian groups** and the reason comes from a historical context.
+
+Niels Henrik Abel, a Norwegian mathematician that only lived to be 27 years old (1802 - 1829), made a remarkable discovery about groups with commutative operations.  For curious, he demonstrated that commutative groups are effectively a direct sum (method for creating larger groups using small groups) of cyclic groups (very simple groups).  This discovery was so remarkable that commutative groups have historically been called **Abelian Groups**. 
+
+ The prior examples may give the impression that all or most groups are abelian.  This is not the case at all.  
+
+
+***
+
+## Non-Abelian Group Example
+
+Commutative operations are often more familar.  As a result, non-abelian (non-commutative) groups are not familiar and often appear more abstract.  The example below demonstrates a slightly more abstract group that is not abelian. 
+
+Consider a square that has the edges labeled with the numbers 1-4.  Suppose we want to create a set where the elements represent $90^\circ$ rotations of the square, flipping the square about the vertical axis, and flipping the square about the horizontal axis, flipping the square along the main diagonal (lower left to upper right), and flipping the square along the secondary diagonal (upper left to lower right).  There are a total of 8 orientations that can arise from these operations on the square.
+
+Below is the set $G$ with eight elements. 
+
+$G = \{e , r , r^2 , r^3 , s , rs , r^2s , r^3s\}$
+
+Below are the physical element descriptions.
+
+* $e$ - The identity is the operation where the original square is not moved.
+* $r$ - Rotating the original square $90^\circ$
+* $r^2$ - Rotating the original square $90^\circ$ twice ($180^\circ$ rotation)
+* $r^3$ - Rotating the original square $90^\circ$ three times ($270^\circ$ rotation)
+* $s$ - Flipping the original square.
+* $rs$ - Rotate the square $90^\circ$ then flip it.
+* $r^2s$ - Rotate the square $180^\circ$ then flip it.
+* $r^3s$ - Rotate the square $270^\circ$ then flip it.
+
+Notice that $r^4 = s^2 = I$.  Stated in words, four ninety degree rotations results in the original orientation. Flipping twice results in the original square.
+
+$$
+\begin{array}{c|cccccccc}
+\cdot & I & r & r^2 & r^3 & s & rs & r^2s & r^3s \\
+\hline
+I & I & r & r^2 & r^3 & s & rs & r^2s & r^3s \\
+r & r & r^2 & r^3 & I & rs & r^2s & r^3s & s \\
+r^2 & r^2 & r^3 & I & r & r^2s & r^3s & s & rs \\
+r^3 & r^3 & I & r & r^2 & r^3s & s & rs & r^2s \\
+s & s & r^3s & r^2s & rs & I & r^3 & r^2 & r \\
+rs & rs & s & r^3s & r^2s & r & I & r^3 & r^2 \\
+r^2s & r^2s & rs & s & r^3s & r^2 & r & I & r^3 \\
+r^3s & r^3s & r^2s & rs & s & r^3 & r^2 & r & I \\
+\end{array}
+$$
+
+The operation $\cdot$ essentially represents the composition of multiple operations on the original square (rotations and flips).
+
+Notice the non-commutative behavior of this group observed from the cayley table.
+
+$r \cdot s = rs$
+
+$s \cdot r = r^3s$
+
+$rs \neq r^3s$
+
+This example is offered as a known example that is well-familiar to mathematicians.  This group belongs to a special category of groups called the **Dihedral Groups**.  In this particlar case, this group is traditionally labeled as $D_4$ (symmetric rotations of a four sided regular polygon).
+
+***
+
+## Non-Abelian Matrix Group 
+
+This example is a non-abelian group with 8 elements that are matrices and the operation is traditional matrix multiplication. 
+
+$G = \{a_0 , a_1 , a_2 , a_3 , a_4 , a_5 , a_6 , a_7\}$
+
+Notice these are the same elements as in the **Dihedral group** above.  The elements will now be represented as matrices.
+
+$$
+\begin{align*}
+\mathbf{a}_0 &= \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} \\\\
+\mathbf{a}_1 &= \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix} \\\\
+\mathbf{a}_2 &= \begin{bmatrix} -1 & 0 \\ 0 & -1 \end{bmatrix} \\\\
+\mathbf{a}_3 &= \begin{bmatrix} 0 & 1 \\ -1 & 0 \end{bmatrix} \\\\
+\mathbf{a}_4 &= \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix} \\\\
+\mathbf{a}_5 &= \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix} \\\\
+\mathbf{a}_6 &= \begin{bmatrix} -1 & 0 \\ 0 & 1 \end{bmatrix} \\\\
+\mathbf{a}_7 &= \begin{bmatrix} 0 & -1 \\ -1 & 0 \end{bmatrix}
+\end{align*}
+$$
+
+Below is the cayley table for the elements and associated operation 
+
+$$
+\begin{array}{c|cccccccc}
+\cdot & a_0 & a_1 & a_2 & a_3 & a_4 & a_5 & a_6 & a_7 \\
+\hline
+a_0 & a_0 & a_1 & a_2 & a_3 & a_4 & a_5 & a_6 & a_7 \\
+a_1 & a_1 & a_2 & a_3 & a_0 & a_5 & a_6 & a_7 & a_4 \\
+a_2 & a_2 & a_3 & a_0 & a_1 & a_6 & a_7 & a_4 & a_5 \\
+a_3 & a_3 & a_0 & a_1 & a_2 & a_7 & a_4 & a_5 & a_6 \\
+a_4 & a_4 & a_7 & a_6 & a_5 & a_0 & a_3 & a_2 & a_1 \\
+a_5 & a_5 & a_4 & a_7 & a_6 & a_1 & a_0 & a_3 & a_2 \\
+a_6 & a_6 & a_5 & a_4 & a_7 & a_2 & a_1 & a_0 & a_3 \\
+a_7 & a_7 & a_6 & a_5 & a_4 & a_3 & a_2 & a_1 & a_0 \\
+\end{array}
+$$
+
+***
+
+## Isomorphic Groups 
+
+If you look closely at the previous non-abelian groups, you may notice the cayley table look familiar.  Notice if we map the elements as demonstrated below the cayley tables become equivalent.
+
+$$
+\begin{align}
+a_0 &= I \\
+a_1 &= r \\
+a_2 &= r^2 \\
+a_3 &= r^3 \\
+a_4 &= s \\
+a_5 &= rs \\
+a_6 &= r^2s \\
+a_7 &= r^3s
+\end{align}
+$$
+
+Notice one example used an abstract notion related to rotations of a square and the other traditiona matrices.  In this particular case we would say these two groups (despite being different scenarios and operations) are **isomorphic**.  The prefix **iso** meaning  **same** and **morphic** meaningin **shape** we see the two groups have the **same shape**.  Determining whether two groups are isomorphic is very challenging and often too difficult even for large super computers in some cases.  In this particular example the mapping was fairly straightforward. 
+
+Suppose $G$ and $H$ are isomorphic groups.  This is often symbollically represented as shown below.
+
+$G \cong H$
+
+Isomorphic representations are often useful in converting groups into more computational friendly representations.  Implementing square rotations in code could be tricky.  Matrices are obviously better.  However, there is one final representation that is much more concise.
+
+We can first define the general form for all the matrices.
+
+$M(\theta, r) = \begin{bmatrix}
+\cos \theta & -\sin \theta \\
+(-1)^r \sin \theta & (-1)^r \cos \theta
+\end{bmatrix}$ 
+
+Then use set builder form to create the set.
+
+$G = \{ M(\theta, r) \; \mid \; \theta \in \{ 0, \frac{\pi}{2}, \pi, \frac{3\pi}{2}\}  , \;\; r \in \{0,1\} \;\;\}$

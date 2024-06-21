@@ -1,0 +1,79 @@
+# Complements & Domains
+
+The complement of a set is essentially everything that is not inside the set. Consider the set below.
+
+$A = \{1, 2, 3, 4, 5\}$
+
+The complement of set $A$ is denoted $A^c$ (or sometimes $A'$). Typically, mathematicians will indicate the notations for set complements to ensure the reader does not confuse the notation with some other mathematical meaning. An object must either be an element of a set or its complement, but not both. As such, the expression below must be true.
+
+$A \cap A^c = \emptyset$
+
+Since $1 \in A$, it must be the case that $1 \notin A^c$. Also, notice that $7 \notin A$, so $7 \in A^c$. This may seem like a simple concept. However, notice that your car is not in set $A$ and therefore would be an element of $A^c$. Suddenly, the notion of the complement of a set becomes somewhat silly. This is where a domain (or universal set) becomes important.
+
+***
+
+## Domain
+
+Whenever a mathematician declares a set to be a domain, the elements of that domain (set) are the only objects considered relevant for analysis. By limiting the scope, the complement of a set becomes more meaningful. In most cases, mathematicians and engineers should try to establish a domain to avoid discussions about irrelevant edge cases.
+
+Time for an example. Let $D = \{1, 2, 3, \ldots, 9, 10\}$ be the domain and $A = \{2, 4, 6, 8, 10\}$. Since the elements of $D$ are the only objects that can be considered, the complement of $A$ has a much more limited scope.
+
+$A^c = \{1, 3, 5, 7, 9\}$
+
+Notice the elements of $A^c$ are all the elements in $D$ that are not in $A$. This definition can be formally expressed in set-builder notation as shown below.
+
+$A^c = \{ x \mid x \in D \text{ and } x \notin A \}$
+
+Notice this can be expressed as a set difference as shown below.
+
+$A^c = D - A$
+
+***
+
+# Bertrand Russell's Barber Paradox
+
+Bertrand Russell (1872–1970) was a logician (a branch of mathematics) known for the famous **Barber Paradox**. The paradox highlights the importance of defining a domain and set membership. This is Bertrand Russell's paradox: The only barber in a village is the one who shaves all those, and only those, who do not shave themselves. Given this definition of a barber, let's consider the contradiction it creates. **Who shaves the barber?**
+
+* If the barber shaves himself, then he is not the barber (contradiction).
+* If the barber does not shave himself, then he will be shaved by the barber (contradiction).
+
+Russell's paradox was posed as an easy-to-digest statement to illustrate problems that can arise in set theory if domains and set membership are not defined properly. To analyze this at a deeper level, consider a set $R$ composed of sets (a set containing other sets) that do not contain themselves.
+
+$R = \{ x \mid x \notin x \}$
+
+Obviously, $R$ would contain our simple examples $A$ and $D$. Even though we have not explicitly considered the complement of $R$, we are considering sets that do not contain themselves (implying complements). A natural question then becomes whether $R \in R$. Obviously, if $R \in R$, then by definition $R \notin R$ (contradiction). Conversely, if $R \notin R$, then by definition $R \in R$ (contradiction).
+
+***
+
+## Zermelo-Fraenkel (ZF) Set Theory
+
+These types of contradictions led to the development of **Zermelo-Fraenkel (ZF)** set theory. ZF set theory establishes a framework for **well-founded** sets that do not allow for paradoxes like the one described above. One of the implied foundations of ZF set theory is that a domain and set membership must be clearly defined in all scenarios. Whether explicitly stated, most mathematical objects are established with ZF set theory being applied.
+
+It is important to note that computer scientists often analyze theoretical objects that do not follow ZF set theory. When considering a set that can contain itself, you can have expressions like the one below.
+
+$A = \{ A \}$
+
+Notice the expression below can create loops as shown below.
+
+$A \rightarrow \{A\} \rightarrow \{\{A\}\} \rightarrow \ldots$
+
+Recognize this type of construction is related to a common programming practice known as recursion.
+
+Admittedly, this goes a bit deep into set theory. However, having a well-rounded knowledge of an academic **domain** is always important. Hopefully, you notice the humor and relevance of the previous sentence.
+
+***
+
+# Important Properties
+
+Let $D$ be the domain (universal set) and $A \subset D$. Below are some important properties to notice.  
+
+* $A \cap A^c = \emptyset$
+* $A \cup A^c = D$
+* $A^c \cup D$
+* $A^c = D - A$
+* $A = D-A^c$
+* $\emptyset ^c = D$ (complement of the emptyset)
+* $D^c =  \emptyset$ (complement of the domain)
+* $D \cup A = D$ (same applies to $A^c$)
+* $D \cap A = A$ (same applies to $A^c$)
+* $\left( A^c \right)^c = A$ (complement of the complement)
