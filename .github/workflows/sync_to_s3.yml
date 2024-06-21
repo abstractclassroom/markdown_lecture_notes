@@ -16,4 +16,4 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
       - name: Sync to S3
-        run: aws s3 sync ./api_markdown s3://abstract-classroom-teaching --size-only # Change this to your bucket name
+        run: aws s3 sync ./api_markdown s3://abstract-classroom-teaching  # Change this to your bucket name
