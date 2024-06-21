@@ -21,6 +21,6 @@ jobs:
         aws-region: us-east-1  # Change to your desired AWS region
 
     - name: Sync files to S3
-      run: aws s3 sync ./api_markdown s3://abstract-classroom-teaching  # Change this to your bucket name
+      run: aws s3 sync ./api_markdown s3://abstract-classroom-teaching --debug # Change this to your bucket name
 
          
