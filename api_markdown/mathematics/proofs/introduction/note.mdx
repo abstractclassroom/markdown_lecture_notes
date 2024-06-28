@@ -1,0 +1,68 @@
+# Mathematical Proofs
+
+A theory is often an explanation, coupled with facts, that is offered to explain a set of events. In most fields of research, a theory is often an opinion supported by facts. In mathematics the term theory has a completely different meaning.  A theory is a collection of facts accepted by all mathematicians because they were proven using known mathematical properties.  
+
+Mathematicians utilize roughly 3 different methods for proving theorems.   These methods are based on sound logical reasoning. 
+
+# QED 
+
+QED is an abbreviation for the latin phrase *quod erat demonstrandum* which translates to *what was to be demonstrated*. Mathematicians often put QED at the end of mathematical proofs to designate the end of a proof.   As an alternative, mathematicians often put a black square $\blacksquare$ at the end of proofs.
+
+## Three Type of Proofs 
+
+The three logical reasoning tools that mathematicians use to prove theorems are provided below. 
+
+1. **Direct Proof** - Basic definitions are used and manipulated using proven methods to demonstrate a result.  This is often referred to as brute force proof.  
+2. **Proof By Contradiction** - A mathematician will assume the opposite of a claim to show that it results in a contradiction.  If an assumption was made and all other steps implement sound mathematical and logical reasoning the contradiction must imply the assumption was wrong.  This is often used to prove a claim was true showing that it does not lead to a contradiction. 
+3. **Proof By Induction** - Some properties need to be proven for a sequence or multiple values.  Proof by induction essentially provides a tool to show a claim is true for multiple values that may fall into patterns and sequences.
+
+
+## Direct Proof Example 
+
+Recall from younger days when you learned that the sum of two odd numbers is an even number.  Below represents a direct proof of this claim. 
+
+Define $O$ below to be the set of odd numbers. An odd number is simply a value that is 1 greater than an even number. An even number is a multiple of 2. Define $E$ below to be the set of even numbers. 
+
+$$
+\begin{align}
+O &= \{ 2k+1 \mid k \in \mathbb{W}\}\\
+E &= \{ 2k \mid k \in \mathbb{E}\}
+\end{align}
+$$
+
+Let $a,b \in O$.  We need to show that $a+b \in E$.  First we define $a$ and $b$ as arbitrary odd numbers. 
+
+$$
+\begin{align}
+a &= 2k_1 +1 \text{ where } k_1 \in \mathbb{W}\\
+b &= 2k_2 + 1 \text{ where } k_2 \in \mathbb{W}
+\end{align}
+$$
+
+Now consider $a+b$
+
+$$
+\begin{align}
+a+b &= (2k_1 +1 ) + (2k_2 +1) \\
+&= \underbrace{(2k_1 + 2k_2) + (1+1)}_{\text{associative}} \\
+&= \underbrace{2(k_1 +k_2) + 2}_{\text{Distributive}}\\
+&= \underbrace{2 (k_1 +k_2 +1)}_{\text{Distributive}}
+\end{align}
+$$
+
+Recall that the whole numbers are closed under addition.
+
+$$k = (k_1 +k_2 + 1) \in \mathbb{W}$$
+
+Using this result we have 
+
+$$a+b = 2k \text{ where } k \in \mathbb{W}$$
+
+This implies the following 
+
+$$a+b \in E$$
+
+Given the arbitrary way $a$ and $b$ were chosen as odd numbers, we have shown that the sum of two odd numbers is an even number.
+
+$$\blacksquare$$
+
