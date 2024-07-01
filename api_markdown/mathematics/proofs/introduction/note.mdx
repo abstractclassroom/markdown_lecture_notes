@@ -66,3 +66,150 @@ Given the arbitrary way $a$ and $b$ were chosen as odd numbers, we have shown th
 
 $$\blacksquare$$
 
+## Proof By Contradiction Example 
+
+Now let's consider an example using proof by contradiction. Suppose we want to prove that $\sqrt{2}$ is an irrational number.  A direct proof would be very complicated requiring us to demonstrate the digits of the number never terminate or form a repeating pattern.  However, recall that a number is either rational or irrational.  If we can show that assuming the value is rational leads to a contradiciton, and no other assumptions were made, we would have effectively proved $\sqrt{2}$ must be irrational.
+
+Let's get started with our proof by contradiction. 
+
+**Assume to the contrary that $\sqrt{2} \in \mathbb{Q}$**.  
+
+Recall the following set builder notation for rational numbers. 
+
+$$\mathbb{Q} = \{ \frac{a}{b} \mid a,b \in \mathbb{Z}\; , \; b \neq 0\}$$
+
+This assumption implies the expression below. 
+
+$$\sqrt{2} = \frac{a}{b} \text{ where } a,b \in \mathbb{Z} \text{ and } b \neq 0$$
+
+Without loss of generality, assume the fraction is a fully simplified fraction since all fractions have a fully reduced form.
+
+Simple arithmetic provides an equivalent form for the expression above. 
+
+$$\sqrt{2} = \frac{a}{b} \implies 2 = \left( \frac{a}{b} \right)^2 = \frac{a^2}{b^2}$$
+
+This can be further manipulated into equivalent expression below. 
+
+$$2b^2 = a^2$$
+
+Recall that $\mathbb{Z}$ is closed under multiplication so if $b \in \mathbb{Z}$ then $b^2 \in \mathbb{Z}$. Notice that $a^2$ is a multiple of 2 implying that $a^2$ is an even number and that implies that $a$ must be an even number. 
+
+At this point we know that $a$ is an even number.  However, we can infer even more information about $a$.  If $a$ is an even number then it can be expressed as shown below. 
+
+$$a = 2k \text{ where } k \in \mathbb{W}$$
+
+Notice what must be implied about $a^2$ shown below. 
+
+$$a^2 = (2k)^2 = 2^2 \cdot k^2 = 4k^2 \text{ where } k \in mathbb{W}$$
+
+Now consider a prior expression with the new representation for $a^2$ shown below. 
+
+$$2 = \frac{a^2}{b^2} = \frac{4k^2}{b^2}$$
+
+Notice the expression above can be easily manipulated into the equivalent expression below. 
+
+$$2b^2 = 4k^2$$
+
+Dividing both sides by 2 results in the equivalent expression below.
+
+$$b^2 = 2k^2$$
+
+Recall that $k \in \mathbb{W}$ and so $k^2 \in \mathbb{W}$ implying that $b^2$ is a multiple of two.  This implies that $b^2$ is an even number and $b$ is an even number. 
+
+Right now we have demonstrated, using our assumption, that the $sqrt{2}$ can be expressed as a fully reduced fraction of two integers where the numerator and denominator are both even. 
+
+**This is a contradiction!** There is no way for a fraction to be in reduced form if both numerator and denominator are even. If both are even then the fraction could be further simplified by removing a factor of 2.
+
+The assumption that $sqrt{2}$ is rational results in a contradiciton. As the only alternative, it must be the case that $sqrt{2}$ is irrational.
+
+We have shown $\sqrt{2} \in \mathbb{Q}^C$
+
+$$\blacksquare$$
+
+## Proof By Induction 
+
+Proof by induction entails three important steps. 
+
+1. Show an initial step. 
+2. Assume the hypothesis is true. 
+3. Demonstrate that if you are given a valid starting point the next iteration is also valid. 
+
+The above steps demonstrates that if value $a_1$ is valid then $a_2$ must also be valid.  Since $a_2$ is valid then $a_3 is valid$. The process continues to infinity.  Proof by induction is used for scenarios where there are infinite sequential cases where a claim needs to be shown.  
+
+
+## Proof By Induction Example 1
+
+Recall from calculus the following formula.
+
+$$\sum\limits_{i=1}^n i = \frac{n \cdot (n+1)}{2} \text{ for } n \in \mathbb{N}$$
+
+A direct proof is potentially possible, but would likely require much more work than an induction proof.  Notice this formula must old for all values over the infinite set of natural numbers. 
+
+Below demonstrates how this can be proven using proof by induction. 
+
+We first show that it works for the initial step as shown below. 
+
+$$\sum\limits_{i=1}^1 i  = 1 = \frac{1\cdot (1+1)}{2}$$
+
+Note that the initial step is often trivial.  Now we make our assumption.
+
+*Assume the hypothesis holds for all $k \in \mathbb{N}$ shown below. 
+
+$$\sum\limits_{i=1}^k i = \frac{k \cdot (k+1)}{2}$$
+
+Now we show the inductive step and prove that if $a_k$ is valid then $a_{k+1}$ is also valid. 
+
+$$
+\begin{align}
+\sum\limits_{i=1}^{(k+1)} i &= \underbrace{\left(\sum\limits_{i=1}^k i\right) + (k+1) }_{\text{split sum}}\\\\
+&= \underbrace{\frac{k \cdot (k+1)}{2}}_{\text{assumption}} + (k+1) \\\\
+&= \underbrace{\frac{k \cdot (k+1)}{2} + \frac{2 \cdot (k+1)}{2}}_{\text{common denominator}} \\\\
+&= \frac{k\cdot (k+1) + 2 \cdot (k+1)}{2} \\
+&= \underbrace{\frac{(k+1)(k+2)}{2}}_{\text{factor }}
+\end{align}
+$$
+
+Notice that our value is $k+1$ and so the formula should be the following 
+
+$$\frac{(k+1)\left((k+1)+1 \right)}{2} = \frac{(k+1)(k+2)}{2}$$
+
+We have shown that if $a_k$ is valid then $a_{k+1}$ is valid.  Recall that we demonstrated the claim works for the initial value of $1$.  By induction we have shown the claim is true for all natural numbers. 
+
+$$\blacksquare$$
+
+
+## Proof By Induction Example 2
+
+Consider the sequence of values defined below. 
+
+$$a_n = n^3 + 3n^2 +2n$$
+
+Prove by induction that $a_n$ is divisible by 3 for all $n \in \mathbb{N}$.
+
+First we need to show the initial step is valid. 
+
+$$a_1 = 1^3 + 3 \cdot 1^2 + 2\cdot 1 = 6$$
+
+Obviously the value 6 is divisible by 3.  Now we need to assume the hypothesis holds for all values $k \in \mathbb{N}$.
+
+$$a_k = k^3 + 3k^2 + 2k \text{ for all } k\in \mathbb{N}$$
+
+Now we need to show that $a_{k+1} will hold for the inductive step. 
+
+$$
+\begin{align}
+a_{k+1} &= (k+1)^3 + 3 \cdot (k+1)^2 + 2(k+1) \\
+&= (k^3 + 3k^2 + 3k +1) + 3 \cdot (k^2 + 2k +1) + 2(k+1) \\
+&= k^3 + 3k^2 +3k +1 +3k^2 + 6k + 3 +2k +2 \\
+&= (k^3 + 3k^2 + 2k) + 9k +6  \\
+&= \underbrace{(k^3 + 3k^2 + 2k)}_{\text{multiple of 3}} + \underbrace{3 \cdot (3k +2)}_{\text{multiple of 3}}
+\end{align}
+$$
+
+Recall that by assumption $(k^3 + 3k^2 + 2k)$ is a multiple of three.  Obviously $3 \cdot (k  +2k +2)$ is a multiple of three. The result is the sum of values that are a multiple of three implying the result is a multiple of three. 
+
+It was demonstrated that given a valid starting point the next iteration was valid (multiple of three).  It was shown the initial starting point is a multiple of three.  By induction we have show the value $a_n$ is a multiple of three for all $n \in \mathbb{N}$. 
+
+$$\blacksquare$$
+
+$$
