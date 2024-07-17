@@ -9,3 +9,46 @@ Hashing functions are typically designed so that inverses are nearly impossible 
 * X.509 security certificates
 
 This lecture note will mainly focus on the cybersecurity aspect of hashing functions.
+
+## Properties of Hashing Functions 
+
+There are many different popular hashing function algorithms.  However, they all share some common properties and they are listed below. 
+
+* The input can be variable length with no hard limits (up to processor and memory limits).
+* Hashing algorithms often entail a signifiant series of bit-twiddling hacks (shifts, AND, OR, XOR, bitmasks, etc).
+    * Inputs to hashing functions are often binary strings. Files and character strings are often converted into binary form before hashes are applied.  Many high-level libraries (OpenSSL, Python hashlib libary, and command line tools) incorporate this functionality automatically.
+* Hashing algorithms generate fixed length binary string outputs.  
+    * Regardless of how long the input the output will always be a fixed length output
+        * SHA1 algorithm will always generated a 160 bit output.
+        * SHA256 algorithm will always generate a 256 bit output.
+        * SHA512 algorithm will always generate a 512 bit output.
+        * MD5 algorithm will always generate a 128 bit output.
+    * This is useful since hash vaalues often appear in databases and fixed width data streams. 
+* Hash outputs are often presented in hexadecimal format to make them more digestable to humans. 
+    * Computers will always utilize the binary form.
+    * Databases returning a hash column will often display the hash output as a string of hexadecimal digits.
+    * Online calculators often display hashes as hexadecimal digits. 
+* Hash functions are not injective (one-to-one functions)
+    * Fixed width output **always** implies collisions are possible (pigeon hole logic)
+    * A hash collision means two different inputs have generated the same output.
+    * The likelihood of a collision happening randomly is so unlikely it is often considered computationally impossible for some hash algorithms (major point of research).
+* Hash functions are pure functions (reliable and reproducible output)
+    * Hash functions do not rely on external data.  The output will be identical for the same input regardless of operating system, underlying libraries, underlying hardware, time of calculation, or any other external factor. 
+
+## Categories of Hash Functions 
+
+Hash functions fall into two major categories listed below. 
+
+* **Cryptographic Hashes** - These hashes are used in applications where the hash is playing an authentication role with respect to cybersecurity.  The Federal Information Processing Standard (FIPS) published by the NIST is often considered the *gold* standard for which algorithms are considered cryptographic hashes. This link [NIST FIPS](https://csrc.nist.gov/projects/hash-functions) is a good starting point for FIPS accepted hashes.
+    * FIPS 180-4 specifies 7 hash algorithms
+        * SHA2 family of hashes approved as cryptographic hashes 
+            * SHA224
+            * SHA256
+            * SHA384
+            * SHA512 
+            * SHA-512/224
+            * SHA-512/256
+* **Non-Cryptographic Hashes - These hashes are not approved by FIPS for cryptographic usage.  In general federal contractors and agencies will stay away from these hashes altogether to ensure compliance. They are still used frequently for non-secure verification application such as general file download integrity validation
+    * MD5 - 128 bit fixed length output and often used as a simple checksum for general validation integrity.  It is also very fast.
+    * SHA-1 - The initial SHA hash that has a fixed output of 160 bits.  This was once considered a cryptographic hash but was deprecated in 2013 by FIPS. 
+        * Marc Stevens & Pierre Karpman demonstrated a surprising collision for SHA1. They demonstrated they could take two PDF documents of roughly the size with similar yet different appearances and create a collision.  Both this PDF document [shattered-1.pdf](https://shattered.io/static/shattered-1.pdf) and this document [shattered-2.pdf](https://shattered.io/static/shattered-2.pdf) generate the same SHA1 hash value (**38762cf7f55934b34d179ae6a4c80cadccbb7f0a**).
