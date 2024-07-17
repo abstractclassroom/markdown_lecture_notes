@@ -1,0 +1,18 @@
+{
+    "subject": "Cryptography",
+    "topic": "Hashing Functions",
+    "subtopic": "Overview",
+    "views" : "2722",
+    "datePublished": "July 14, 2024",
+    "dateUpdated" : "July 16, 2024",
+    "title" : "Hashing Functions Overview",
+    "description" : "Hashing functions play a critical role in cryptography. They are used to secure data integrity and to generate digital signatures. This lecture note provides an overview of hashing functions, their properties, and their applications.",
+    "objectives" : [
+        "Understand the concept of hashing functions",
+        "Learn about the properties of hashing functions",
+        "Explore the applications of hashing functions in cryptography"
+    ],
+    "prerequisites" : [
+        "Desire to learn about cryptography"
+    ]
+}
