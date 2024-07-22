@@ -47,7 +47,7 @@ Hash functions fall into two major categories listed below.
             * SHA384
             * SHA512 
             * SHA-512/224
-            * SHA-512/256
+            * SHA-512/256 
 * **Non-Cryptographic Hashes** - These hashes are not approved by FIPS for cryptographic usage.  In general federal contractors and agencies will stay away from these hashes altogether to ensure compliance. They are still used frequently for non-secure verification application such as general file download integrity validation
     * MD5 - 128 bit fixed length output and often used as a simple checksum for general validation integrity.  It is also very fast.
     * SHA-1 - The initial SHA hash that has a fixed output of 160 bits.  This was once considered a cryptographic hash but was deprecated in 2013 by FIPS. 
@@ -56,6 +56,14 @@ Hash functions fall into two major categories listed below.
 ## HMAC Hash Algorithms 
 
 There are situations where a hash needs to implement a key.  Hash-Based Message Authentication Code (HMAC) hashes are effectively SHA hashes that implement a key.  In general, hashes compute the same output for an equal output.  There are applications where a key is implemented so that a hash can be calculated correctly given you have an appropriate key.  This adds a level of security to ensure only certain entities can authenticate a hash value.  JWT tokens for web application sessions are an example of HMAC applications. 
+
+Consider the following examples where the string **Hello World** is hashed.
+
+* SHA256 Hash Value (no HMAC used) -  **a591a6d40bf420404a011733cfb7b190d62c65bf0bcda32b57b277d9ad9f146e**
+* SHA256 Hash Value (HMAC - "example1_hmac") - **0067a88dd574414b86dd323e4d1b96d02e7356596f60f1a289393acbcac0065e**
+* SHA256 Hash Value (HMAC - "example2_hmac") - **7eb1a961d39940bb588daaf5d158ac902da7954367fd36b51475caeb93260e40**
+
+Notice how the hash value completely changes with different HMAC values or when no HMAC is applied.  Please note that an empty string as an HMAC key value will not result in the same hash value as a non-HMAC SHA256 hash. Implementing HMAC in SHA hashes is a different hashing algorithm. 
 
 ## Hash Calculators 
 
@@ -66,11 +74,11 @@ There are numerous online calculators for various hash algorithms.  Hash values 
     * [MD5 Hash Calculator](https://emn178.github.io/online-tools/md5.html)
 * Terminal hash calculators 
     * Linux (terminal command)
-        * SHA256 (string) : ** echo -n "Hello World" | sha256sum **
-        * SHA256 (file) : ** sha256sum file.txt **
+        * SHA256 (string) : **echo -n "Hello World" | sha256sum**
+        * SHA256 (file) : **sha256sum file.txt**
     * Mac OSX
-        * SHA256 (string) : ** echo -n "Hello World" | shasum -a 256 **
-        * SHA256 (file) : ** shasum -a 256 file.txt **
+        * SHA256 (string) : **echo -n "Hello World" | shasum -a 256**
+        * SHA256 (file) : **shasum -a 256 file.txt**
 
 Always be mindful of encoding!  Online and terminal based calculators require specific encodings for input to be known.  Copy and pasting of strings often implies UTF-8.  Hash outputs from calculators are often provided in hexadecimal form.
 
