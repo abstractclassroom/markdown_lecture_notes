@@ -1,0 +1,79 @@
+# Mathematical Relations
+
+A human can be related to many different people in many different ways.  Some relations imply a genetic relation to other humans (mother, father, aunt, uncle, cousin, etc).  Other relations may imply a social connection (coworkers, friends, live in same state, etc). Mathematical objects have similar relations that can be arbitrarily defined.
+
+## Representing Relations
+
+A relation is simply a set of ordered pairs that relate mathematical objects to other mathematical objects. The relation can be defined by an equation or some very abstract definition.  Consider the relation $R$ defined below. 
+
+$$
+R = \{ \left(i,i^2 \right) \; \mid \; i \in \mathbb{N}\}
+$$
+
+Notice the relation $R$ above simply relates a natural number to its square shown in roster form below. 
+
+$$R = \{(1,1),(2,4), (3,9), (4,16),(5,25),...\}$$
+
+## Relations Between Sets 
+
+Relations can exist between elements of different sets.  Suppose $S$ is a set of students and $T$ is a set of elementary school teachers.  We can define the relation $R$ to be the set of ordered pairs $(s,t)$ where $s \in S$ and $t \in T$ if student $s$ had teacher $t$ in elementary school.  If $(sam, linda) \in R$ then we know student sam had teacher linda as an elementary teacher.  Formally we say that the relation $R$ relates set $S$ to set $T$. 
+
+Relations are also defined between elements of the same set.  The initial example where natural numbers are related to their squares (also natural numbers) is an example where a relation $R$ is used to relate elements of the same set. 
+
+
+## Properties of Relations 
+
+Relations can exhibit many different properties.  Some mathematical theorems utilize relations and some powererful tools can be used if a relation has certain properties.  The list below itemizes some of the common (not required) properties of relations.
+
+* **Reflexive** - A relation is reflexive if it relates an element to itself.  In this case you will see ordered pairs where the first and second coordinates are the same mathematical object. (e.g. $(3,3)$ or $(blue, blue)$).  Formally stated, if $R$ is a relation defined on set $S$ then $(s,s) \in R$ for all $s \in S$.
+* **Anti-Reflexive** - A relation is anti-reflexive if no element is related to itself.  In this case you will NO ordered pair where the first and second coordinate are the same. 
+* **Symmetric** - A relation is symmetric when if $(x,y) \in R$ then $(y,x) \in R$.  Simply stated, if an ordered pair is in the relation then its flipped version is also in the relation.  This simply means that if $x$ is related to $y$ then $y$ is related to $x$ also.   Never assume relations are bi-directional unless explicitly stated. 
+* **Anti-Symmetric** -  A relation is anti-symmetric if all relations are uni-directional.  Formally stated, if $(x,y) \in R$ and $(y,x) \in R$ then $x=y$.  This basically means the only symmetry in an anti-symmetric relation are ordered pairs where the coordinates are equal.  This definition allows an anti-symmetric relation to be reflexive. 
+* **Transitive** - A relation is transitive if $(x,y) \in R$ and $(y,z) \in R$ then $(x,z) \in R$.   A transitive relation generalizes the trational transitive argument of if $A=B$ and $B=C$ then $A=C$
+
+
+### General Example 1
+
+Consider the relation $R$ defined on the set $\mathbb{N}$ such that  $x\in \mathbb{N}$ is related to $y \in \mathbb{N}$ if $x<y$.  This is formally represented below. 
+
+$$R = \{(x,y) \; \mid \; x<y \; \text{ and } \; x,y \in \mathbb{N} \}$$
+
+Test whether the relation has the properties mentioned earlier.
+
+1. Is $R$ reflexive?  **NO!**  We can demonstrate this with one counterexample.  The number 1 is not less than the number 1 so $(1,1) \not\in R$. In order to be reflexive, every element has to be related to itself and clear 1 is not related to 1 in the relationship $R$.
+2. Is $R$ anti-reflexive? **Yes!**  No natural number is less than itself.  As a result, no element is related to itself so the set is anti-reflexive.
+3. Is $R$ symmetric?  **No!**  Notice that $2 < 3$ and so $(2,3) \in R$ but $3 \not < 2$ and so $(3,2) \not \in R$.  In order for a relation to be symmetric every ordered pair in the relation must have its flip present in the relation.  So by counterexample we demonstrated at least one place where this fails.  As such, $R$ is not symmetric. 
+4. Is $R$ anti-symmetric?  **Yes**  Two numbers can not be simultaneously less than each other. As a result no ordered pair will have its flipped version in the relation.  
+5. Is $R$ transitive? **Yes**  If $a<b$ and  $b<c$ then $(a,b) \in R$ and $(b,c) \in R$.  We know that $a<c$ and so $(a,c) \in R$.  
+
+
+### General Example 2
+
+Consider the relation defined below. 
+
+$$R = \{ (x,y) \; \mid \; x \leq y \;  \text{ and } \; x, y \in \mathbb{N}\}$$
+
+Test the following properties for $R$.
+
+1. Reflexive : **YES**.  A number is always less than or equal to itself so if $a \in \mathbb{N}$ then $(a,a) \in R$.
+2. Anti-Reflexive : **NO**.  By counter example $(1,1) \in R$ so it can not be anti-reflexive.
+3. Symmetric : **NO**.  By counter example $(2,3) \in R$ but $(3,2) \not \in R$.
+4. Antisymmetric : **Yes**. The only instances where $(x,y) \in R$ and $(y,x) \in R$  are the cases where $x=y (ordered pair coordinates are equal)
+5. Transitive: **YES**. The comparison of less than or equal is obviously transitive (same argument as one given in first general example).
+
+### Example : Both Symmetric and Anti-Symmetric 
+
+There is a difference between anti-symmetric and not being symmetric.  The set below is an example of a relation $R$ that is both symmetric and anti-symmetric. 
+
+$$R = \{ (1,1), (2,2), (3,3), (4,4)\}$$
+
+* Notice that every ordered pair has its flipped version in the relation $R$. 
+* Anti-symmetry implies the only symmetry that can happen are ordered pairs where the coordinates are equal. 
+
+### Example : Neither Reflexive or Anti-Reflexive 
+
+There is a difference between being anti-reflexive and non-reflexive.  Consider the relation $R$ below. 
+
+$$R = \{ (1,1), (2,2), (3,5)\}$$
+
+Obviously the relation is defined on a set containing the values $1,2,3,5$.  Notice that $(3,3) \not \in R$ and so $R$ is not reflexive (every element must be related to itself).  Also notice that $(1,1) \in R$ and so $R$ is not anti-reflexive (no element is related to itself).
