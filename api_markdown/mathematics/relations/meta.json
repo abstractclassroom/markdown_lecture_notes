@@ -1,0 +1,17 @@
+{
+    "subject": "Mathematics",
+    "topic": "Relations",
+    "subtopic": "Introduction",
+    "views" : "27221877",
+    "datePublished": "July 5, 2024",
+    "dateUpdated" : "July 6, 2024",
+    "title" : "Mathematical Relations Introduction",
+    "description" : "Relations are a simple but fundamental concept in mathematics. They are used to describe the connections between objects. This lecture note provides an introduction to relations and their properties.",
+    "objectives" : [
+        "Understand the concept of relations",
+        "Learn about the properties of relations"
+    ],
+    "prerequisites" : [
+        "Desire to learn about abstract mathematics"
+    ]
+}
