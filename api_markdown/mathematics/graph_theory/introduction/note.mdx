@@ -18,6 +18,14 @@ $$G = \{(1,6), (2,6), (2,4),(3,4),(3,5), (4,5), (4,6)\}$$
 
 As you can see, a graph can be represented as a set of ordered pairs.  This structure could easily be represented in most high level computer languages (C/C++, Python, Java, Typescript, etc).
 
+## Formal Definition 
+
+A graph $G$ is the ordered pair $(V,E)$ where $V$ is the set of nodes and $E$ is the set of edges.  
+
+$$G = (V,E)$$
+
+The number of vertices is represented by $|V|$ and the number of edges is $|E|$. 
+
 ## Simple Graphs 
 
 A **simple graph** is a graph that does not have nodes with edges connected to themselves.  Consider the example below of a non-simple graph. 
@@ -45,11 +53,6 @@ $$G = \{(1,6), (2,6), (2,4),(3,4),(3,5), (4,5), (4,6)\} \cup \{(6,1), (6,2), (4,
 
 By declaring the graph $G$ as an undirected graph we can shorten the notation considerably (usually half the number of ordered pairs) and realize every ordered pair implies a symmetric relationship.
 
-## Formal Definition 
-
-A graph $G$ is the ordered pair $(V,E)$ where $V$ is the set of nodes and $E$ is the set of edges.  
-
-$$G = (V,E)$$
 
 
 
@@ -95,6 +98,13 @@ A = \begin{bmatrix}
 1 & 1 & 0 & 1 & 0 & 0 
 \end{bmatrix}
 $$
+
+Here are some properties of the adjacency matrix.
+
+* The adjacency matrix is always symmetric (matrix equal to its transpose) for an undirected graph.
+* A simple graph will always have zeros down the main diagonal (top left to bottom right)
+* The number of edges in a directed graph will equal the number of nonzero entries in the adjacency matrix. 
+* The number of edges in a simple undirected graph will always be half the number of nonzero entries in the adjacency matrix. This is due to the implied symmetry of the relation.
 
 ### Adjacency Matrix Applications
 
