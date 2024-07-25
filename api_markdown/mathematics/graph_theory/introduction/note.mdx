@@ -18,6 +18,14 @@ $$G = \{(1,6), (2,6), (2,4),(3,4),(3,5), (4,5), (4,6)\}$$
 
 As you can see, a graph can be represented as a set of ordered pairs.  This structure could easily be represented in most high level computer languages (C/C++, Python, Java, Typescript, etc).
 
+## Simple Graphs 
+
+A **simple graph** is a graph that does not have nodes with edges connected to themselves.  Consider the example below of a non-simple graph. 
+
+![Non-Simple Graph](https://abstract-classroom-teaching.s3.amazonaws.com/mathematics/graph_theory/introduction/graph3.png)
+
+The example above is not a simple graph because there is an edge connecting node 1 to itself. 
+
 ## Directed & Undirected Graphs 
 
 There are two broad categories of graphs 
@@ -36,6 +44,14 @@ If we declare $G$ to be an undirected graph, then technically the set representa
 $$G = \{(1,6), (2,6), (2,4),(3,4),(3,5), (4,5), (4,6)\} \cup \{(6,1), (6,2), (4,2),(4,3),(5,3), (5,4), (6,4)\}$$
 
 By declaring the graph $G$ as an undirected graph we can shorten the notation considerably (usually half the number of ordered pairs) and realize every ordered pair implies a symmetric relationship.
+
+## Formal Definition 
+
+A graph $G$ is the ordered pair $(V,E)$ where $V$ is the set of nodes and $E$ is the set of edges.  
+
+$$G = (V,E)$$
+
+
 
 ### Directed Graphs
 
@@ -80,3 +96,32 @@ A = \begin{bmatrix}
 \end{bmatrix}
 $$
 
+### Adjacency Matrix Applications
+
+Raising the adjacency matrix to a power allows a research to count the number of distinct **walks** between two nodes.  Consider the adjacency matrix below (from previous section).
+
+$$
+A = \begin{bmatrix}
+0 & 0 & 0 & 0 & 0 & 1 \\
+0 & 0 & 0 & 1 & 0 & 1 \\
+0 & 0 & 0 & 1 & 1 & 0 \\
+0 & 1 & 1 & 1 & 1 & 1 \\
+0 & 0 & 1 & 1 & 0 & 0 \\
+1 & 1 & 0 & 1 & 0 & 0 
+\end{bmatrix}
+$$
+
+Now consider the matrix $A^10$ (matrix $A$ multiplied by itself 10 times).
+
+$$
+A^{10} = \begin{bmatrix}
+1112 & 3083 & 2937 & 6020 & 2937 & 3330 \\
+3083 & 8607 & 8226 & 16832 & 8226 & 9350 \\
+2937 & 8226 & 7876 & 16101 & 7875 & 8957 \\
+6020 & 16832 & 16101 & 32934 & 16101 & 18307 \\
+2937 & 8226 & 7875 & 16101 & 7876 & 8957 \\
+3330 & 9350 & 8957 & 18307 & 8957 & 10215 
+\end{bmatrix}
+$$
+
+Notice the value $A^{10}_{4,6} = 18307$.  This is the entry in the fourth row and sixth column of the $A^{10}$ matrix.  This value implies there are 18307 distinct walks starting at node 4 and ending at node 6. 
