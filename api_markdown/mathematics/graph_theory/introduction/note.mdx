@@ -1,0 +1,82 @@
+# Graph Theory
+
+Graphs provide a structure to analyze relationships between objects.  Graphs are commonly used in data analysis especially in the fields of mathematics and computer science.  Below are some of the benefits and properties of graphs.
+
+* Graphs admit structures they are very native to mathematics and programming languages. 
+* Graph theory is very rich with theorems and known properties.  Reducing a problem to a graph structure can often provide insight in algorithm complexity.
+* Graphs provide a visual context that can help researchers identity complex relationships. 
+
+## Visual and Set Representations
+
+A visual example is often the best place to start when learning graph theory.  A graph is a set of nodes and a set edges (lines) connecting the nodes.  When two nodes are related, by some well-defined relation, they will have an edge (line) between them.  Nodes are often called vertices. Take a look at the image below.
+
+![6 Node Example Graph](https://abstract-classroom-teaching.s3.amazonaws.com/mathematics/graph_theory/introduction/graph1.png)
+
+The graph has 6 nodes (labelled 1 through 6 as blue circles) and 7 edges (purple lines).  Notice there is an edge between node 1 and node 6 implying there is a relationship between the two nodes.  Relations can be represented as a set of ordered pairs.  We will assume the graph above has the label $G$ and is represented as a set of ordered pairs (relation)
+
+$$G = \{(1,6), (2,6), (2,4),(3,4),(3,5), (4,5), (4,6)\}$$
+
+As you can see, a graph can be represented as a set of ordered pairs.  This structure could easily be represented in most high level computer languages (C/C++, Python, Java, Typescript, etc).
+
+## Directed & Undirected Graphs 
+
+There are two broad categories of graphs 
+
+* **Undirected Graphs**
+* **Directed Graphs**
+
+### Undirected Graphs
+
+The graph in the example above is considered an **undirected graph**.   This implies the relations between nodes is symmetrical. Recall that a relation $R$ is symmetrical if $(x,y) \in R$ implies that $(y,x) \in R$.  Relations do not automatically imply a symmetric property.  Just because object $a$ is related to object $b$ (ordered pair $(a,b)$)does not mean object $b$ is related to object $a$.  An undirected graph **does** imply a symmetrical relationship between objects (nodes).   Earlier we defined $G$ using set notation as shown again below. 
+
+$$G = \{(1,6), (2,6), (2,4),(3,4),(3,5), (4,5), (4,6)\}$$
+
+If we declare $G$ to be an undirected graph, then technically the set representation below is implied. 
+
+$$G = \{(1,6), (2,6), (2,4),(3,4),(3,5), (4,5), (4,6)\} \cup \{(6,1), (6,2), (4,2),(4,3),(5,3), (5,4), (6,4)\}$$
+
+By declaring the graph $G$ as an undirected graph we can shorten the notation considerably (usually half the number of ordered pairs) and realize every ordered pair implies a symmetric relationship.
+
+### Directed Graphs
+
+There are situations where a symmetric relation does not need to be implied.  Declaring a graph to be a **directed graph** means that relations on the graph do not imply symmetry.  Directed graphs have a visual distinction, specifically the edges are represented as arrows.  Consider the example below. 
+
+![Directed Graph With 5 Nodes](https://abstract-classroom-teaching.s3.amazonaws.com/mathematics/graph_theory/introduction/graph2.png)
+
+Notice the edges have arrows implying the direction of the relationship.  In this graph node 1 is related to node 2 however node 2 is not related to node 1.  We represent directed graphs using set notation in the same way as undirected graphs with the understanding the relationships are **not** symmetrical.  This is shown below. 
+
+$$G = \{(1,2),(1,3),(1,4),(2,5),(4,3),(5,3)\}$$
+
+
+## Paths - Walks - Circuits
+
+There are circumstances where graphs represent a flow.  A researcher may want represent traversing a graph moving from one node to the other.  An undirected graph implies traffic can move either direction along an edge.  A directed graph implies traffic must flow **ONLY** in the direction of the arrow along an edge. Researchers have categorized movements through a graph to help add clarity. The three basic categories are provided below.
+
+* **Walk** : A walk implies that we start at a node and move to the next node along an edge.  A starting node and endinging node are defined and movement along the graph can visit nodes and edges multiple times. 
+* **Trail** : Similar to a walk but edges can only be traversed once.
+* **Path** : A path is similar to a walk except nodes can only be visited once. 
+
+
+There are many more labels but the above are soem of the most referenced. Typically a researcher will explicitly state the restrictions to avoid confusion. 
+
+## Adjacency Matrix
+
+An adjacency matrix is a square matrix (equal number of rows and columns) representing the relations of a graph. Adjacency matrix is a very condensed representation of a graph whose structures provides insight on node reachability. 
+
+Consider the graph below. 
+
+![6 Node Example Graph](https://abstract-classroom-teaching.s3.amazonaws.com/mathematics/graph_theory/introduction/graph1.png)
+
+There are 6 nodes and so the associated adjacency matrix $A$ will have 6 rows and 6 columns whosed entries will be zero or one.   The entry in the $i$th row and $j$th column of the adjacency matrix $A$, denoted $A_{i,j}$ is a one if there if node $i$ is related to node $j$ (an edge between node $i$ and node $j$).  The adjacency matrix for the graph above is shown below. 
+
+$$
+A = \begin{bmatrix}
+0 & 0 & 0 & 0 & 0 & 1 \\
+0 & 0 & 0 & 1 & 0 & 1 \\
+0 & 0 & 0 & 1 & 1 & 0 \\
+0 & 1 & 1 & 1 & 1 & 1 \\
+0 & 0 & 1 & 1 & 0 & 0 \\
+1 & 1 & 0 & 1 & 0 & 0 
+\end{bmatrix}
+$$
+

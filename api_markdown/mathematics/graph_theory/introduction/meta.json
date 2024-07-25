@@ -1,0 +1,19 @@
+{
+    "subject": "Mathematics",
+    "topic": "Graph Theory",
+    "subtopic": "Introduction To Graph Theory",
+    "views" : "7789",
+    "datePublished": "July 26, 2024",
+    "dateUpdated" : "May 27, 2024",
+    "title" : "Introduction to Graph Theory",
+    "description" : "Graphs provide a way to model and analyze relationships between objects. In this lesson, we will introduce the concept of a graph and discuss its basic properties.",
+    "objectives" : [
+        "Understand the basic properties of graphs",
+        "Identify different types of graphs",
+        "Awareness of the different ways to represent graphs"
+    ],
+    "prerequisites" : [
+        "Basic understanding of relations",
+        "Basic understanding of set theory"
+    ]
+}
