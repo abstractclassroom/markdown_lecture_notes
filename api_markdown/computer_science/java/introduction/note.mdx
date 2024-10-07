@@ -13,20 +13,26 @@ Java and C++ are both object-oriented programming languages, but there are some 
 
 ### Key Differences:
 1. **Memory Management**:  
-   In C++, developers have to manually manage memory using `malloc()` and `free()` or `new` and `delete`. This introduces potential memory leaks and errors like segmentation faults.  
-   In Java, memory management is handled automatically through garbage collection, which periodically frees memory no longer in use, reducing the risk of memory-related issues.
+   In C++, developers have to manually manage memory with keywords provided below. 
+    * `malloc()` and `free()` 
+    * `new` and`delete`
+    
+   This introduces potential memory leaks and can easily allow errors like segmentation faults.  In Java, memory management is handled automatically through garbage collection, which periodically frees memory no longer in use, reducing the risk of memory-related issues.  Essentially, Java determines when portions of memory can no longer be accessed and deallocates it automatically. 
 
 2. **Platform Independence**:  
    C++ programs are compiled to platform-specific machine code, meaning the same code has to be recompiled for different platforms.  
-   Java, on the other hand, is compiled to bytecode that runs on the JVM, making it platform-independent — the same compiled code can run anywhere the JVM is available.
+   Java is compiled to bytecode that runs on the JVM, making it platform-independent.  You hear computer scientists often use the phrase compile anywhere and run anywhere. That essentially means any machine can compile the code to be run on any machine with the appropriate JVM.
 
 3. **Pointers**:  
    C++ allows for direct memory manipulation through pointers, which can lead to vulnerabilities such as buffer overflows.  
-   Java does not support pointers in the traditional sense, which makes it a safer language as it prevents direct memory access, reducing the potential for security flaws.
+   Java does not support pointers in the same way. This naturally makes it a safer language as it prevents direct memory access.  This essentially reduces the potential for security flaws.
 
 4. **Multiple Inheritance**:  
-   C++ supports multiple inheritance, which allows a class to inherit from multiple classes. However, this can lead to complexity and ambiguity, like the diamond problem.  
-   Java solves this problem by only supporting single inheritance (a class can only inherit from one other class) but allows multiple inheritance through interfaces.
+   C++ allows a class to inherit from multiple classes (multiple inheritance). This can cause a few problems.
+   * Amgiguity (Diamond Problem)
+   * Extra complexity
+   
+   Java only supports single inheritance (a class can only inherit from one other class) but allows multiple inheritance through interfaces.  Effectively, Java permits the same code complexity but in a safer manner.
 
 ### Problems Solved by Java:
 - **Memory leaks and management**: Java's automatic garbage collection reduces the risk of memory-related issues.
