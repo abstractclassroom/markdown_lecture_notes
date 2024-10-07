@@ -1,6 +1,11 @@
 # Java Primitive Data Types
 
-Java has 8 primitive data types that are predefined and represent basic data values. They are outlined below.
+Java has 8 primitive data types that are predefined and represent basic data values. They are outlined below with the following information:
+
+- **Size**: The number of bits used to store the value.
+- **Range**: The range of values that can be stored.
+- **Default Value**: The value that is assigned if no value is specified.
+- **Use**: Common use cases for the data type.
 
 ### 1. `byte`
 - **Size**: 8 bits (1 byte)
@@ -39,7 +44,7 @@ Java has 8 primitive data types that are predefined and represent basic data val
 - **Use**: The default choice for decimal values for more precision.
 
 ### 7. `boolean`
-- **Size**: 1 bit (depends on JVM implementation)
+- **Size**: 1 Byte (depends on JVM implementation)
 - **Range**: `true` or `false`
 - **Default Value**: `false`
 - **Use**: For true/false values.
@@ -88,3 +93,12 @@ Floating point arithmetic allows for negative and positive numbers, zero, and in
 ### Boolean
 
 A boolean value can be true or false.  Technically, a boolean can be stored with a unit as small as one bit. However, most JVM implementations and versions store a boolean as a byte.  Keep in mind that readability is important in software development.  If you are dealing with true/false values then use the boolean type to represent them.  Expect that an array of booleans will consume about one byte per boolean.  This might vary depending on the JVM implementation. Avoid attempting to optimize memory usage associated with booleans with bit manipulation.  Bit manipulation can lead to bugs that are difficult to find.  The memory savings of bit manipulation are often not worth the extra development time and potential bugs. Also, bit twiddling hacks do not provide the same performance benefits in Java as they do in C or C++.  Remember Java operates in an abstracted environment layers above the hardware.
+
+### Char
+
+Similar to C/C++ the char type can handle numerical values. You typically want to use a char for single character representations. Char literals are denoted with single quotes.  For example 'a' is a char and "a" is a string in Java and in many other languages.  The single quote 'a' would be suitable for a char type. The char type is often printed as a single letter or number but really represent 16 bit unicode values.  The letter 'a' has unicode value 65 and the letter 'A' has value 97.  Unless you are working with unicode values you can think of a char as a single letter or number.  Developers that utilize C often use arrays of chars to form strings.  Java allows for the same implementation, but Java has a String class that is more efficient and easier to use than char arrays. 
+
+
+## Conclusion
+
+Understanding primitive types in the context of the JVM and underlying computer hardware is important for writing efficient code.  The full context of understanding the difference between actual optimization and premature optimization often differentiates software developers from computer scientists and computer engineers.  
