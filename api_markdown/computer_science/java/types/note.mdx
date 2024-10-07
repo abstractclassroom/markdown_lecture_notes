@@ -102,6 +102,22 @@ Similar to C/C++ the char type can handle numerical values. You typically want t
 
 Java does not natively provide unsigned data types. Folks familiar with C/C++ often find this to be an annoying aspect of Java.  Keep in mind that C/C++ developers are often working closer to the hardware and some benefits of unsigned data types are lost in the JVM environment (abstraction layers above the hardware).    The Integer class does provide methods for handling signed and unsigned values but this comes with a performance cost.  Keep in mind that Java is oriented toward safe and rapid development.  Mixing signed and unsigned values can create bugs that are difficult to find and fix.  More to the point, the unsigned version of a data type in C/C++ only doubles the range.  It is not common to need the extra range provided by an unsigned data type.  Unsigned data types are often implemented for specific bit twiddling implementations in C/C++.
 
+Keep in mind that char is a data type capable of representing numbers but not for typical usage.  Char does have a range of 0 to 65535 implying it is signed.  Below is a table that provides the bounds for the integer data types in Java.
+
+
+
+| Type    | Size (bits) | Minimum Value                    | Maximum Value               |
+|---------|-------------|----------------------------------|-----------------------------|
+| `byte`  | 8           | -128                             | 127                         |
+| `short` | 16          | -32,768                          | 32,767                      |
+| `int`   | 32          | -2,147,483,648                   | 2,147,483,647               |
+| `long`  | 64          | -9,223,372,036,854,775,808       | 9,223,372,036,854,775,807   |
+| `float` | 32          | ~-3.4028235 × 10^38              | ~3.4028235 × 10^38          |
+| `double`| 64          | ~-1.7976931348623157 × 10^308    | ~1.7976931348623157 × 10^308|
+| `char`  | 16          | 0 (unsigned, represents UTF-16)  | 65,535                      |
+
+
+
 
 ## Conclusion
 
