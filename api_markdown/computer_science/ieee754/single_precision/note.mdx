@@ -45,13 +45,13 @@ Where:
 
 Convert `10.25` to IEEE 754 single precision:
 
-1. Convert to binary: `10.25_{10} = 1010.01_2`
-2. Normalize: `1.01001_2 \times 2^3`
-3. Exponent: `3 + 127 = 130` (biased exponent)
-4. Sign bit: `0` (positive number)
-5. Mantissa: `01001000000000000000000` (drop the leading 1)
+1. Convert to binary: $$10.25_{10} = 1010.01_2$$
+2. Normalize: $$1.01001_2 \times 2^3$$
+3. Exponent: $$3 + 127 = 130$$ (biased exponent)
+4. Sign bit: 0 (positive number)
+5. Mantissa: 01001000000000000000000 (drop the leading 1)
 
-Thus, `10.25` in IEEE 754 single precision is represented as:
+Thus, 10.25 in IEEE 754 single precision is represented as:
 
 $$0 \;\; | \;\; 10000010 \;\; | \;\; 01001000000000000000000$$
 
