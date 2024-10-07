@@ -1,0 +1,36 @@
+
+## Double Precision (64-bit)
+
+In **double precision**, the floating-point number is represented using 64 bits:
+
+- **1 bit** for the sign
+- **11 bits** for the exponent (with a bias of 1023)
+- **52 bits** for the mantissa
+
+### Representation
+
+A double precision number is stored as:
+
+$$
+(-1)^s \times 1.f \times 2^{(e-1023)}
+$$
+
+Where:
+- `s` is the sign bit
+- `f` is the fractional part (mantissa)
+- `e` is the exponent (biased by 1023)
+
+### Example
+
+Convert `10.25` to IEEE 754 double precision:
+
+1. Convert to binary: `10.25_{10} = 1010.01_2`
+2. Normalize: `1.01001_2 \times 2^3`
+3. Exponent: `3 + 1023 = 1026` (biased exponent)
+4. Sign bit: `0` (positive number)
+5. Mantissa: `0100100000000000000000000000000000000000000000000000` (drop the leading 1)
+
+Thus, `10.25` in IEEE 754 double precision is represented as:
+
+$$0 \;\;| \;\; 10000000010 \;\;| \;\; 0100100000000000000000000000000000000000000000000000$$
+

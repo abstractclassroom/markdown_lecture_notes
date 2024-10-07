@@ -1,0 +1,23 @@
+{
+    "subject": "Computer Science",
+    "topic": "IEEE 754",
+    "subtopic": "Double Precision",
+    "views" : "13558",
+    "datePublished": "Sept 14, 2024",
+    "dateUpdated" : "Oct 8, 2024",
+    "title" : "IEEE 754 - Double Precision Floating Point Arithmetic",
+    "description" : "Prior to the IEEE 754 standard, there was no standard for floating point arithmetic. This led to inconsistencies in floating point calculations across different platforms. Portability was a nightmare. The IEEE 754 standard was created to address this issue by providing a standard format for representing floating point numbers and performing arithmetic operations on them. This set of notes will cover the double precision format of IEEE 754.",
+    "objectives" : [
+        "Understand the IEEE 754 standard for double precision floating point arithmetic",
+        "Learn how to represent floating point numbers in IEEE 754 format",
+        "Understand the different components of a floating point number",
+        "Learn how to perform arithmetic operations on floating point numbers",
+        "Understand the difference between single precision and double precision floating point numbers"
+    ],
+    "prerequisites" : [
+        "Basic understanding of single precision floating point arithmetic",
+        "Basic understanding exponential notation",
+        "Basic understanding of binary numbers",
+        "Basic understanding of arithmetic operations" 
+    ]
+}
