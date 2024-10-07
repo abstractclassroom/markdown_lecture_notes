@@ -106,17 +106,28 @@ Keep in mind that char is a data type capable of representing numbers but not fo
 
 
 
-| Type    | Size (bits) | Minimum Value                    | Maximum Value               |
-|---------|-------------|----------------------------------|-----------------------------|
-| `byte`  | 8           | -128                             | 127                         |
-| `short` | 16          | -32,768                          | 32,767                      |
-| `int`   | 32          | -2,147,483,648                   | 2,147,483,647               |
-| `long`  | 64          | -9,223,372,036,854,775,808       | 9,223,372,036,854,775,807   |
-| `float` | 32          | ~-3.4028235 × 10^38              | ~3.4028235 × 10^38          |
-| `double`| 64          | ~-1.7976931348623157 × 10^308    | ~1.7976931348623157 × 10^308|
-| `char`  | 16          | 0 (unsigned, represents UTF-16)  | 65,535                      |
+$$
+\begin{table}[h!]
+\centering
+\begin{tabular}{| l | c | c | c |}
+\hline
+\textbf{Type} & \textbf{Size (bits)} & \textbf{Minimum Value} & \textbf{Maximum Value} \\ 
+\hline
+\texttt{byte}  & 8  & -128                             & 127                         \\
+\texttt{short} & 16 & -32,768                          & 32,767                      \\
+\texttt{int}   & 32 & -2,147,483,648                   & 2,147,483,647               \\
+\texttt{long}  & 64 & -9,223,372,036,854,775,808       & 9,223,372,036,854,775,807   \\
+\texttt{float} & 32 & $\sim -3.4028235 \times 10^{38}$ & $\sim 3.4028235 \times 10^{38}$ \\
+\texttt{double}& 64 & $\sim -1.7976931348623157 \times 10^{308}$ & $\sim 1.7976931348623157 \times 10^{308}$ \\
+\texttt{char}  & 16 & 0 (unsigned, UTF-16) & 65,535                      \\
+\hline
+\end{tabular}
+\caption{Signed Primitive Types in Java}
+\end{table}
 
 
+
+$$
 
 
 ## Conclusion
