@@ -98,6 +98,10 @@ A boolean value can be true or false.  Technically, a boolean can be stored with
 
 Similar to C/C++ the char type can handle numerical values. You typically want to use a char for single character representations. Char literals are denoted with single quotes.  For example 'a' is a char and "a" is a string in Java and in many other languages.  The single quote 'a' would be suitable for a char type. The char type is often printed as a single letter or number but really represent 16 bit unicode values.  The letter 'a' has unicode value 65 and the letter 'A' has value 97.  Unless you are working with unicode values you can think of a char as a single letter or number.  Developers that utilize C often use arrays of chars to form strings.  Java allows for the same implementation, but Java has a String class that is more efficient and easier to use than char arrays. 
 
+# Signed vs Unsigned
+
+Java does not natively provide unsigned data types. Folks familiar with C/C++ often find this to be an annoying aspect of Java.  Keep in mind that C/C++ developers are often working closer to the hardware and some benefits of unsigned data types are lost in the JVM environment (abstraction layers above the hardware).    The Integer class does provide methods for handling signed and unsigned values but this comes with a performance cost.  Keep in mind that Java is oriented toward safe and rapid development.  Mixing signed and unsigned values can create bugs that are difficult to find and fix.  More to the point, the unsigned version of a data type in C/C++ only doubles the range.  It is not common to need the extra range provided by an unsigned data type.  Unsigned data types are often implemented for specific bit twiddling implementations in C/C++.
+
 
 ## Conclusion
 
