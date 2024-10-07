@@ -1,79 +1,51 @@
+# Java Primitive Data Types
 
-# Java Introduction
-Java is a high-level, class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible. It was developed by Sun Microsystems (which was later acquired by Oracle) in 1995, and it has since become one of the most popular programming languages in use today. Java applications are typically compiled to bytecode that can run on any Java Virtual Machine (JVM), regardless of the underlying computer architecture.
+Java has 8 primitive data types that are predefined and represent basic data values. They are outlined below.
 
-## History of Java
-Java was created by James Gosling and his team at Sun Microsystems as part of the Green Project in 1991. Originally intended for interactive television, the language found success in other areas when the internet was gaining popularity. Released to the public in 1995, Java quickly became widely used due to its "write once, run anywhere" capability, meaning that code compiled in Java can run on any device with a JVM.
+### 1. `byte`
+- **Size**: 8 bits (1 byte)
+- **Range**: -128 to 127
+- **Default Value**: 0
+- **Use**: Useful for saving memory in large arrays.
 
-Since then, Java has gone through several versions, each bringing enhancements to its core language features and performance improvements, making it suitable for everything from mobile apps (Android) to enterprise-level backend systems.
+### 2. `short`
+- **Size**: 16 bits (2 bytes)
+- **Range**: -32,768 to 32,767
+- **Default Value**: 0
+- **Use**: A more memory-efficient data type than `int` for small values.
 
-## Java vs C++
-Java and C++ are both object-oriented programming languages, but there are some key differences between the two that highlight Java's design philosophy and the problems it was meant to solve that C++ encountered.
+### 3. `int`
+- **Size**: 32 bits (4 bytes)
+- **Range**: -2^31 to 2^31 - 1 (-2,147,483,648 to 2,147,483,647)
+- **Default Value**: 0
+- **Use**: The most commonly used integer data type.
 
-### Key Differences:
-1. **Memory Management**:  
-   In C++, developers have to manually manage memory with keywords provided below. 
-    * `malloc()` and `free()` 
-    * `new` and `delete`
-    
-   This introduces potential memory leaks and can easily allow errors like segmentation faults.  In Java, memory management is handled automatically through garbage collection, which periodically frees memory no longer in use, reducing the risk of memory-related issues.  Essentially, Java determines when portions of memory can no longer be accessed and deallocates it automatically. 
+### 4. `long`
+- **Size**: 64 bits (8 bytes)
+- **Range**: -2^63 to 2^63 - 1 (-9,223,372,036,854,775,808 to 9,223,372,036,854,775,807)
+- **Default Value**: 0L
+- **Use**: For very large integer values, beyond the capacity of `int`.
 
-2. **Platform Independence**:  
-   C++ programs are compiled to platform-specific machine code, meaning the same code has to be recompiled for different platforms.  
-   Java is compiled to bytecode that runs on the JVM, making it platform-independent.  You hear computer scientists often use the phrase compile anywhere and run anywhere. That essentially means any machine can compile the code to be run on any machine with the appropriate JVM.
+### 5. `float`
+- **Size**: 32 bits (4 bytes)
+- **Range**: Approximately ±3.40282347E+38F (7 significant decimal digits)
+- **Default Value**: 0.0f
+- **Use**: For fractional numbers, but less precise than `double`.
 
-3. **Pointers**:  
-   C++ allows for direct memory manipulation through pointers, which can lead to vulnerabilities such as buffer overflows.  
-   Java does not support pointers in the same way. This naturally makes it a safer language as it prevents direct memory access.  This essentially reduces the potential for security flaws.
+### 6. `double`
+- **Size**: 64 bits (8 bytes)
+- **Range**: Approximately ±1.79769313486231570E+308 (15 significant decimal digits)
+- **Default Value**: 0.0d
+- **Use**: The default choice for decimal values for more precision.
 
-4. **Multiple Inheritance**:  
-   C++ allows a class to inherit from multiple classes (multiple inheritance). This can cause a few problems.
-   * Amgiguity (Diamond Problem)
-   * Extra complexity
-   
-   Java only supports single inheritance (a class can only inherit from one other class) but allows multiple inheritance through interfaces.  Effectively, Java permits the same code complexity but in a safer manner.
+### 7. `boolean`
+- **Size**: 1 bit (depends on JVM implementation)
+- **Range**: `true` or `false`
+- **Default Value**: `false`
+- **Use**: For true/false values.
 
-### Problems Solved by Java:
-
-- **Memory leaks and management**: Java's automatic garbage collection reduces the risk of memory-related issues.
-- **Portability**: The JVM allows Java applications to run on any platform, solving the issue of platform dependence.
-- **Simplified Syntax**: By removing complex features like pointers and multiple inheritance, Java reduces the risk of programming errors, making it easier to learn and safer to use.
-
-## Java Virtual Machine (JVM)
-The Java Virtual Machine (JVM) is a crucial component of the Java runtime environment. It is responsible for executing Java bytecode, which is compiled from Java source code. The JVM abstracts the underlying hardware and operating system, allowing Java programs to run on any machine that has a compatible JVM installed.
-
-### Features of the JVM:
-- **Platform Independence**: The JVM ensures that Java code can run on any platform without modification.
-- **Memory Management**: The JVM provides automatic memory management, including garbage collection.
-- **Security**: The JVM provides a secure execution environment by limiting access to system resources and controlling memory access, reducing the risk of malicious behavior.
-
-## JDK, JRE, and JVM: What's the Difference?
-
-### Java Virtual Machine (JVM):
-The **JVM** is the runtime environment that executes bytecode produced by Java compilers. It reads and executes the bytecode, translating it into machine-level code appropriate for the specific platform. Every Java application runs within a JVM.
-
-### Java Runtime Environment (JRE):
-The **JRE** is a package that contains the JVM and the libraries, classes, and other files necessary to run Java applications. It is what end-users typically install to run Java programs. The JRE provides all the tools required to execute Java bytecode, but it does not include the tools needed to develop Java applications.
-
-### Java Development Kit (JDK):
-The **JDK** is a superset of the JRE. It includes everything in the JRE, as well as tools for Java development such as the Java compiler (`javac`), a debugger, and other utilities. If you're developing Java applications, you'll need the JDK, as it contains the tools to write, compile, and debug Java programs.
-
-- **JVM**: Executes bytecode.
-- **JRE**: Contains the JVM and libraries to run Java programs.
-- **JDK**: Contains the JRE and tools to develop Java programs.
-
-## Relevance To Careers
-
-C/C++ maintains a strong foothold in academia and hardware related development (e.g. hardware drivers).  However, corporations often have to weigh several risk factors.
-
-* Development time
-* Modular code 
-* Package management 
-* Developer salaries
-* Potential for security risk
-
-On many fronts, Java is the premier enterprise language.  Most Internet applications are not concerned about shaving off a few microseconds worth of computational time.  Java can significantly reduce costs (money, time, security risk) if implemented correctly.  Many backend APIs utilize Java and associated frameworks to create all the wonderful services we enjoy on our computers, web browsers, phones, and other devices. 
-
-## Conclusion
-
-Java has stood the test of time due to its simplicity, portability, and reliability. With its automated memory management, platform independence, and robust virtual machine, Java continues to be a leading choice for software development across various industries.
+### 8. `char`
+- **Size**: 16 bits (2 bytes)
+- **Range**: '\u0000' (or 0) to '\uffff' (or 65,535)
+- **Default Value**: '\u0000'
+- **Use**: Represents a single 16-bit Unicode character.
