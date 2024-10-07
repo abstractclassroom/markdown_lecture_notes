@@ -1,0 +1,60 @@
+# IEEE 754 Floating Point Standard
+
+IEEE 754 is the standard for representing floating-point numbers in computers. It defines formats for representing numbers in binary, using scientific notation.
+
+A floating-point number is represented as:
+
+$$
+(-1)^s \times 1.m \times 2^e
+$$
+
+Where:
+- `s` is the sign bit (0 for positive, 1 for negative)
+- `m` is the mantissa or fraction (without the leading 1, as it is implicitly assumed)
+- `e` is the exponent (biased by a certain value)
+
+### General Format
+
+The IEEE 754 floating-point number has three main components:
+1. **Sign bit**: 1 bit for the sign of the number.
+2. **Exponent**: A set number of bits for the exponent, which is stored in a biased form.
+3. **Mantissa (fraction)**: The significant digits of the number, stored in normalized form (leading 1 is assumed and not stored).
+
+## Single Precision (32-bit)
+
+In **single precision**, the floating-point number is represented using 32 bits:
+
+- **1 bit** for the sign
+- **8 bits** for the exponent (with a bias of 127)
+- **23 bits** for the mantissa
+
+### Representation
+
+A single precision number is stored as:
+
+$$
+(-1)^s \times 1.f \times 2^{(e-127)}
+$$
+
+Where:
+- `s` is the sign bit (1 for negative, 0 for positive)
+- `f` is the fractional part (mantissa)
+- `e` is the exponent (biased by 127)
+
+### Example
+
+Convert `10.25` to IEEE 754 single precision:
+
+1. Convert to binary: `10.25_{10} = 1010.01_2`
+2. Normalize: `1.01001_2 \times 2^3`
+3. Exponent: `3 + 127 = 130` (biased exponent)
+4. Sign bit: `0` (positive number)
+5. Mantissa: `01001000000000000000000` (drop the leading 1)
+
+Thus, `10.25` in IEEE 754 single precision is represented as:
+
+0 | 10000010 | 01001000000000000000000
+
+## Conclusion
+
+IEEE 754 standardizes the representation of floating-point numbers in computers, ensuring consistency across different systems. Understanding the format and components of IEEE 754 can help in working with floating-point numbers and avoiding common pitfalls related to precision and rounding errors.  Loss of precision will most certainly occur with each operation, so it is important to be aware of these limitations when working with floating-point numbers.
