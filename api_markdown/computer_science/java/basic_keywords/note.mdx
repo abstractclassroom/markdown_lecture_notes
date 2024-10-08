@@ -4,22 +4,22 @@ Java provides several keywords that can be used to define classes and their memb
 
 ## Keywords for Class Variables
 
-1. **private**:
+* **private**:
    - The variable is only accessible within the class it is declared in.
    - Other classes, even subclasses, cannot directly access or modify the variable.
    - It is used to encapsulate data and provide controlled access through getters and setters.
 
-2. **public**:
+* **public**:
    - The variable is accessible from any other class or object in the program.
    - It can be accessed directly without restrictions, which can lead to less secure code if not managed properly.
 
-3. **protected**:
+* **protected**:
    - The variable is accessible within the same package and by subclasses, even if they are in different packages.
    - It's useful in inheritance when you want to allow controlled access to class members by child classes while still restricting access from other classes in different packages.
    - Behaves like public within the same class and extends to subclasses and classes.
    - Behaves like private to external classes. 
 
-4. **final**:
+* **final**:
    - The variable can only be assigned a value once. Once initialized, its value cannot be changed.
    - This keyword can be combined with access modifiers (`private final`, `public final`, etc.) to control visibility and immutability.
    - A `final` variable must be initialized at the time of declaration or in the constructor.
@@ -27,27 +27,27 @@ Java provides several keywords that can be used to define classes and their memb
 
 ## Keywords for Class Methods
 
-1. **static**:
+* **static**:
    - The method belongs to the class rather than an instance of the class.
    - It can be called without creating an instance of the class.
    - Static methods can access static variables and other static methods directly.
 
-2. **private**:
+* **private**:
    - The method is only accessible within the class it is declared in.
    - Other classes, even subclasses, cannot directly access or invoke the method.
    - It is used to encapsulate behavior and provide controlled access through public methods.
 
-3. **public**:
+* **public**:
     - The method is accessible from any other class or object in the program.
     - It can be invoked directly without restrictions, which can lead to less secure code if not managed properly.
 
-4. **protected**:
+* **protected**:
     - The method is accessible within the same package and by subclasses, even if they are in different packages.
     - It's useful in inheritance when you want to allow controlled access to class methods by child classes while still restricting access from other classes in different packages.
     - Behaves like public within the same class and extends to subclasses.
     - Behaves like private to external classes.
 
-5. **final**:
+* **final**:
     - The method cannot be overridden by subclasses.
     - It can be used to prevent subclasses from changing the behavior of a method defined in the superclass.
     - A `final` method can still be inherited but cannot be overridden.
