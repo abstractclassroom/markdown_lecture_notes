@@ -32,3 +32,49 @@ Now consider the hex value $1A3_{16}$.  To convert this to base 10 we can use th
 $$3 \times 16^0 + \underbrace{10}_{A} \times 16^1 + 1 \times 16^2 = 3 + 160 + 256 = 419$$
 
 Notice that $1A3_{16}$ has three digits.  The exponents associated with the 16 increments from 0 to 2.  Essentially, start with the rightmost digit and multiply it by the base raised to the power of 0.  The next digit is multiplied by the base raised to the power of 1, and so on.  We then sum all of these values to get the base 10 value.  Notice the value of $A$ is 10 in base 16.
+
+
+## Converting From Base 10
+
+Converting from base 10 to another base is a bit more challenging.  The process involves dividing the base 10 number by the desired base and keeping track of the remainders.  The remainders are the digits of the new number.  For example, consider the number 566 in base 10.  To convert this to base 7 we can use the following process:
+
+- $566 \div 7 = 80$ with a remainder of 6
+- $80 \div 7 = 11$ with a remainder of 3
+- $11 \div 7 = 1$ with a remainder of 4
+- $1 \div 7 = 0$ with a remainder of 1
+
+The remainders are 6, 3, 4, and 1.  Reading these from bottom to top gives us the base 7 value $1436_7$.  Notice how the remainders are the digits of the new base number.  Notice how the quotients are used to calculate the next remainder.  The process is repeated until the quotient is 0.
+
+Now consider the number 419 in base 10.  To convert this to base 16 we can use
+- $419 \div 16 = 26$ with a remainder of 3
+- $26 \div 16 = 1$ with a remainder of 10
+- $1 \div 16 = 0$ with a remainder of 1
+
+The remainders are 3, 10, and 1.  In dotted notation this value is $1.10.3_{16}$.  However, we can use the letters A-F to represent the numbers 10-15.  Thus, the value is $1A3_{16}$ in the more common notation.
+
+## Dotted Notation Use Cases
+
+Dotted notation is actually very common in our everyday lives.  The Internet utilizes IP addresses which are effectively base 256 numbers represented in dotted notation.   IPV4 address have four numbers separated by dots where each number ranges from 0-255. Each number is called an octed because 255 is the highest number that can be represented with 8 bits.  
+
+Consider the IP address 142.250.190.110 (one of the IP addresses associated with Google). 
+- The first octet is 142
+- The second octet is 250
+- The third octet is 190
+- The fourth octet is 110
+
+Computers convert these numbers to binary to route data across the Internet.  The dotted notation is simply a way to represent the base 256 number in a more human-readable format. The binary version of the IP address is shown below $$\underbrace{10001110}_{142}\underbrace{11111010}_{250}\underbrace{10111110}_{190}\underbrace{01101110}_{110}$$  
+
+The binary form of IP addresses require 32 bits (4 octets of 8 bits each). Notice the octet value of 110 has a leading 0.  This is because the binary value of 110 is 1101110 but that is only 7 bits.  The leading 0 is added to make it 8 bits.
+
+The binary representation would be difficult to remember and work with.  The dotted notation is much easier to work with and remember.  This is why it is used in many applications.
+
+## Cryptographic Hashes
+
+Cryptographic hashes are used for authentication and security applications.  They are typically fixed width and quoted using base 2 but displayed as base 16.  The SHA256 hash of `I Love Math` is given below.
+$$cd9de8d72a1024139594a1532800f8b2370cd4a6a94034af58fcde8203b9509c$$
+
+Notice how every digit is either a number [0-9] or a letter [a-f].  This is because the hash is represented in base 16.  Notice the hash algorithm is SHA256 meaning the resulting hash has 256 bits.  Humans often need to compare hashes and doing that in base 2 would be tedious.  As such, cryptographic hashes are represented in base 16 for human readability. Being able to recognize base 16 values is a nice skill to have.
+
+## Conclusion
+
+Base conversions are a basic and required skill for computer scientists, engineers, and mathematicians.  The arthmetic to convert between bases is relatively simple.  Make sure you commit the algorithm to memory as it will be useful in many applications.  Base 2 and base 16 values frequently appear in computer science.  Being able to identify values that may be a differrent base may help you identify the type of value (recognizing cryptographic hashes).
