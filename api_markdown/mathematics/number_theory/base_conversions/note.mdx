@@ -13,6 +13,22 @@ There are a few subtle differences in how numbers are represented in different n
 
 Notice that the base 2, base 8, and base 10 all use familiar symbols.  However, base 16 uses the letters A-F to represent the numbers 10-15.  This is simply to help avoid confusion between numbers like 10 and A in base 16.
 
-## Notation
+## Subscript Notation
 
 When writing numbers in different bases, it is common to use a subscript to indicate the base.  For example, the number 1010 in base 2 would be written as $1010_2$.  The subscript indicates that the number is in base 2.  Similarly, the number 1010 in base 10 would be written as $1010_{10}$.
+
+## Dotted Notation
+
+Consider the base 60 system that was once utilized by the Babylonians.  In this system, the symbols are 0-59.  Obviously, they had their own special symbols for each digit but we use 0-59 for simplicity. It would be difficult for us to keep track of 60 different symbols.  Rather than using 60 different symbols, we could implement the dotted notation.  Each symbol is a number from 0-59 but we separate the digits with a dot.   The number 7A8 in base 60 would be written as $7.10.8_{60}$.  This notation is useful for understanding the value of each digit in the number. 
+
+## Converting To Base 10
+
+Given a number in a specific base we can convert it to base 10 relatively easily. For example, consider the number 1436_7 (base 7 value).  To convert this to base 10 we can use the following formula:
+$$6 \times 7^0 + 3 \times 7^1 + 4 \times 7^2 + 1 \times 7^3 = 6 + 21 + 196 + 343 = 566$$
+
+Notice that $1436_7$ has four digits.  The exponents associated with the seven increments from 0 to 3.  Essentially, start with the rightmost digit and multiply it by the base raised to the power of 0.  The next digit is multiplied by the base raised to the power of 1, and so on.  We then sum all of these values to get the base 10 value.  
+
+Now consider the hex value $1A3_{16}$.  To convert this to base 10 we can use the following formula:
+$$3 \times 16^0 + \underbrace{10}_{A} \times 16^1 + 1 \times 16^2 = 3 + 160 + 256 = 419$$
+
+Notice that $1A3_{16}$ has three digits.  The exponents associated with the 16 increments from 0 to 2.  Essentially, start with the rightmost digit and multiply it by the base raised to the power of 0.  The next digit is multiplied by the base raised to the power of 1, and so on.  We then sum all of these values to get the base 10 value.  Notice the value of $A$ is 10 in base 16.
