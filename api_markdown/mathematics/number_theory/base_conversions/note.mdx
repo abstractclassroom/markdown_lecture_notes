@@ -24,11 +24,13 @@ Consider the base 60 system that was once utilized by the Babylonians.  In this 
 ## Converting To Base 10
 
 Given a number in a specific base we can convert it to base 10 relatively easily. For example, consider the number 1436_7 (base 7 value).  To convert this to base 10 we can use the following formula:
+
 $$6 \times 7^0 + 3 \times 7^1 + 4 \times 7^2 + 1 \times 7^3 = 6 + 21 + 196 + 343 = 566$$
 
 Notice that $1436_7$ has four digits.  The exponents associated with the seven increments from 0 to 3.  Essentially, start with the rightmost digit and multiply it by the base raised to the power of 0.  The next digit is multiplied by the base raised to the power of 1, and so on.  We then sum all of these values to get the base 10 value.  
 
 Now consider the hex value $1A3_{16}$.  To convert this to base 10 we can use the following formula:
+
 $$3 \times 16^0 + \underbrace{10}_{A} \times 16^1 + 1 \times 16^2 = 3 + 160 + 256 = 419$$
 
 Notice that $1A3_{16}$ has three digits.  The exponents associated with the 16 increments from 0 to 2.  Essentially, start with the rightmost digit and multiply it by the base raised to the power of 0.  The next digit is multiplied by the base raised to the power of 1, and so on.  We then sum all of these values to get the base 10 value.  Notice the value of $A$ is 10 in base 16.
@@ -63,7 +65,7 @@ Consider the IP address 142.250.190.110 (one of the IP addresses associated with
 - The fourth octet is 110
 
 Computers convert these numbers to binary to route data across the Internet.  The dotted notation is simply a way to represent the base 256 number in a more human-readable format. The binary version of the IP address is shown below.
- 
+
 $$\underbrace{10001110}_{142}\underbrace{11111010}_{250}\underbrace{10111110}_{190}\underbrace{01101110}_{110}$$  
 
 The binary form of IP addresses require 32 bits (4 octets of 8 bits each). Notice the octet value of 110 has a leading 0.  This is because the binary value of 110 is 1101110 but that is only 7 bits.  The leading 0 is added to make it 8 bits.
