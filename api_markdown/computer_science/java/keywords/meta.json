@@ -1,0 +1,18 @@
+{
+    "subject": "Computer Science",
+    "topic": "Java",
+    "subtopic": "Basic Keywords",
+    "views" : "231",
+    "datePublished": "Oct 8, 2024",
+    "dateUpdated" : "Oct 8, 2024",
+    "title" : "Basic Class Keywords in Java",
+    "description" : "Understanding the keywords in Java is very important.  Being aware of the options available to you when creating classes and objects will help you make better design decisions. This set of notes will cover the basic keywords used in Java classes.",
+    "objectives" : [
+        "Understand the basic class keywords in Java",
+        "Learn how to create classes in Java"
+    ],
+    "prerequisites" : [
+        "Basic understanding of programming languages",
+        "Basic Java syntax"      
+    ]
+}
