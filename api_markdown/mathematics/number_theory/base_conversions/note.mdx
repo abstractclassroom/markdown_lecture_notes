@@ -62,7 +62,8 @@ Consider the IP address 142.250.190.110 (one of the IP addresses associated with
 - The third octet is 190
 - The fourth octet is 110
 
-Computers convert these numbers to binary to route data across the Internet.  The dotted notation is simply a way to represent the base 256 number in a more human-readable format. The binary version of the IP address is shown below. 
+Computers convert these numbers to binary to route data across the Internet.  The dotted notation is simply a way to represent the base 256 number in a more human-readable format. The binary version of the IP address is shown below.
+ 
 $$\underbrace{10001110}_{142}\underbrace{11111010}_{250}\underbrace{10111110}_{190}\underbrace{01101110}_{110}$$  
 
 The binary form of IP addresses require 32 bits (4 octets of 8 bits each). Notice the octet value of 110 has a leading 0.  This is because the binary value of 110 is 1101110 but that is only 7 bits.  The leading 0 is added to make it 8 bits.
@@ -72,6 +73,7 @@ The binary representation would be difficult to remember and work with.  The dot
 ## Cryptographic Hashes
 
 Cryptographic hashes are used for authentication and security applications.  They are typically fixed width and quoted using base 2 but displayed as base 16.  The SHA256 hash of `I Love Math` is given below.
+
 $$cd9de8d72a1024139594a1532800f8b2370cd4a6a94034af58fcde8203b9509c$$
 
 Notice how every digit is either a number [0-9] or a letter [a-f].  This is because the hash is represented in base 16.  Notice the hash algorithm is SHA256 meaning the resulting hash has 256 bits.  Humans often need to compare hashes and doing that in base 2 would be tedious.  As such, cryptographic hashes are represented in base 16 for human readability. Being able to recognize base 16 values is a nice skill to have.
