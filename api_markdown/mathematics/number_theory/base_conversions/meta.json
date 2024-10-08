@@ -1,0 +1,18 @@
+{
+    "subject": "Mathematics",
+    "topic": "Number Theory",
+    "subtopic": "Base Conversions",
+    "views" : "891",
+    "datePublished": "June 12, 2024",
+    "dateUpdated" : "Sept 20, 2024",
+    "title" : "Base Conversions",
+    "description" : "Base conversions are a fundamental concept in computer science and mathematics. Some mathematical proofs entail analyzing values in different bases. This set of notes will cover the basics of base conversions and how to convert numbers between different bases.",
+    "objectives" : [
+        "Understand the concept of base conversions",
+        "Learn how to convert numbers between different bases"
+    ],
+    "prerequisites" : [
+        "Basic understanding of number systems",
+        "Basic understanding of arithmetic operations"
+    ]
+}
