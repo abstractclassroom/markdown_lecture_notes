@@ -85,6 +85,7 @@ The conditional probability above outlines the contestants actions.  In order to
 We can express the total probability of the contestant winning the car as shown below.
 
 
+
 $$
 \begin{align*}
 P(D_s = D_c \mid D_s \neq D_p) &= 
@@ -93,17 +94,25 @@ P(D_s = D_c \mid D_s \neq D_p) &=
     \cdot 
     \underbrace{P(D_m = D_c)}_{0}
 }_{0} \\
-&\quad + 
+& + 
 \underbrace{
     \underbrace{P(D_s = D_c \mid D_s \neq D_p, D_m = D_p)}_{0} 
     \cdot 
     \underbrace{P(D_m = D_p)}_{0}
 }_{0} \\
-&\quad + 
+& + 
 P(D_s = D_c \mid D_s \neq D_p, D_m \neq D_c) 
 \cdot 
-\underbrace{P(D_m \neq D_c \text{ and } D_m \neq D_p)}_{1} \\
-&= P(\underbrace{D_s = D_c \mid D_s \neq D_p}_{\implies D_c \neq D_p}, D_m \neq D_c, D_m \neq D_p) \\
+\underbrace{P(D_m \neq D_c \text{ and } D_m \neq D_p)}_{1} 
+\end{align*}
+$$
+
+Notice the expression has been simplified to the following:
+
+$$
+\begin{align*}
+P(D_s = D_c \mid D_s \neq D_p) &= P(D_s = D_c \mid D_s \neq D_p, D_m \neq D_c) \\
+&= P(\underbrace{D_s = D_c \mid D_s \neq D_p}_{D_c = D_p}, D_m \neq D_c, D_m \neq D_p) \\
 &= P(D_c \neq D_p \mid \underbrace{D_m \neq D_c}_{\top}, \underbrace{D_m \neq D_p}_{\top}) \\
 &= P(D_c \neq D_p \mid \top) \\
 &= 1 - P(D_c = D_p) \\
