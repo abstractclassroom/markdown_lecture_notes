@@ -61,8 +61,8 @@ We can express the total probability of the contestant winning the car as shown 
 
 $$
 \begin{align*}
-P(D_s = D_c | D_s = D_p) &= \underbrace{\underbrace{P(D_s = D_c | D_s = D_p, D_m = D_c)}_{0} \cdot \underbrace{P(D_m = D_c)}_{0}}_{0} \\
-& + \underbrace{\underbrace{P(D_s = D_c | D_s = D_p, D_m = D_p)}_{0} \cdot \underbrace{P(D_m = D_p)}_{0}}_{0}  \\
+P(D_s = D_c | D_s = D_p) &= \underbrace{\underbrace{P(D_s = D_c | D_s = D_p, D_m = D_c)}_{0} \cdot \underbrace{P(D_m = D_c)}_{0}}_{0} \\\\
+& + \underbrace{\underbrace{P(D_s = D_c | D_s = D_p, D_m = D_p)}_{0} \cdot \underbrace{P(D_m = D_p)}_{0}}_{0}  \\\\
 &+ P(D_s = D_c | D_s = D_p, D_m \neq D_c) \cdot \underbrace{P(D_m \neq D_c \text{ and } D_m \neq D_p)}_{1} 
 \end{align*}
 $$
@@ -97,13 +97,13 @@ P(D_s = D_c \mid D_s \neq D_p) &=
     \underbrace{P(D_s = D_c \mid D_s \neq D_p, D_m = D_c)}_{0} 
     \cdot 
     \underbrace{P(D_m = D_c)}_{0}
-}_{0} \\
+}_{0} \\\\
 & + 
 \underbrace{
     \underbrace{P(D_s = D_c \mid D_s \neq D_p, D_m = D_p)}_{0} 
     \cdot 
     \underbrace{P(D_m = D_p)}_{0}
-}_{0} \\
+}_{0} \\\\
 & + 
 P(D_s = D_c \mid D_s \neq D_p, D_m \neq D_c) 
 \cdot 
