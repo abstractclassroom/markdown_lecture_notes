@@ -54,7 +54,7 @@ The conditional probability above outlines the contestants actions.  In order to
 
 * $D_m = D_c$: Monty Hall opens the door with the car.  This is not possible. ($D_m = D_c \implies \bot$)
 * $D_m = D_p$: Monty Hall opens the door the contestant initially picked.  This is not possible. ($D_m = D_p \implies \bot$)
-* $(D_m \neq D_c \land D_m \neq D_p)$: Monty Hall opens the door with the goat.  This is the only possible action Monty Hall can take per game rules. ($D_m \neq D_c \land D_m \neq D_p \implies \top$)
+* $(D_m \neq D_c \land D_m \neq D_p)$: Monty Hall the door without the car and not selected by the contestant.  This is the only possible action Monty Hall can take per game rules. ($D_m \neq D_c \land D_m \neq D_p \implies \top$)
 
 We can express the total probability of the contestant winning the car as shown below.
 
@@ -85,14 +85,9 @@ Let's consider the probability the contestant wins the car by switching doors.  
 
 $$P(D_s = D_c | D_s \neq D_p)$$
 
-The conditional probability above outlines the contestants actions.  In order to calculate the probability the contestant wins the car, we must consider all possible actions of Monty Hall.
-
-* $D_m = D_c$: Monty Hall opens the door with the car.  This is not possible. ($D_m = D_c \implies \bot$)
-* $D_m = D_p$: Monty Hall opens the door the contestant initially picked.  This is not possible. ($D_m = D_p \implies \bot$)
-* $(D_m \neq D_c \land D_m \neq D_p)$: Monty Hall opens the door with the goat.  This is the only possible action Monty Hall can take per game rules. ($D_m \neq D_c \land D_m \neq D_p \implies \top$)
+The conditional probability above outlines the contestants actions.  In order to calculate the probability the contestant wins the car, we must consider all possible actions of Monty Hall.  The actions are the same as the previous scenario.
 
 We can express the total probability of the contestant winning the car as shown below.
-
 
 
 $$
