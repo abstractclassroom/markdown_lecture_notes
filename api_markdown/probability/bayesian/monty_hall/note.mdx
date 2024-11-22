@@ -87,14 +87,30 @@ We can express the total probability of the contestant winning the car as shown 
 
 $$
 \begin{align*}
-P(D_s = D_c | D_s \neq D_p) &= \underbrace{\underbrace{P(D_s = D_c | D_s \neq D_p, D_m = D_c)}_{0} \cdot \underbrace{P(D_m = D_c)}_{0}}_{0} + \underbrace{\underbrace{P(D_s = D_c | D_s \neq D_p, D_m = D_p)}_{0} \cdot \underbrace{P(D_m = D_p)}_{0}}_{0}  + P(D_s = D_c | D_s \neq D_p, D_m \neq D_c) \cdot \underbrace{P(D_m \neq D_c \text{ and } D_m \neq D_p)}_{1} \\
-&= P(\underbrace{D_s = D_c | D_s \neq D_p}_{\implies D_c \neq D_p}, D_m \neq D_c, D_m \neq D_p) \\
-&= P(D_c \neq D_p | \underbrace{D_m \neq D_c}_{\top}, \underbrace{D_m \neq D_p}_{\top}) \\
-&= P(D_c \neq D_p | \top) \\
+P(D_s = D_c \mid D_s \neq D_p) &= 
+\underbrace{
+    \underbrace{P(D_s = D_c \mid D_s \neq D_p, D_m = D_c)}_{0} 
+    \cdot 
+    \underbrace{P(D_m = D_c)}_{0}
+}_{0} \\
+&\quad + 
+\underbrace{
+    \underbrace{P(D_s = D_c \mid D_s \neq D_p, D_m = D_p)}_{0} 
+    \cdot 
+    \underbrace{P(D_m = D_p)}_{0}
+}_{0} \\
+&\quad + 
+P(D_s = D_c \mid D_s \neq D_p, D_m \neq D_c) 
+\cdot 
+\underbrace{P(D_m \neq D_c \text{ and } D_m \neq D_p)}_{1} \\
+&= P(\underbrace{D_s = D_c \mid D_s \neq D_p}_{\implies D_c \neq D_p}, D_m \neq D_c, D_m \neq D_p) \\
+&= P(D_c \neq D_p \mid \underbrace{D_m \neq D_c}_{\top}, \underbrace{D_m \neq D_p}_{\top}) \\
+&= P(D_c \neq D_p \mid \top) \\
 &= 1 - P(D_c = D_p) \\
 &= 1 - \frac{1}{3} \\
-&= \frac{2}{3}
+&= \frac{2}{3}.
 \end{align*}
+
 $$
 
 The probability the contestant wins the car by switching doors is $\frac{2}{3}$.
