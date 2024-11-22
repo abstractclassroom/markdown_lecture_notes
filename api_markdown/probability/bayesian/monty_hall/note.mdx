@@ -71,8 +71,8 @@ Notice the expression has been simplified to the following:
 
 $$
 \begin{align*}
-P(D_s = D_c | D_s = D_p) &= P(\underbrace{D_s = D_c | D_s = D_p}_{D_c = D_p}, D_m \neq D_c, D_m \neq D_p) \\
-&= P(D_c = D_p | \underbrace{D_m \neq D_c}_{\top}, \underbrace{D_m \neq D_p}_{\top}) \\
+P(D_s = D_c | D_s = D_p) &= P(\underbrace{D_s = D_c | D_s = D_p}_{D_c = D_p}, D_m \neq D_c, D_m \neq D_p) \\\\
+&= P(D_c = D_p | \underbrace{D_m \neq D_c}_{\top}, \underbrace{D_m \neq D_p}_{\top}) \\\\
 &= P(D_c = D_p | \top) \\
 &= P(D_c = D_p) \\
 &= \frac{1}{3}
@@ -113,8 +113,8 @@ Notice the expression has been simplified to the following:
 
 $$
 \begin{align*}
-P(D_s = D_c \mid D_s \neq D_p) &= P(D_s = D_c \mid D_s \neq D_p, D_m \neq D_c) \\
-&= P(\underbrace{D_s = D_c \mid D_s \neq D_p}_{D_c = D_p}, D_m \neq D_c, D_m \neq D_p) \\
+P(D_s = D_c \mid D_s \neq D_p) &= P(D_s = D_c \mid D_s \neq D_p, D_m \neq D_c) \\\\
+&= P(\underbrace{D_s = D_c \mid D_s \neq D_p}_{D_c = D_p}, D_m \neq D_c, D_m \neq D_p) \\\\
 &= P(D_c \neq D_p \mid \underbrace{D_m \neq D_c}_{\top}, \underbrace{D_m \neq D_p}_{\top}) \\
 &= P(D_c \neq D_p \mid \top) \\
 &= 1 - P(D_c = D_p) \\
