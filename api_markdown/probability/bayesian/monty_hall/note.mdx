@@ -1,0 +1,111 @@
+# Monty Hall Problem
+
+The Monty Hall problem is a probability puzzle based on a game show. The game show host, Monty Hall, presents the contestant with three doors. Behind one of the doors is a car, and behind the other two doors are goats. The contestant chooses a door, and then Monty Hall opens one of the other two doors to reveal a goat. The contestant is then given the option to switch doors. 
+
+**Should the contestant switch doors?**
+
+The answer is yes. The probability of winning the car is $\frac{2}{3}$ if the contestant switches doors, and $\frac{1}{3}$ if the contestant does not switch doors.
+
+## Counterintuitive Solution
+
+The Monty Hall problem is counterintuitive because the probability of winning the car is uniformly distributed among the doors options.  When the contestant initially chooses a door, the probability of the car being behind that door is $\frac{1}{3}$.  The probability of that door being correct never changes. However, when Monty Hall opens one of the other two doors to reveal a goat, the probability of the remaining door (not chosen or opened) doubles. 
+
+Mathematical applications often have links to real-world scenarios and constraints that can be visualized.  Probability theory is well established and is known for its counterintuitive results.  When counterintuitive results are linked to real-world scenarios, it can give the impression that objects are moving or changing in some way that is not possible.  Almost like magic is being observed.  Probability theory is often referred to as the mathematics of magic. 
+
+Many counterintuitive events observed by physicists and mathematicians are often linked to probability theory.  This is related to Albert Einstein's claim that quantum physics is spooky action at a distance.  
+
+## Mathematical Proof Outline
+
+Despite being counterintuitive, the Monty Hall problem can be proven mathematically using the law of total probability and Bayes' theorem.  The law of total probability states that the probability of an event is the sum of the probabilities of the event given different conditions.  
+
+Let $A$ be an event and $B_1, B_2, ..., B_n$ be a set of mutually exclusive and exhaustive events.  The probability of $A$ can be expressed as the sum of the probabilities of $A$ given each of the events $B_i$ multiplied by the probability of each event $B_i$.
+
+$$P(A) = \sum_{i=1}^{n} P(A|B_i)P(B_i)$$
+
+Bayesian probability can be viewed in one of two ways:
+
+1. It provides a method for calculating the probabiliby of an event based on prior knowledge of conditions that may be related to the event.  
+2. It provides a method of recalculating the probability of an event based on new information.
+
+The second item above is relevant to the Monty Hall problem.  The contestant has new information after Monty Hall opens one of the doors.  The contestant can use this new information to recalculate the probability of winning the car.
+
+Assume the player switches doors after Monty Hall reveals a goat. Let's label the doors as follows:
+
+- $D_p$: The door the contestant initially picks
+- $D_c$: The door with the car
+- $D_m$: The door Monty Hall opens to reveal a goat
+- $D_s$: The door the contestant selects after Monty Hall reveals a goat ($D_s = D_p$ or $D_s \neq D_p$)
+
+Let's define scenarios using labels and conditional probabilities.  In some cases, the conditional probabilities are known, and in other cases, they are not known.  
+
+* $P(D_s = D_c)$: The probability the contestant wins the car.
+* $P(D_s = D_c | D_s = D_p)$: The probability the contestant wins without switching.
+* $P(D_s = D_c | D_s \neq D_p)$: The probability the contestant wins the car given the contestant switches doors.
+* $P(D_p = D_c) = \frac{1}{3}$: The probability the contestant initially picks the door with the car. This probability is $\frac{1}{3}$ because the car is behind one of the three doors with no additional (conditional) information.
+* $P(D_m = D_c) = 0$: The probability Monty Hall opens the door with the car.  This probability is 0 because Monty Hall will never open the door with the car.
+* $P(D_m = D_p) = 0$: The probability Monty Hall opens the door the contestant initially picked.  This probability is 0 because Monty Hall will never open the door the contestant initially picked.
+
+
+Let's consider the probability the contestant wins the car without switching doors (Initial pick was correct and did not switch).  
+
+$$P(D_s = D_c | D_s = D_p)$$
+
+The conditional probability above outlines the contestants actions.  In order to calculate the probability the contestant wins the car, we must consider all possible actions of Monty Hall.  
+
+* $D_m = D_c$: Monty Hall opens the door with the car.  This is not possible. ($D_m = D_c \implies \bot$)
+* $D_m = D_p$: Monty Hall opens the door the contestant initially picked.  This is not possible. ($D_m = D_p \implies \bot$)
+* $(D_m \neq D_c \land D_m \neq D_p)$: Monty Hall opens the door with the goat.  This is the only possible action Monty Hall can take per game rules. ($D_m \neq D_c \text{ and } D_m \neq D_p \implies \top$)
+
+We can express the total probability of the contestant winning the car as shown below.
+
+
+$$
+\begin{align*}
+P(D_s = D_c | D_s = D_p) &= \underbrace{\underbrace{P(D_s = D_c | D_s = D_p, D_m = D_c)}_{0} \cdot \underbrace{P(D_m = D_c)}_{0}}_{0} + \underbrace{\underbrace{P(D_s = D_c | D_s = D_p, D_m = D_p)}_{0} \cdot \underbrace{P(D_m = D_p)}_{0}}_{0}  + P(D_s = D_c | D_s = D_p, D_m \neq D_c) \cdot \underbrace{P(D_m \neq D_c \text{ and } D_m \neq D_p)}_{1} \\
+&= P(\underbrace{D_s = D_c | D_s = D_p}_{\implies D_c = D_p}, D_m \neq D_c, D_m \neq D_p) \\
+&= P(D_c = D_p | \underbrace{D_m \neq D_c}_{\top}, \underbrace{D_m \neq D_p}_{\top}) \\
+&= P(D_c = D_p | \top) \\
+&= P(D_c = D_p) \\
+&= \frac{1}{3}
+\end{align*}
+$$
+
+The probability the contestant wins the car without switching doors is $\frac{1}{3}$.
+
+Let's consider the probability the contestant wins the car by switching doors.  This is shown mathematically expressed below. 
+
+$$P(D_s = D_c | D_s \neq D_p)$$
+
+The conditional probability above outlines the contestants actions.  In order to calculate the probability the contestant wins the car, we must consider all possible actions of Monty Hall.
+
+* $D_m = D_c$: Monty Hall opens the door with the car.  This is not possible. ($D_m = D_c \implies \bot$)
+* $D_m = D_p$: Monty Hall opens the door the contestant initially picked.  This is not possible. ($D_m = D_p \implies \bot$)
+* $(D_m \neq D_c \land D_m \neq D_p)$: Monty Hall opens the door with the goat.  This is the only possible action Monty Hall can take per game rules. ($D_m \neq D_c \text{ and } D_m \neq D_p \implies \top$)
+
+We can express the total probability of the contestant winning the car as shown below.
+
+
+$$
+\begin{align*}
+P(D_s = D_c | D_s \neq D_p) &= \underbrace{\underbrace{P(D_s = D_c | D_s \neq D_p, D_m = D_c)}_{0} \cdot \underbrace{P(D_m = D_c)}_{0}}_{0} + \underbrace{\underbrace{P(D_s = D_c | D_s \neq D_p, D_m = D_p)}_{0} \cdot \underbrace{P(D_m = D_p)}_{0}}_{0}  + P(D_s = D_c | D_s \neq D_p, D_m \neq D_c) \cdot \underbrace{P(D_m \neq D_c \text{ and } D_m \neq D_p)}_{1} \\
+&= P(\underbrace{D_s = D_c | D_s \neq D_p}_{\implies D_c \neq D_p}, D_m \neq D_c, D_m \neq D_p) \\
+&= P(D_c \neq D_p | \underbrace{D_m \neq D_c}_{\top}, \underbrace{D_m \neq D_p}_{\top}) \\
+&= P(D_c \neq D_p | \top) \\
+&= 1 - P(D_c = D_p) \\
+&= 1 - \frac{1}{3} \\
+&= \frac{2}{3}
+\end{align*}
+$$
+
+The probability the contestant wins the car by switching doors is $\frac{2}{3}$.
+
+## Conclusion
+
+As demonstrated, the probability of winning the car is $\frac{2}{3}$ if the contestant switches doors, and $\frac{1}{3}$ if the contestant does not switch doors.  The Monty Hall problem is counterintuitive because the initial probability of winning the car is uniformly distributed among the doors options.  The probability of that door being correct never changes. However, when Monty Hall opens one of the other two doors to reveal a goat, the probability of the remaining door (not chosen or opened) doubles.  It is almost like magic is being observed and the experiment is aware it is being observed.  
+
+**Spooky at a distance**
+
+
+
+
+
