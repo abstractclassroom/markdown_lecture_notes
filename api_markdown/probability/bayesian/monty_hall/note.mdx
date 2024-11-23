@@ -14,9 +14,9 @@ Mathematical applications often have links to real-world scenarios and constrain
 
 Many counterintuitive events observed by physicists and mathematicians are often linked to probability theory.  This is related to Albert Einstein's claim that quantum physics is spooky action at a distance.  
 
-## Mathematical Proof Outline
+## Mathematical Approach
 
-Despite being counterintuitive, the Monty Hall problem can be proven mathematically using the law of total probability and Bayes' theorem.  The law of total probability states that the probability of an event is the sum of the probabilities of the event given different conditions.  
+Despite being potentially counterintuitive, the Monty Hall problem can be proven mathematically using the law of total probability and Bayes' theorem.  The law of total probability states that the probability of an event is the sum of the probabilities of the event given different conditions.  
 
 Let $A$ be an event and $B_1, B_2, ..., B_n$ be a set of mutually exclusive and exhaustive events.  The probability of $A$ can be expressed as the sum of the probabilities of $A$ given each of the events $B_i$ multiplied by the probability of each event $B_i$.
 
@@ -29,114 +29,108 @@ Bayesian probability can be viewed in one of two ways:
 
 The second item above is relevant to the Monty Hall problem.  The contestant has new information after Monty Hall opens one of the doors.  The contestant can use this new information to recalculate the probability of winning the car.
 
-Assume the player switches doors after Monty Hall reveals a goat. Let's label the doors as follows:
+### Proof
 
 - $D_p$: The door the contestant initially picks
 - $D_c$: The door with the car
 - $D_m$: The door Monty Hall opens to reveal a goat
-- $D_s$: The door the contestant selects after Monty Hall reveals a goat ($D_s = D_p$ or $D_s \neq D_p$)
+- $D_s$: The door the contestant selects after Monty Hall reveals a goat
+    - $D_s = D_p$: Contestant stays with the original door
+    - $D_s \neq D_p$: Constant switches doors
 
-Let's define scenarios using labels and conditional probabilities.  In some cases, the conditional probabilities are known, and in other cases, they are not known.  
+Let's define scenarios using logic expressions 
 
-* $P(D_s = D_c)$: The probability the contestant wins the car.
-* $P(D_s = D_c | D_s = D_p)$: The probability the contestant wins without switching.
-* $P(D_s = D_c | D_s \neq D_p)$: The probability the contestant wins the car given the contestant switches doors.
-* $P(D_p = D_c) = \frac{1}{3}$: The probability the contestant initially picks the door with the car. This probability is $\frac{1}{3}$ because the car is behind one of the three doors with no additional (conditional) information.
-* $P(D_m = D_c) = 0$: The probability Monty Hall opens the door with the car.  This probability is 0 because Monty Hall will never open the door with the car.
-* $P(D_m = D_p) = 0$: The probability Monty Hall opens the door the contestant initially picked.  This probability is 0 because Monty Hall will never open the door the contestant initially picked.
+- $(D_s = D_c)$: The contestant wins the car.
+- $( D_s = D_p)$: The contestant does not switch doors.
+- $(D_s \neq D_p)$: The contestant switched doors.
+- $(D_p = D_c)$: The  contestant initially picks the door with the car. 
+- $(D_m = D_c)$: Monty Hall opens the door with the car.  
+- $(D_m = D_p)$: Monty Hall opens the door the contestant initially picked.
+- $(D_m \neq D_p \land D_m \neq D_c)$: Monty Hall does not open the door with the car or the door selected by the contestant.
 
 
-Let's consider the probability the contestant wins the car without switching doors (Initial pick was correct and did not switch).  
 
-$$P(D_s = D_c | D_s = D_p)$$
+Consider the scenario where the contestant wins and did not switch doors.  This is logically expressed below.
+$$(D_s = D_c) \land (D_s = D_p)$$
 
-The conditional probability above outlines the contestants actions.  In order to calculate the probability the contestant wins the car, we must consider all possible actions of Monty Hall.  
+Notice the three expressions below are exhaustive and mutually exclusive with respect to the actions of Monty Hall. Two of these actions are impossible (contradictions $\bot$) implying the remaining case is a tautology ($\top$).
 
-* $D_m = D_c$: Monty Hall opens the door with the car.  This is not possible. ($D_m = D_c \implies \bot$)
-* $D_m = D_p$: Monty Hall opens the door the contestant initially picked.  This is not possible. ($D_m = D_p \implies \bot$)
-* $(D_m \neq D_c \land D_m \neq D_p)$: Monty Hall opens the only door allowed per game rules. ($D_m \neq D_c \land D_m \neq D_p \implies \top$)
+- $(D_m = D_c) \implies \bot \implies P(D_m = D_c) = P(\bot) = 0$
+- $(D_m = D_p) \implies \bot \implies $P(D_m = D_p) = P(\bot) = 0$
+- $(D_m \neq D_p) \land (D_m \neq D_c) \implies \top \implies P(D_m \neq D_p \land D_m \neq D_c) = P(\top) =1$
 
-We can express the total probability of the contestant winning the car as shown below.
-
+The conditional probability the player wins without switching can be expressed using the law of total probability with respect to the actions of Monty Hall.
 
 $$
 \begin{align*}
-P(D_s = D_c | D_s = D_p) &= \underbrace{P(D_s = D_c | D_s = D_p, D_m = D_c)}_{0} \cdot \underbrace{P(D_m = D_c)}_{0} \\\\
-& + \underbrace{P(D_s = D_c | D_s = D_p, D_m = D_p)}_{0} \cdot \underbrace{P(D_m = D_p)}_{0}  \\\\
-&+ P(D_s = D_c | D_s = D_p, D_m \neq D_c) \cdot \underbrace{P(D_m \neq D_c \text{ and } D_m \neq D_p)}_{1} 
+P(D_s = D_c | D_s = D_p) &= P(D_s = D_c | D_s = D_p, D_m = D_c) \cdot \underbrace{P(D_m = D_c)}_{0} \\\\
+    &+ P(D_s = D_c | D_s = D_p, D_m = D_c) \cdot \underbrace{P(D_m = D_p)}_{0} \\\\
+    &+ P(D_s = D_c | D_s = D_p, D_m \neq D_p \land D_m \neq D_c) \cdot \underbrace{P(D_m \neq D_p \land D_m \neq D_c)}_{1}
 \end{align*}
 $$
 
-Notice the expression has been simplified to the following:
+The above can be simplified to the expression below.
+
+$$P(D_s = D_c | D_s = D_p) = P(D_s = D_c | D_s = D_p, D_m \neq D_p \land D_m \neq D_c)$$
+
+Converting the conditional probability to the probability of a logical expression is shown below.  Notice the conditional probability will simplify to a probability without condition.  Specifically, it becomes the probability of the player selecting the door with the car without any extra information from Monty Hall's actions.  There are three doors and so the probability will be $\frac{1}{3}$.  All of this is explained by the express below.
 
 $$
 \begin{align*}
-P(D_s = D_c | D_s = D_p) &= P(\underbrace{D_s = D_c | D_s = D_p}_{D_c = D_p}, D_m \neq D_c, D_m \neq D_p) \\\\
-&= P(D_c = D_p | \underbrace{D_m \neq D_c}_{\top}, \underbrace{D_m \neq D_p}_{\top}) \\\\
-&= P(D_c = D_p | \top) \\
-&= P(D_c = D_p) \\
+P(D_s = D_c | D_s = D_p) &= P(D_s = D_c | D_s = D_p, D_m \neq D_p \land D_m \neq D_c) \\
+&= P(\underbrace{D_s = D_c \land D_s = D_p}_{D_c = D_p} \land \underbrace{D_m \neq D_p \land D_m \neq D_c}_{\top}) \\\\
+&= P(D_c = D_p)
 &= \frac{1}{3}
 \end{align*}
 $$
 
 The probability the contestant wins the car without switching doors is $\frac{1}{3}$.
 
-Let's consider the probability the contestant wins the car by switching doors.  This is shown mathematically expressed below. 
+Now consider the probability the contestant wins the car by switching doors.  
 
 $$P(D_s = D_c | D_s \neq D_p)$$
 
-The conditional probability above outlines the contestants actions.  In order to calculate the probability the contestant wins the car, we must consider all possible actions of Monty Hall.  The actions are the same as the previous scenario.
-
-We can express the total probability of the contestant winning the car as shown below.
-
+Using a similar total probability argument with respect to Monty Hall's actions we have the following:
 
 $$
 \begin{align*}
-P(D_s = D_c \mid D_s \neq D_p) &= 
-    \underbrace{P(D_s = D_c \mid D_s \neq D_p, D_m = D_c)}_{0} 
-    \cdot 
-    \underbrace{P(D_m = D_c)}_{0}
-\\\\
-& + 
-    \underbrace{P(D_s = D_c \mid D_s \neq D_p, D_m = D_p)}_{0} 
-    \cdot 
-    \underbrace{P(D_m = D_p)}_{0}
- \\\\
-& + 
-P(D_s = D_c \mid D_s \neq D_p, D_m \neq D_c) 
-\cdot 
-\underbrace{P(D_m \neq D_c \text{ and } D_m \neq D_p)}_{1} 
+P(D_s = D_c | D_s \neq D_p) &= P(D_s = D_c | D_s \neq D_p, D_m = D_c) \cdot \underbrace{P(D_m = D_c)}_{0} \\\\
+    &+ P(D_s = D_c | D_s \neq D_p, D_m = D_c) \cdot \underbrace{P(D_m = D_p)}_{0} \\\\
+    &+ P(D_s = D_c | D_s \neq D_p, D_m \neq D_p \land D_m \neq D_c) \cdot \underbrace{P(D_m \neq D_p \land D_m \neq D_c)}_{1}
 \end{align*}
 $$
 
-Notice the expression has been simplified to the following:
+This simplifies to the expression below.
+
+$$P(D_s = D_c | D_s \neq D_p) = P(D_s = D_c | D_s \neq D_p, D_m \neq D_p \land D_m \neq D_c)$$
+
+Apply the logical expressions
 
 $$
 \begin{align*}
-P(D_s = D_c \mid D_s \neq D_p) &= P(D_s = D_c \mid D_s \neq D_p, D_m \neq D_c) \\\\
-&= P(\underbrace{D_s = D_c \mid D_s \neq D_p}_{D_c = D_p}, D_m \neq D_c, D_m \neq D_p) \\\\
-&= P(D_c \neq D_p \mid \underbrace{D_m \neq D_c}_{\top}, \underbrace{D_m \neq D_p}_{\top}) \\
-&= P(D_c \neq D_p \mid \top) \\
+P(D_s = D_c | D_s \neq D_p) &= P(D_s = D_c | D_s \neq D_p, D_m \neq D_p \land D_m \neq D_c) \\
+&= P(\underbrace{D_s = D_c \land D_s \neq D_p}_{D_c \neq D_p} \land \underbrace{D_m \neq D_p \land D_m \neq D_c}_{\top}) \\\\
+&= P(D_c \neq D_p) \\
 &= 1 - P(D_c = D_p) \\
 &= 1 - \frac{1}{3} \\
 &= \frac{2}{3}
 \end{align*}
-
 $$
 
-The probability the contestant wins the car by switching doors is $\frac{2}{3}$.
+The probability of the contestant winning the car by switching doors is $\frac{2}{3}$
+
+
 
 ## Conclusion
 
 The following summarizes the above proof:
 
 * The probability of winning the car is $\frac{2}{3}$ if the contestant switches doors.
-* The probability of winning the car is$\frac{1}{3}$ if the contestant does **not** switch doors.  
-* The Monty Hall problem is counterintuitive because the initial probability of winning the car is uniformly distributed among the doors options.  
-* The probability of the initial door being correct never changes. 
-* When Monty Hall opens one of the other two doors to reveal a goat, the probability of the remaining door (not chosen or opened) doubles.  
+* The probability of winning the car is $\frac{1}{3}$ if the contestant does **not** switch doors.  
+* Initially all doors has a probability of success of $\frac{1}{3}$.
+* The probability of the door not selected by the player and not opened by Monty Hall doubles.
 
-It is almost like magic and the experiment is aware it is being observed.  
+It is tempting to believe the game show could be reduced down to a two door choice by the contestant implying a probability of $\frac{1}{2}$ for each door.  However, this is not the case.  The actions of the contestant and Monty Hall are being retained by the game. It is amost like the game is aware it is being observed.
 
 **Spooky at a distance**
 
