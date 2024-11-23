@@ -163,7 +163,7 @@ $$P(D_s = D_c)$$
 
 Using the law of total probability, we express the probability of winning based on the exhaustive and mutually exclusive events of whether a contestant switches doors.  This is shown below.
 
-$$ P(D_s = D_c) &= P(D_s = D_c \mid D_s = D_p)P(D_s = D_p) + P(D_s = D_c \mid D_s \neq D_p)P(D_s \neq D_p) $$
+$$ P(D_s = D_c) = P(D_s = D_c \mid D_s = D_p)P(D_s = D_p) + P(D_s = D_c \mid D_s \neq D_p)P(D_s \neq D_p) $$
 
 Substituting the probabilities calculated earlier and the fact constestants are uninformed:
 
@@ -172,13 +172,13 @@ Substituting the probabilities calculated earlier and the fact constestants are 
 - $P(D_s = D_p) = \frac{1}{2}$ (probability of not switching by uninformed contestant),
 - $P(D_s \neq D_p) = 1- P(D_s = D_p) = \frac{1}{2}$ (probability of switching by uninformed contestant),
 
-we calculate:
+Applying the values provides the exact probability as shown below.
 
 $$
 \begin{align*}
-P(D_s = D_c) &= \underbrace{P(D_s = D_c \mid D_s = D_p)}_{\frac{1}{3}}\underbrace{P(D_s = D_p)}_{\frac{1}{2}} 
- + \frac{P(D_s = D_c \mid D_s \neq D_p)}_{\frac{2}{3}} \underbrace{P(D_s \neq D_p)}_{\frac{1}{2}} \\\\
-&= \frac{1}{3} \cdot \frac{1}{2} + \frac{2}{3} \cdot \frac{2}{3} \\\\
+P(D_s = D_c) &= \underbrace{P(D_s = D_c \mid D_s = D_p)}_{\frac{1}{3}} \underbrace{P(D_s = D_p)}_{\frac{1}{2}} 
+ + \underbrace{P(D_s = D_c \mid D_s \neq D_p)}_{\frac{2}{3}} \underbrace{P(D_s \neq D_p)}_{\frac{1}{2}} \\\\
+&= \frac{1}{3} \cdot \frac{1}{2} + \frac{2}{3} \cdot \frac{1}{2} \\\\
 &= \frac{1}{6} + \frac{2}{6} \\\\
 &= \frac{3}{6} \\\\
 &= \frac{1}{2}
