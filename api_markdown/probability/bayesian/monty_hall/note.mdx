@@ -13,9 +13,9 @@ The puzzle goes even deeper from an observers point of view.
 
 ### Observer Perspective
 
-If contestants go into the game knowing the facts above they would always switch doors.  So an observer of the game would see contestants win  two thirds of the time.  However, if we assume all contestants are unaware that switching doors improves their chance of winning then they will be just as likely to keep their original door choice as they are to switch.  
+If contestants go into the game knowing the facts above they would always switch doors.  So an observer of the game would see contestants win  two thirds of the time.  However, if we assume all contestants are uninformed that switching doors improves their chance of winning then they will be just as likely to keep their original door choice as they are to switch.  
 
-With the unaware contestants assumption, observers will see contestants win the game with a probability of $\frac{1}{2}$.
+With the uninformed contestants assumption, observers will see contestants win the game with a probability of $\frac{1}{2}$.
 
 ## Brief Summary - Observer VS Contestant
 
@@ -23,7 +23,7 @@ Let us compile what has been stated.
 
 * Contestants that do not switch doors will have a probability of winning of $\frac{1}{3}$.
 * Contestants that do switch doors will have a probability of winning of $\frac{2}{3}$.
-* Observers watching unaware contestants will see the game won with a probability of $\frac{1}{2}$.
+* Observers watching uninformed contestants will see the game won with a probability of $\frac{1}{2}$.
 
 It can give the impression the outcome probabilities are different between the observer and the contestant.
 
@@ -36,7 +36,7 @@ The Monty Hall problem is counterintuitive.
 * The probability of winning the car is uniformly distributed among the doors options initially. 
 * The probability of the initial door choice being correct never changes. 
 * When Monty Hall opens a door, the probability of the remaining door not selected by the contestant doubles.
-* An observer watching unaware contestants see then win half the time.
+* An observer watching uninformed contestants see then win half the time.
 
 Mathematical applications often have links to real-world scenarios and constraints that can be visualized in an intuitive manner.  There are exceptions that humans may struggle to understand. 
 
@@ -157,7 +157,7 @@ The probability of the contestant winning the car by switching doors is $\frac{2
 
 #### Observer Probabilities
 
-At this point, we have described the probabilities facing the contestant. Now, let's consider the probabilities associated with an observer watching games that entail unaware contestants. The observer probability is expressed below.
+At this point, we have described the probabilities facing the contestant. Now, let's consider the probabilities associated with an observer watching games that entail uninformed contestants. The observer probability is expressed below.
 
 $$P(D_s = D_c)$$
 
@@ -165,12 +165,12 @@ Using the law of total probability, we express the probability of winning based 
 
 $$ P(D_s = D_c) &= P(D_s = D_c \mid D_s = D_p)P(D_s = D_p) + P(D_s = D_c \mid D_s \neq D_p)P(D_s \neq D_p) $$
 
-Substituting the probabilities calculated earlier and the fact constestants are unaware:
+Substituting the probabilities calculated earlier and the fact constestants are uninformed:
 
 - $P(D_s = D_c \mid D_s = D_p) = \frac{1}{3}$ (probability of winning without switching),
 - $P(D_s = D_c \mid D_s \neq D_p) = \frac{2}{3}$ (probability of winning by switching),
-- $P(D_s = D_p) = \frac{1}{2}$ (probability of not switching by unaware contestant),
-- $P(D_s \neq D_p) = 1- P(D_s = D_p) = \frac{1}{2}$ (probability of switching by unaware contestant),
+- $P(D_s = D_p) = \frac{1}{2}$ (probability of not switching by uninformed contestant),
+- $P(D_s \neq D_p) = 1- P(D_s = D_p) = \frac{1}{2}$ (probability of switching by uninformed contestant),
 
 we calculate:
 
@@ -185,8 +185,37 @@ P(D_s = D_c) &= \underbrace{P(D_s = D_c \mid D_s = D_p)}_{\frac{1}{3}}\underbrac
 \end{align*}
 $$
 
-Thus, an observer watching games played by unaware contestants sees the game won with a probability of \(\frac{1}{2}\). This result demonstrates how the observer's perspective combines the contestants' decisions into a simple average outcome.
+This demonstrates mathematically that observing the game, played by uninformed contestants, will see a win with probability of $\frac{1}{2}$.
 
+---
+
+## Java Simulation
+
+Probability results that rely on total probability can be hard to digest at times.  Fortunately, computer simulations can help provide empirical evidence.    You can find Java code at the GitHub link below that provides simulation results. 
+
+[https://github.com/abstractclassroom/Monty-Hall-Simulator](https://github.com/abstractclassroom/Monty-Hall-Simulator)
+
+The code above will do the following:
+
+* Two million Monty Hall Game simulations
+    * One million simulations where the player will **not** switch doors.
+    * One million simulations where the player will switch doors.
+
+Below are the results of the above simulation experiment:
+
+* Count Totals
+    * No Switch strategy wins: 330089
+    * Switch strategy wins: 669065
+    * Total wins: 999154
+
+Below are the proportions of the above counts.  
+
+* Count Proportions
+    * No switch win rate: $0.3301  \approx \frac{1}{3}$
+    * Switch win rate: $0.6691  \approx \frac{2}{3}$
+    * Total win rate: $0.4996  \approx \frac{1}{2}$
+
+Notice how closely the empirical results are to the predicted outcomes.
 
 ---
 
@@ -198,10 +227,9 @@ The following summarizes the above proof:
 * The probability of winning the car is $\frac{1}{3}$ if the contestant does **not** switch doors.  
 * Initially all doors has a probability of success of $\frac{1}{3}$.
 * The probability of the door not selected by the player and not opened by Monty Hall doubles.
+* The probability of observing an uninformed contestant win is $\frac{1}{2}$.
 
-It is tempting to believe the game show could be reduced down to a two door choice by the contestant implying a probability of $\frac{1}{2}$ for each door.  However, this is not the case.  The actions of the contestant and Monty Hall are being retained by the game. It is amost like the game is aware it is being observed.
-
-**Spooky at a distance**
+All things considered...**Spooky at a distance**
 
 
 
