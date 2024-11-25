@@ -2,11 +2,11 @@
     "subject": "Probability",
     "topic": "Bayesian Probability",
     "subtopic": "Monty Hall Problem",
-    "views" : "18177",
+    "views" : "181776",
     "datePublished": "May 19, 2022",
     "dateUpdated" : "May 27, 2022",
     "title" : "The Famous Monty Hall Problem",
-    "description" : "The Monty Hall problem is a famous probability puzzle that has a counterintuitive solution. Applications of the law of total probability (Bayesian probability theory) can often result in surprising conclusions. This article provides an overview of the Monty Hall problem, demonstrates the counterintuitive solution, and explains the reasoning behind the solution using Bayesian probability theory.",
+    "description" : "The Monty Hall problem is a famous probability puzzle that has a counterintuitive solution. Applications of the law of total probability (Bayesian probability theory) can often result in surprising conclusions when analyzed from different viewpoints. This article provides an overview of the Monty Hall problem, demonstrates the counterintuitive solution, and explains the reasoning behind the solution using Bayesian probability theory.",
     "objectives" : [
         "Provide an overview of the Monty Hall problem",
         "Demonstrate the counterintuitive solution to the problem",
