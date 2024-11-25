@@ -103,24 +103,29 @@ $$
 \begin{align*}
 & P(D_s = D_c | D_s = D_p) \\\\
     &= P(D_s = D_c | D_s = D_p, D_m = D_c) \cdot \underbrace{P(D_m = D_c)}_{0} \\\\
-        &\;\;+ P(D_s = D_c | D_s = D_p, D_m = D_c) \cdot \underbrace{P(D_m = D_p)}_{0} \\\\
-        &\;\;+ P(D_s = D_c | D_s = D_p, D_m \neq D_p \land D_m \neq D_c) \cdot \underbrace{P(D_m \neq D_p \land D_m \neq D_c)}_{1}
+        &\quad \quad+ P(D_s = D_c | D_s = D_p, D_m = D_c) \cdot \underbrace{P(D_m = D_p)}_{0} \\\\
+        &\\quad\quad+ P(D_s = D_c | D_s = D_p, D_m \neq D_p \land D_m \neq D_c) \cdot \underbrace{P(D_m \neq D_p \land D_m \neq D_c)}_{1}
 \end{align*}
 $$
 
 The above can be simplified to the expression below.
 
-$$P(D_s = D_c | D_s = D_p) = P(D_s = D_c | D_s = D_p, D_m \neq D_p \land D_m \neq D_c)$$
+$$
+\begin{align*}
+&P(D_s = D_c | D_s = D_p) \\
+& \quad = P(D_s = D_c | D_s = D_p, D_m \neq D_p \land D_m \neq D_c)
+\end{align*}
+$$
 
 The conversion of the conditional probability into a logical expression is demonstrated below. Observe that the conditional probability simplifies to an unconditional probability. Specifically, it reduces to the probability of the contestant initially selecting the door with the car, without any additional information from Monty Hall's actions. Since there are three doors, this probability is $\frac{1}{3}$. This is detailed in the expression below.
 
 $$
 \begin{align*}
 & P(D_s = D_c | D_s = D_p) \\\\
-    &= P(D_s = D_c | D_s = D_p, D_m \neq D_p \land D_m \neq D_c) \\
-    &= P(\underbrace{D_s = D_c \land D_s = D_p}_{D_c = D_p} \land \underbrace{D_m \neq D_p \land D_m \neq D_c}_{\top}) \\\\
-    &= P(D_c = D_p)\\
-    &= \frac{1}{3}
+    & \quad= P(D_s = D_c | D_s = D_p, D_m \neq D_p \land D_m \neq D_c) \\
+    & \quad= P(\underbrace{D_s = D_c \land D_s = D_p}_{D_c = D_p} \land \underbrace{D_m \neq D_p \land D_m \neq D_c}_{\top}) \\\\
+    & \quad = P(D_c = D_p)\\
+    & \quad = \frac{1}{3}
 \end{align*}
 $$
 
@@ -136,27 +141,32 @@ Using a similar application of the law of total probability based on Monty Hall'
 $$
 \begin{align*}
 & P(D_s = D_c | D_s \neq D_p) \\\\
-    &= P(D_s = D_c | D_s \neq D_p, D_m = D_c) \cdot \underbrace{P(D_m = D_c)}_{0} \\\\
-        &\;+ P(D_s = D_c | D_s \neq D_p, D_m = D_c) \cdot \underbrace{P(D_m = D_p)}_{0} \\\\
-        &\;+ P(D_s = D_c | D_s \neq D_p, D_m \neq D_p \land D_m \neq D_c) \cdot \underbrace{P(D_m \neq D_p \land D_m \neq D_c)}_{1}
+    &\quad= P(D_s = D_c | D_s \neq D_p, D_m = D_c) \cdot \underbrace{P(D_m = D_c)}_{0} \\\\
+        &\quad \quad + P(D_s = D_c | D_s \neq D_p, D_m = D_c) \cdot \underbrace{P(D_m = D_p)}_{0} \\\\
+        &\quad \quad + P(D_s = D_c | D_s \neq D_p, D_m \neq D_p \land D_m \neq D_c) \cdot \underbrace{P(D_m \neq D_p \land D_m \neq D_c)}_{1}
 \end{align*}
 $$
 
 This simplifies to the expression below.
 
-$$P(D_s = D_c | D_s \neq D_p) = P(D_s = D_c | D_s \neq D_p, D_m \neq D_p \land D_m \neq D_c)$$
+$$P
+\begin{align*}
+&(D_s = D_c | D_s \neq D_p) \\
+& \quad= P(D_s = D_c | D_s \neq D_p, D_m \neq D_p \land D_m \neq D_c)
+\end{align*}
+$$
 
 Apply the logical expressions
 
 $$
 \begin{align*}
 &P(D_s = D_c | D_s \neq D_p) \\\\
-    &= P(D_s = D_c | D_s \neq D_p, D_m \neq D_p \land D_m \neq D_c) \\
-    &= P(\underbrace{D_s = D_c \land D_s \neq D_p}_{D_c \neq D_p} \land \underbrace{D_m \neq D_p \land D_m \neq D_c}_{\top}) \\\\
-    &= P(D_c \neq D_p) \\
-    &= 1 - P(D_c = D_p) \\
-    &= 1 - \frac{1}{3} \\
-    &= \frac{2}{3}
+    &\quad = P(D_s = D_c | D_s \neq D_p, D_m \neq D_p \land D_m \neq D_c) \\
+    &\quad = P(\underbrace{D_s = D_c \land D_s \neq D_p}_{D_c \neq D_p} \land \underbrace{D_m \neq D_p \land D_m \neq D_c}_{\top}) \\\\
+    &\quad = P(D_c \neq D_p) \\
+    &\quad = 1 - P(D_c = D_p) \\
+    &\quad = 1 - \frac{1}{3} \\
+    &\quad = \frac{2}{3}
 \end{align*}
 $$
 
@@ -173,9 +183,9 @@ By applying the law of total probability, we can calculate the likelihood of an 
 
 $$ 
 \begin{align*}
-&P(D_s = D_c) \\\\
-    &= P(D_s = D_c \mid D_s = D_p) \cdot P(D_s = D_p) 
-        &\;\;+ P(D_s = D_c \mid D_s \neq D_p) \cdot P(D_s \neq D_p) 
+&P(D_s = D_c) \\
+    &\quad= P(D_s = D_c \mid D_s = D_p) \cdot P(D_s = D_p) 
+        &\quad \quad + P(D_s = D_c \mid D_s \neq D_p) \cdot P(D_s \neq D_p) 
 \end{align*}
 $$
 
@@ -192,8 +202,8 @@ The final result:
 $$
 \begin{align*}
 &P(D_s = D_c) \\\\ 
-    &= \underbrace{P(D_s = D_c \mid D_s = D_p)}_{\frac{1}{3}} \cdot \underbrace{P(D_s = D_p)}_{\frac{1}{2}} \\\\
-        &\;\;+ \underbrace{P(D_s = D_c \mid D_s \neq D_p)}_{\frac{2}{3}} \cdot \underbrace{P(D_s \neq D_p)}_{\frac{1}{2}} 
+    &= \quad\underbrace{P(D_s = D_c \mid D_s = D_p)}_{\frac{1}{3}} \cdot \underbrace{P(D_s = D_p)}_{\frac{1}{2}} \\\\
+        &\quad \quad+ \underbrace{P(D_s = D_c \mid D_s \neq D_p)}_{\frac{2}{3}} \cdot \underbrace{P(D_s \neq D_p)}_{\frac{1}{2}} 
 \end{align*}
 $$
 
