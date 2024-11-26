@@ -1,0 +1,20 @@
+{
+    "subject": "Mathematics",
+    "topic": "Combinatorics",
+    "subtopic": "Binomial Coefficient",
+    "views" : "7845",
+    "datePublished": "June 4, 2023",
+    "dateUpdated" : "August 14, 2024",
+    "title" : "Introduction to Binomial Coefficient",
+    "description" : "The binomial coefficient is a mathematical concept that represents the number of ways to choose k elements from a set of n elements. This article provides an introduction to the binomial coefficient, explains its formula, and demonstrates its applications in combinatorics.",
+    "objectives" : [
+        "Understand the concept of binomial coefficient",
+        "Learn the formula to calculate binomial coefficient",
+        "Learn the recursive formula for binomial coefficient",
+        "Explore the applications of binomial coefficient in combinatorics"
+    ],
+    "prerequisites" : [
+        "Basic understanding of combinatorics",
+        "Familiarity with factorials"
+    ]
+}
