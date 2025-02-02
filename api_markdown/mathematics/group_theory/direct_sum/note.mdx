@@ -5,16 +5,19 @@
 ## Construction
 
 Let $G$ and $H$ be two groups.  The direct sum of $G$ and $H$, denoted $G \oplus H$, is the set of all ordered pairs $(g, h)$ where $g \in G$ and $h \in H$.  This is denoted using set-builder notation below.
+
 $$
 G \oplus H = \{(g, h) | g \in G, h \in H\}
 $$
 
 The operation for the direct sum is component-wise and defined below.
+
 $$(g_1, h_1) + (g_2, h_2) = (g_1 + g_2, h_1 + h_2)$$
 
 ## Example
 
 Consider the two groups below.
+
 $$
 \begin{align}
 G & = \mathbb{Z}/5\mathbb{Z} \\
@@ -23,6 +26,7 @@ H & = \mathbb{Z}/2\mathbb{Z}
 $$
 
 The elements of $G \oplus H$ are given below.
+
 $$
 \begin{align}
 G \oplus H & = \{(0, 0), (0, 1), (1, 0), (1, 1), (2, 0), (2, 1), (3, 0), (3, 1), (4, 0), (4, 1)\}
@@ -71,11 +75,13 @@ Notice the above properties are due to the component-wise operation within a gro
 ## More Than Two Groups
 
 The direct sum can be extended to more than two groups.  For example, the direct sum of three groups $G$, $H$, and $K$ is denoted $G \oplus H \oplus K$.  The elements of $G \oplus H \oplus K$ are given below.
+
 $$
 G \oplus H \oplus K = \{(g, h, k) | g \in G, h \in H, k \in K\}
 $$
 
 The operation is still component-wise and defined below.
+
 $$(g_1, h_1, k_1) + (g_2, h_2, k_2) = (g_1 + g_2, h_1 + h_2, k_1 + k_2)$$
 
 ## Famous Direct Sum Groups
@@ -89,9 +95,11 @@ Below are some famous groups that are direct sums of other groups.
 ### Example $\mathbb{Z}/6\mathbb{Z} \cong \mathbb{Z}/2\mathbb{Z} \oplus \mathbb{Z}/3\mathbb{Z}$
 
 Consider the group $\mathbb{Z}/6\mathbb{Z}$.  The elements of $\mathbb{Z}/6\mathbb{Z}$ are given below.
-$$\mathbb{Z}/6\mathbb{Z} = \{0, 1, 2, 3, 4, 5\}$$ and the operation is addition modulo $6$.
 
-Below is the operation table for $\mathbb{Z}/6\mathbb{Z}$.
+$$\mathbb{Z}/6\mathbb{Z} = \{0, 1, 2, 3, 4, 5\}$$ 
+
+The operation is addition modulo $6$.  The table below shows the operation for all possible pairs of elements in $\mathbb{Z}/6\mathbb{Z}$.
+
 $$
 \begin{array}{c|cccccc}
 + & 0 & 1 & 2 & 3 & 4 & 5 \\\hline
