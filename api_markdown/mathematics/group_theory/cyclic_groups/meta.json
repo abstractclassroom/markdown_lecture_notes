@@ -1,0 +1,19 @@
+{
+    "subject": "Mathematics",
+    "topic": "Group Theory",
+    "subtopic": "Cyclic Groups",
+    "views" : "317",
+    "datePublished": "Feb 21, 2024",
+    "dateUpdated" : "Jan 23, 2025",
+    "title" : "Cyclic Groups",
+    "description" : "",
+    "objectives" : [
+        "Define Cyclic Groups",
+        "Identify Cyclic Groups",
+        "Understand the properties of Cyclic Groups"
+    ],
+    "prerequisites" : [
+        "Basic understanding of group properties"
+
+    ]
+}
