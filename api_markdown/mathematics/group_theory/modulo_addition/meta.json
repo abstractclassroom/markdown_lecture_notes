@@ -1,0 +1,20 @@
+{
+    "subject": "Mathematics",
+    "topic": "Group Theory",
+    "subtopic": "Modulo Addition Groups",
+    "views" : "987",
+    "datePublished": "Dec 23, 2024",
+    "dateUpdated" : "Jan 23, 2025",
+    "title" : "Modulo Addition Groups",
+    "description" : "Modulo addition over a set of integers defines a set and an operation that forms a group. This group is known as a modulo addition group. This section will cover the definition, properties, and examples of modulo addition groups.",
+    "objectives" : [
+        "Understand the definition of modulo addition groups",
+        "Learn the properties of modulo addition groups",
+        "Explore examples of modulo addition groups"
+    ],
+    "prerequisites" : [
+        "Basic understanding of group properties",
+        "Familiarity with modulo operations",
+        "Interested in mathematics"
+    ]
+}

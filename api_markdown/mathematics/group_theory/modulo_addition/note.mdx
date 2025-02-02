@@ -1,0 +1,159 @@
+# Modulo Addition Groups
+
+Modulo addition groups are among the most fundamental groups in group theory.  They are very straightforward to understand and work with.  More complicated groups can be analyzed by breaking them down into simpler groups.  Modulo addition groups are often used in this way.
+
+## Modulo Arithmetic
+
+Modulo arithmetic is a system of arithmetic for integers, where numbers "wrap around" after reaching a certain value, known as the modulus.  To make sure this is clear, consider the following example where the modulus is $5$.
+
+$$
+\begin{align}
+0 % 5 & = 0 \\
+1 % 5 & = 1 \\
+2 % 5 & = 2 \\
+3 % 5 & = 3 \\
+4 % 5 & = 4 \\
+5 % 5 & = 0 \\
+6 % 5 & = 1 \\
+7 % 5 & = 2 \\
+8 % 5 & = 3 \\
+9 % 5 & = 4 \\
+10 % 5 & = 0 \\
+11 % 5 & = 1 \\
+12 % 5 & = 2 \\
+13 % 5 & = 3 \\
+14 % 5 & = 4 \\
+15 % 5 & = 0 \\
+\end{align}
+$$
+
+The modulus is the number that is used to determine when the numbers wrap around.  In the example above, the modulus is $5$ and the numbers wrap around after reaching $5$.  The notation $a \% b$ is used to denote the remainder when $a$ is divided by $b$.  For example, $7 \% 5 = 2$ because $7$ divided by $5$ leaves a remainder of $2$.  The notation $a \mod b$ is also used to denote the remainder when $a$ is divided by $b$.  For example, $7 \mod 5 = 2$. \\\\
+
+Modulo addition is a binary operation that takes two integers and returns their sum modulo a given modulus.  The notation $a \oplus b$ is used to denote the sum of $a$ and $b$ modulo $n$.  In a group, the operation symbol can be **overloaded** to represent a custom operation.   For example, imagine that $+$ will now represent modulo addition.  The example below shows how this works.
+
+$$
+\begin{align}
+0 + 0 & = 0 \\
+0 + 1 & = 1 \\
+0 + 2 & = 2 \\
+0 + 3 & = 3 \\
+1 + 0 & = 1 \\
+1 + 1 & = 2 \\
+1 + 2 & = 3 \\
+1 + 3 & = 4 \\
+2 + 0 & = 2 \\
+2 + 1 & = 3 \\
+2 + 2 & = 4 \\
+2 + 3 & = 0 \\
+3 + 0 & = 3 \\
+3 + 1 & = 4 \\
+3 + 2 & = 0 \\
+3 + 3 & = 1 \\
+\end{align}
+$$
+
+
+## The Group $\mathbb{Z}/n\mathbb{Z}$
+
+The group $\mathbb{Z}/n\mathbb{Z}$ is the set of integers modulo $n$ under addition.  The notation $\mathbb{Z}/n\mathbb{Z}$ is used to denote the group of integers modulo $n$.  The elements of $\mathbb{Z}/n\mathbb{Z}$ are the integers from $0$ to $n-1$.  The operation is addition modulo $n$.  \\\\
+
+### Example $\mathbb{Z}/4\mathbb{Z}$
+
+Consider the set below.
+$$\mathbb{Z}/4\mathbb{Z} = \{0, 1, 2, 3\}$$
+
+The operation is addition modulo $4$.  The table below shows the operation for all possible pairs of elements in $\mathbb{Z}/4\mathbb{Z}$.
+
+$$
+\begin{array}{c|cccc}
++ & 0 & 1 & 2 & 3 \\\hline
+0 & 0 & 1 & 2 & 3 \\ 1 & 1 & 2 & 3 & 0 \\2 & 2 & 3 & 0 & 1 \\ 3 & 3 & 0 & 1 & 2 \\
+\end{array}
+$$
+
+Notice that the set and operation satisfy the properties of a group.  
+* **Closure**: The sum of any two elements in $\mathbb{Z}/4\mathbb{Z}$ is also an element of $\mathbb{Z}/4\mathbb{Z}$.
+* **Identity**: The identity element is $0$ because $a + 0 = a$ for all $a \in \mathbb{Z}/4\mathbb{Z}$.
+* **Inverses**: The inverse of an element $a$ is the element $b$ such that $a + b = 0$.  
+$$
+\begin{align}
+0 + 0 & = 0 \implies -0 = 0 \\
+1 + 3 & = 0 \implies -1 = 3 \\
+2 + 2 & = 0 \implies -2 = 2 \\
+3 + 1 & = 0 \implies -3 = 1 \\
+\end{align}
+$$
+* **Associativity**: The operation is associative because addition is associative.
+
+The group $\mathbb{Z}/n\mathbb{Z}$ will for a group for any positive integer $n$.  
+
+## Notation
+
+The integers modulo $n$ under addition can be denoted in a few different ways.  
+* $\mathbb{Z}/n\mathbb{Z}$
+* $\mathbb{Z}_n^+$
+
+Mathematicians frequently use one or the other with the understanding that they are **effectively** equivalent. It often boils down to the field of mathematics. However, the notation $\mathbb{Z}/n\mathbb{Z}$ is actually complex structure that is isomorphic to a simpler structure. 
+
+### $\mathbb{Z}_/n\mathbb{Z}$ Structure
+
+The group $\mathbb{Z}/n\mathbb{Z}$ actually represents a **quotient group**.   This is best described using an example.   \\\\
+
+Partition the set of integers into equivalence classes based on the modulus $5$.  The equivalence classes are shown below.
+$$
+\begin{align}
+P_0 = \{...-10, -5, 0, 5, 10, ...\} \\
+P_1 = \{...-9, -4, 1, 6, 11, ...\} \\
+P_2 = \{...-8, -3, 2, 7, 12, ...\} \\
+P_3 = \{...-7, -2, 3, 8, 13, ...\} \\
+P_4 = \{...-6, -1, 4, 9, 14, ...\} \\
+\end{align}
+$$
+
+Just to make sure this is clear, recogonize the following:
+* $P_0$ is the set of integers that have a remainder of $0$ when divided by $5$.
+* $P_1$ is the set of integers that have a remainder of $1$ when divided by $5$.
+* $P_2$ is the set of integers that have a remainder of $2$ when divided by $5$.
+* $P_3$ is the set of integers that have a remainder of $3$ when divided by $5$.
+* $P_4$ is the set of integers that have a remainder of $4$ when divided by $5$.
+
+Assume that the operation $+$ is addition modulo $5$.  Applying the operation two any two elements in the same equivalence class will result in an element in the same equivalence class.  The structure can be even more generalized as shown below. 
+$$
+\begin{align}
+a \in P_i \\
+b \in P_j \\
+(a + b) \in P_{(i + j) \% 5}
+\end{align}
+$$
+
+Let's make sure the above is clear.  Recall that the subscripts represent the remainder associated with the integers in the equivalence class.  Picking an integer from one equivalence class and adding it to an integer from another equivalence class will result in an integer that belongs to a predictable equivalence class.  The equivalence class is determined by the sum of the subscripts modulo $5$.  For example, consider the following.
+$$
+\begin{align}
+7 \in P_2 \\
+8 \in P_3 \\
+(7 + 8) \in P_{(2 + 3) \% 5} = P_0
+\end{align}
+$$
+
+The elements of $\mathbb{Z}/n\mathbb{Z}$ are actually sets of integers.  However, to make the structure simpler, the equivalence classes can be represented by the integers $0$ to $4$.  Operations on the elements (partitions) of $\mathbb{Z}/n\mathbb{Z}$ will behave very similar to the operations on the integers modulo $n$.  
+
+When two different structures have the same behavior, they are said to be **isomorphic**.  
+
+## Simplifying The Notion of Isomorphism
+
+The term **isomorphic** essentially defines a notion of equivalence up to some behavior. \\\\
+
+Imagine two pizzas coming from two different restaurants. 
+* A Pizza Hut pizza is cut into 8 slices
+* A Domino's pizza is cut into 12 slices
+
+Suppose your friend takes 8 slices from the Pizza Hut pizza and your take 6 slices from the Domino's pizza.  The two pizzas may be different sizes, have different toppings, and cut into different number of slices.  If we only consider that you and your friend took half of a pizza, then your actions are equivalent.  The two pizzas (structures) are isomorphic with respect to the behavior (operation) of taking half of a pizza.  \\\\
+
+Isomorphic structures are usually very different in nature, but the operations on the elements of the structures may behave the same.  The isomorphic relationship between $\mathbb{Z}/n\mathbb{Z}$ and $\mathbb{Z}_n^+$ is an example of this.  The two structures are very different, but the operations on the elements of the structures behave the same.  The term **isomorphic** is a conjunction of the prefix **iso-** (same) and the suffix **-morphic** (shape). \\\\
+
+Determining whether two structures are isomorphic can be very difficult and go quite deep with respect to abstract mathematics.
+
+
+## Conclusion
+Modulo addition groups are very simple and straightforward.  They are often used as building blocks for more complicated groups.  The group $\mathbb{Z}/n\mathbb{Z}$ is actually complex structure that is isomorphic to a simpler structure.  The simpler structure is the set of integers modulo $n$ under addition.  Number theorists typically use the notation $\mathbb{Z}_n^+$ and group theorists typically use the notation $\mathbb{Z}/n\mathbb{Z}$.  They are two different structures, but they are isomorphic with respect to the operation of addition modulo $n$.
+
