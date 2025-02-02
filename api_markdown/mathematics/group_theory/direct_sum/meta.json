@@ -1,0 +1,18 @@
+{
+    "subject": "Mathematics",
+    "topic": "Group Theory",
+    "subtopic": "Direct Sum of Groups",
+    "views" : "317",
+    "datePublished": "Feb 21, 2024",
+    "dateUpdated" : "Jan 23, 2025",
+    "title" : "Direct Sum of Groups Introduction",
+    "description" : "The direct sum of groups is a construction that combines two or more groups into a new group. This section will cover the definition, properties, and examples of direct sums of groups.",
+    "objectives" : [
+        "Define Direct Sum of Groups",
+        "Identify Direct Sum of Groups",
+        "Understand the properties of Direct Sum of Groups"
+    ],
+    "prerequisites" : [
+        "Basic understanding of group properties"
+    ]
+}
