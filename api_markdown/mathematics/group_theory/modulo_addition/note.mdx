@@ -8,26 +8,26 @@ Modulo arithmetic is a system of arithmetic for integers, where numbers "wrap ar
 
 $$
 \begin{align}
-0 % 5 & = 0 \\
-1 % 5 & = 1 \\
-2 % 5 & = 2 \\
-3 % 5 & = 3 \\
-4 % 5 & = 4 \\
-5 % 5 & = 0 \\
-6 % 5 & = 1 \\
-7 % 5 & = 2 \\
-8 % 5 & = 3 \\
-9 % 5 & = 4 \\
-10 % 5 & = 0 \\
-11 % 5 & = 1 \\
-12 % 5 & = 2 \\
-13 % 5 & = 3 \\
-14 % 5 & = 4 \\
-15 % 5 & = 0 \\
+0 \mod 5 & = 0 \\
+1 \mod 5 & = 1 \\
+2 \mod 5 & = 2 \\
+3 \mod 5 & = 3 \\
+4 \mod 5 & = 4 \\
+5 \mod 5 & = 0 \\
+6 \mod & = 1 \\
+7 \mod & = 2 \\
+8 \mod & = 3 \\
+9 \mod & = 4 \\
+10 \mod & = 0 \\
+11 \mod & = 1 \\
+12 \mod & = 2 \\
+13 \mod & = 3 \\
+14 \mod & = 4 \\
+15 \mod & = 0 \\
 \end{align}
 $$
 
-The modulus is the number that is used to determine when the numbers wrap around.  In the example above, the modulus is $5$ and the numbers wrap around after reaching $5$.  The notation $a \% b$ is used to denote the remainder when $a$ is divided by $b$.  For example, $7 \% 5 = 2$ because $7$ divided by $5$ leaves a remainder of $2$.  The notation $a \mod b$ is also used to denote the remainder when $a$ is divided by $b$.  For example, $7 \mod 5 = 2$. \\
+The modulus is the number that is used to determine when the numbers wrap around.  In the example above, the modulus is $5$ and the numbers wrap around after reaching $5$.  The notation $a \% b$ is used to denote the remainder when $a$ is divided by $b$.  For example, $7 \% 5 = 2$ because $7$ divided by $5$ leaves a remainder of $2$.  The notation $a \mod b$ is also used to denote the remainder when $a$ is divided by $b$.  For example, $7 \mod 5 = 2$. 
 
 Modulo addition is a binary operation that takes two integers and returns their sum modulo a given modulus.  The notation $a \oplus b$ is used to denote the sum of $a$ and $b$ modulo $n$.  In a group, the operation symbol can be **overloaded** to represent a custom operation.   For example, imagine that $+$ will now represent modulo addition.  The example below shows how this works.
 
@@ -55,7 +55,7 @@ $$
 
 ## The Group $\mathbb{Z}/n\mathbb{Z}$
 
-The group $\mathbb{Z}/n\mathbb{Z}$ is the set of integers modulo $n$ under addition.  The notation $\mathbb{Z}/n\mathbb{Z}$ is used to denote the group of integers modulo $n$.  The elements of $\mathbb{Z}/n\mathbb{Z}$ are the integers from $0$ to $n-1$.  The operation is addition modulo $n$.  \\
+The group $\mathbb{Z}/n\mathbb{Z}$ is the set of integers modulo $n$ under addition.  The notation $\mathbb{Z}/n\mathbb{Z}$ is used to denote the group of integers modulo $n$.  The elements of $\mathbb{Z}/n\mathbb{Z}$ are the integers from $0$ to $n-1$.  The operation is addition modulo $n$.  
 
 ### Example $\mathbb{Z}/4\mathbb{Z}$
 
@@ -100,9 +100,10 @@ Mathematicians frequently use one or the other with the understanding that they 
 
 ### $\mathbb{Z}/n\mathbb{Z}$ Structure
 
-The group $\mathbb{Z}/n\mathbb{Z}$ actually represents a **quotient group**.   This is best described using an example.   \\
+The group $\mathbb{Z}/n\mathbb{Z}$ actually represents a **quotient group**.   This is best described using an example.   
 
 Partition the set of integers into equivalence classes based on the modulus $5$.  The equivalence classes are shown below.
+
 $$
 \begin{align}
 P_0 = \{...-10, -5, 0, 5, 10, ...\} \\
@@ -146,7 +147,7 @@ When two different structures have the same behavior, they are said to be **isom
 
 ## Simplifying The Notion of Isomorphism
 
-The term **isomorphic** essentially defines a notion of equivalence up to some behavior. \\
+The term **isomorphic** essentially defines a notion of equivalence up to some behavior. 
 
 Imagine two pizzas coming from two different restaurants. 
 * A Pizza Hut pizza is cut into 8 slices
@@ -154,7 +155,7 @@ Imagine two pizzas coming from two different restaurants.
 
 Suppose your friend takes 8 slices from the Pizza Hut pizza and your take 6 slices from the Domino's pizza.  The two pizzas may be different sizes, have different toppings, and cut into different number of slices.  If we only consider that you and your friend took half of a pizza, then your actions are equivalent.  The two pizzas (structures) are isomorphic with respect to the behavior (operation) of taking half of a pizza.  \\
 
-Isomorphic structures are usually very different in nature, but the operations on the elements of the structures may behave the same.  The isomorphic relationship between $\mathbb{Z}/n\mathbb{Z}$ and $\mathbb{Z}_n^+$ is an example of this.  The two structures are very different, but the operations on the elements of the structures behave the same.  The term **isomorphic** is a conjunction of the prefix **iso-** (same) and the suffix **-morphic** (shape). \\
+Isomorphic structures are usually very different in nature, but the operations on the elements of the structures may behave the same.  The isomorphic relationship between $\mathbb{Z}/n\mathbb{Z}$ and $\mathbb{Z}_n^+$ is an example of this.  The two structures are very different, but the operations on the elements of the structures behave the same.  The term **isomorphic** is a conjunction of the prefix **iso-** (same) and the suffix **-morphic** (shape). 
 
 Determining whether two structures are isomorphic can be very difficult and go quite deep with respect to abstract mathematics.
 
