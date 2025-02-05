@@ -1,0 +1,117 @@
+# Git Technology
+
+There have been many variations of source control management (SCM) systems. Older developers may be familiar with systems like mercurial, subversion, and bitkeeper. However, most of theses systems have been replaced by a newer system called Git.  Git came into existence in the early 2000's and has become (by far) the most popular SCM system.  Git was created by Linus Torvalds, the creator of the Linux operating system.  
+
+## What is Git?
+
+Git is a distributed version control system.  This means that every developer can have a fully copy of a codebase (known as a **repository**) on their local machine.  The distributed nature of Git allows developers to work on code offline without being actively connected to a central repository. This is a huge advantage over centralized systems like subversion.  Git also has a very powerful branching system that allows developers to work on multiple features at the same time.  Git is also very fast and efficient.  It is able to handle very large codebases with ease.
+
+### The General Workflow
+
+The general workflow for Git is as follows:
+
+1. **Clone**: Clone a repository from a remote server to your local machine (puts a copy of the code on your local machine).
+2. **Branch**: Create a new branch to work on a new feature.
+   * The `main` branch is the default branch and usually represents the code that is in production.
+   * New features are developed on separate branches.
+   * Once the new addition is complete and tested, the branch is merged back into the `main` branch.
+   * Once merged, the new feature is now part of the production code.
+3. **Stage**: Stage changes to be committed. This simply means you have identified the changes you intend to commit.
+4. **Commit**: Commit the changes to the local repository. This is like taking a snapshot of the code at a particular point in time.
+5. **Push**: Push the changes to the remote repository. This is like sharing your changes with the rest of the team.
+6. **Pull**: Pull changes from the remote repository. This is like updating your local codebase with the latest changes from the team.
+7. **Fetch**: Fetch changes from the remote repository. This is like checking to see if there are any new branches or changes on the remote repository.
+8. **Merge**: Merge changes from one branch into another. This is like combining two branches of code together.
+9. **Fix Conflicts**: If there are conflicts between two branches, you will need to resolve them manually. Git will help you identify the conflicts so you can fix them.
+10. **Rebase**: Rebase is a way to rewrite the history of a branch. This is useful if you want to clean up your commit history before merging a branch.
+11. **Tag**: Tag a commit to mark it as a version release or a specific point in time.
+12. **Pull Request**: A pull request is a way to ask the team to review your changes before merging them into the main branch.
+13. **Review**: Review the changes in a pull request. This is a way to ensure that the changes are correct and meet the team's standards.  Typically a developer will work with a team lead or another developer to review the changes.
+
+Note that the above workflow is a general guideline.  The actual workflow will certainly vary depending on the team and the project.  
+
+## Git Commands
+
+Here are some common Git commands:
+
+* `git clone <url>`: Clone a repository from a remote server.
+* `git init`: Initialize a new Git repository.
+* `git status`: Show the status of the working directory.
+* `git add <file>`: Add a file to the staging area. 
+   * This is like saying "I want to commit this file". 
+   * You can use `git add .` to add all files.
+* `git commit -m "message"`: Commit the changes to the local repository.
+* `git push`: Push the changes to the remote repository.
+* `git pull`: Pull the changes from the remote repository.
+* `git fetch`: Fetch changes like new branches from the remote repository.
+* `git branch <branch>`: Create a new branch.
+   * `git branch -d <branch>`: Delete a branch.
+   * `git branch -a`: List all branches.
+   * `git branch -m <new_name>`: Rename the current branch.
+   * `git branch -m <old_name> <new_name>`: Rename a branch.
+   * `git branch -b <branch>`: Create a new branch and switch to it.
+* `git checkout <branch>`: Switch to a different branch.
+* `git merge <branch>`: Merge changes from another branch into the branch you are currently on (checked out).
+* `git log`: Show the commit history.
+* `git diff`: Show the differences between the working directory and the staging area.
+   * `git diff --staged`: Show the differences between the staging area and the local repository.
+   * `git diff <commit1> <commit2>`: Show the differences between two commits.
+   * `git diff <branch1> <branch2>`: Show the differences between two branches.
+* `git reset <file>`: Unstage a file.
+   * `git reset --hard`: Reset the working directory to the last commit.
+   * `git reset --hard <commit>`: Reset the working directory to a specific commit.
+* `git tag <tag>`: Tag a commit.
+   * `git tag -a <tag> -m "message"`: Tag a commit with a message.
+   * `git tag -d <tag>`: Delete a tag.
+   * `git tag`: List all tags.
+* `git rebase <branch>`: Rebase the current branch onto another branch.
+* `git pull-request`: Create a pull request.
+* `git review`: Review a pull request.
+
+As you can see, there are many Git commands.  Most developers will use **ALL** the Git commands **FREQUENTLY**. It is important to understand what each command does and how to use it.  Git is a very powerful tool, but it can be complex.  It is worth investing the time to learn Git properly.  This is not something that can be learned in a day.  It takes time and practice to become proficient with Git.  
+
+Once you have mastered Git, you will wonder how you ever lived without it.  All of the above commands are executed from the command line.  There are GUI tools available for Git, but most developers prefer the command line.  The command line is faster and more powerful than a GUI tool.  However, if you are new to Git, a GUI tool may be easier to learn.  However, your goal should be to learn the command line.  It will make you a more efficient developer in the long run.  It will also demonstrate maturity and experience to other developers.  The command line is a badge of honor for many developers.
+
+## IDE Integration
+
+Most IDEs (e.g. VS Code and IntelliJ) have built-in support for Git.  This makes it easy to work with Git from within your IDE.  You can perform most Git operations directly from the IDE.  This is not a replacement for the command line, but this is an invaluable tool for fixing merge conflicts, reviewing changes, and creating pull requests.  Most IDEs will provide visual highlights for changes and conflicts. You certainly need to master the command line, but make sure you also master the Git integration in your IDE.  
+
+## Repositories
+
+A repository is a collection of files and directories that make up a project.  Most developers and companies maintain a remote repository that will store the codebase.  Developers can configure their own server (not typical) or utilize a service to host the repository.  The most popular services are listed below.
+
+* **GitHub**: GitHub is the most popular service for hosting Git repositories.  It is free for public repositories and has a paid tier for private repositories.  GitHub has a very large community and is used by many open source projects. Students get free access to the paid tier. 
+* **GitLab**: GitLab is another popular service for hosting Git repositories.  It is similar to GitHub, but has some different features.  
+* **Bitbucket**: Bitbucket is a service provided by Atlassian.  It is similar to GitHub and GitLab, but has some different features.  Bitbucket is often used by companies that use other Atlassian products like Jira and Confluence.
+* **Azure DevOps**: Azure is a cloud platform provided by Microsoft.  Azure DevOps is a service that provides Git repositories, CI/CD pipelines, and other tools for developers.  Azure DevOps is often used by companies that use other Microsoft products like Visual Studio and Azure.
+* **AWS CodeCommit**: AWS is a cloud platform provided by Amazon.  CodeCommit is a service that provides Git repositories.  CodeCommit is often used by companies that use other AWS products like Lambda and S3.
+
+Most developers will use GitHub unless they are working for a company that uses another service.  GitHub is the most popular service and has the largest community.  GitHub can also serve as a portfolio for developers.  Developing a solid profile on GitHub can help you get a job.  Many companies will look at your GitHub profile to see what projects you have worked on.  Make sure you have a good profile with lots of contributions.  This will make you more attractive to potential employers.
+
+## GitHub/Git Configuration
+
+In order to use Git with a service like GitHub you need to implement sonme configurations.   Below is a general outline of the configuration steps.
+
+1. **Install Git** (Windows Only): You need to install Git on your local machine.  You can download Git from the [Git website](https://git-scm.com/).  If you are using a Mac or Linux, Git may already by installed.  If not, you can install it using a package manager like Homebrew, yum, apt, or dnf.
+2. **Create a GitHub Account**: You need to create an account on GitHub.  You can do this by going to the GitHub website and signing up.  You can use a free account for public repositories or a paid account for private repositories.
+3. **Generate SSH Key**: You need to generate an SSH key on your local machine.  This key will be used to authenticate with GitHub.  You can generate an SSH key using the `ssh-keygen` command.  You can find instructions on how to do this on the GitHub website.
+4. **Add SSH Key to GitHub**: You need to add your SSH key to your GitHub account.  Your SSH public key will likely be stored in a file called `id_rsa.pub` in your `.ssh` directory.  You can copy the contents of this file and paste it into the SSH keys section of settings in your GitHub account.
+5. **Configure Git**: You need to configure Git on your local machine.  You can do this using the `git config` command.  You need to set your name and email address. 
+   * `git config --global user.name "Your Name"`
+   * `git config --global user.email "Your Email"`
+6. **Clone a Repository**: You can clone a repository from GitHub to your local machine using the `git clone` command.  You need to use the SSH URL for the repository.  You can find this URL on the GitHub website. Typically, there is a green button that says "Code".  Click on this button and you will see the SSH URL.  Do not use the HTTPS URL.
+
+
+## Conclusion
+
+There is a bit of a learning curve with Git technology. It requires practice and patience to master.  Once you do there will significant benefits.
+
+* Become a more efficient developer. 
+* Work on multiple features at the same time.
+* Work offline without being connected to a central repository.
+* Collaborate with other developers on the same codebase.
+* Manage large codebases with ease.
+* Create a portfolio of projects on GitHub.
+* Get a job by showcasing your work on GitHub.
+
+It will be worth the effort to learn it early.  Learning it at your own pace will be much better than starting a job and having to learn it rapidly.  Learning how to fix conflicts early will be a huge benefit. 

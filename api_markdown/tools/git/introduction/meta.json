@@ -1,0 +1,20 @@
+{
+    "subject": "Tools",
+    "topic": "Git",
+    "subtopic": "Introduction",
+    "views" : "14253",
+    "datePublished": "Oct 8, 2024",
+    "dateUpdated" : "Nov 12, 2024",
+    "title" : "Introduction To Git",
+    "description" : "Git is a powerful engineering tool that developers use to collaborate, alter code simultaneously, and track changes in their codebase. Understanding Git is a required skill for all engineers. This tutorial will introduce you to the basics of Git and how to use it effectively.",
+    "objectives" : [
+        "Understand the problems Git solves",
+        "Understand the basic Git workflow",
+        "Understand the basic Git commands",
+        "Understand how to use Git in a team environment"
+    ],
+    "prerequisites" : [
+        "Basic understanding of the command line",
+        "Basic computer skills"     
+    ]
+}
