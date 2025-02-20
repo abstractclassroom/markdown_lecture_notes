@@ -1,0 +1,21 @@
+{
+    "subject": "Mathematics",
+    "topic": "Proofs",
+    "subtopic": "Conditional Statements",
+    "views" : "332",
+    "datePublished": "June 9, 2024",
+    "dateUpdated" : "June 9, 2024",
+    "title" : "Conditial Statements",
+    "description" : "Conditional statements are statements that can be written in the form 'If p, then q'. In this lesson, we will learn about the contrapositive and converse statements relative to an original statement.",
+    "objectives" : [
+        "Understand the concept of the contrapositive of a statement",
+        "Understand the logical equivalence of a statement and its contrapositive",
+        "Understand the concept of the converse of a statement",
+        "Understand the logical equivalence of a statement and its converse",
+        "Understand if and only if statements"
+    ],
+    "prerequisites" : [
+        "Basic understanding of logic",
+        "Basic understanding of conditional statements"
+    ]
+}
