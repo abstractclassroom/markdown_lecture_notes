@@ -1,0 +1,19 @@
+{
+    "subject": "Mathematics",
+    "topic": "Proofs",
+    "subtopic": "Necessary and Sufficient Conditions",
+    "views" : "896",
+    "datePublished": "June 19, 2024",
+    "dateUpdated" : "June 21, 2024",
+    "title" : "Necessary and Sufficient Conditions",
+    "description" : "Necessary and sufficient conditions are conditions that must be met in order for a statement to be true. These notes will demonstrate the difference between necessary and sufficient conditions and how they are used in proofs.",
+    "objectives" : [
+        "Understand the concept of necessary and sufficient conditions",
+        "Understand the difference between necessary and sufficient conditions",
+        "Understand how necessary and sufficient conditions are used in proofs"
+    ],
+    "prerequisites" : [
+        "Basic understanding of logic",
+        "Basic understanding of conditional statements"
+    ]
+}
