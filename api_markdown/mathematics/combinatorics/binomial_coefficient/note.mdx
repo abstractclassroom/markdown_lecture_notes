@@ -25,6 +25,34 @@ Where:
 
 ---
 
+## Deriving The Formula
+
+Recall that permutations represent all the ways elements of a set can be put in an order.  The following formula represents all the ways $k$ elements can be chosen from a set of $n$ elements and placed in a specific order.
+
+$$
+P(n,k) = \frac{n!}{(n-k)!}
+$$
+
+With permutations order matters but this is not the case with bionomial coefficients.   Consider the ordered tuples below.
+
+$$(1,4,3) \;\; (3,1,4)$$
+
+When order is important, the ordered tuples above are considered distinct (different).  However, binomial coefficients effectively represent subses where order does not matter.  As a result, both ordered tuples would essentially represent the same set.
+
+$$(1,4,3) \rightarrow \{1,3,4}$$
+
+and
+
+$$(3,1,4) \rightarrow \{1,3,4}$$
+
+The permutations formula essentially overcounts the number of combinations when order does not matter.  In fact, for sets of length $k$, the permutation formula overcounts by a factor of $k!$.  Every tuple of length $k$ can be ordered in $k!$ ways.   The binomial coefficient formula can be restated in the expression below. 
+
+$$\frac{1}{k!} \cdot P(n,k) = \frac{1}{k!} \cdot \frac{n!}{(n-k)!} = \frac{n!}{k!(n-k)!}$$
+
+The formula for the binomial coefficient is simply a modification of the permutations formula.
+
+---
+
 ## Recursion Formula
 
 The binomial coefficient satisfies the following recursive relationship:
