@@ -1,0 +1,24 @@
+{
+    "subject": "Mathematics",
+    "topic": "Relations",
+    "subtopic": "Functions",
+    "views" : "12556",
+    "datePublished": "July 25, 2024",
+    "dateUpdated" : "July 26, 2024",
+    "title" : "Introduction To Mathematical Functions",
+    "description" : "Functions are a fundamental concept in mathematics, representing a relationship between sets of objects. This set of notes provides an overview of functions, their properties, and their applications of functions.",
+    "objectives" : [
+        "Understand the concept of a function",
+        "Learn about the domain and range of functions",
+        "Explore different types of functions",
+        "Learn about function notation and evaluation",
+        "Understand the concept of inverse functions",
+        "Learn about composite functions",
+        "Learn about odd and even functions"
+    ],
+    "prerequisites" : [
+        "Basic algebra",
+        "Understanding of sets and relations",
+        "Familiarity with graphs and coordinates"
+    ]
+}

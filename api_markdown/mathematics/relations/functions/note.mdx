@@ -1,0 +1,427 @@
+# Mathematical Functions
+
+Functions are essentially a relation with extra contraints.  A function simply maps each element of a set to a unique element of another set or the same set. The set of all possible inputs is called the domain, and the set of all possible outputs is called the codomain.  The function itself is a subset of the Cartesian product of the domain and codomain.  The codomain is often referred as the range.  A function is a special type of relation that satisfies the following properties:
+
+- **Uniqueness**: Each element in the domain is associated with exactly one element in the codomain. This means that for every input, there is a single output. This is effectively the defining characteristic that distinguishes a function from a general relation.
+- **Totality**: Every element in the domain must be associated with an element in the codomain. This means that the function must provide an output for every possible input in the domain.
+
+## Function Notation
+
+Functions are often described using arrow notation to indicate the mapping from the domain to the codomain. For example, if $ f $ is a function that maps elements from set $ A $ to set $ B $, we can write:
+
+$$
+f: A \rightarrow B
+$$
+
+This notation indicates that $ f $ is a function that takes an element from set $ A $ and maps it to an element in set $ B $. This is often read as **f maps A to B**. This notation simply provides a high-level overview of the function's behavior without specifying the exact mapping.
+
+When defining the actual mapping, we can use the following notation:
+
+$$
+f(x) = y
+$$
+
+This notation indicates that the function $ f $ takes an input $ x $ from the domain and produces an output $ y $ in the codomain. This is often read as **f of x equals y**. This notation provides a more detailed description of the function's behavior, specifying the exact mapping for a given input.
+
+### Example
+
+For example, consider the function $ f $ that maps integers to their squares:
+
+$$
+f: \mathbb{Z} \rightarrow \mathbb{Z}
+$$
+
+In this case, the function $ f $ takes an integer $ x $ from the domain $ \mathbb{Z} $ and produces its square $ y $ in the codomain $ \mathbb{Z} $:
+
+$$
+f(x) = x^2
+$$
+
+This means that for every integer $ x $, the function $ f $ will produce a unique output $ y $ that is the square of $ x $. For example, if we input $ 3 $ into the function, we get $f(3) = 3^2 = 9$. Similarly, if we input $ -2 $, we get $f(-2) = (-2)^2 = 4$. This illustrates the uniqueness property of functions, as each input corresponds to a single output.
+
+## Classification of Functions
+
+Functions can be classified into several categories based on their properties and behavior. Some common classifications include:
+
+- **Injective Functions (One-to-One)**: A function is injective if every element in the codomain is mapped to by at most one element in the domain. In other words, no two different elements in the domain map to the same element in the codomain. This means that each output is unique to a specific input.
+- **Surjective Functions (Onto)**: A function is surjective if every element in the codomain is mapped to by at least one element in the domain. This means that the function covers the entire codomain, ensuring that every possible output has a corresponding input.
+- **Bijective Functions (One-to-One Correspondence)**: A function is bijective if it is both injective and surjective. This means that every element in the domain maps to a unique element in the codomain, and every element in the codomain is mapped to by a unique element in the domain. Bijective 
+functions establish a one-to-one correspondence between the domain and codomain, allowing for an inverse function to be defined.
+
+### Injective Function 
+
+A function $ f: A \rightarrow B $ is injective if $f(x_1) = f(x_2)$ implies $x_1 = x_2$ for all $x_1, x_2 \in A$. This means that no two different elements in the domain map to the same element in the codomain. In other words, if two inputs produce the same output, then those inputs must be the same.
+
+#### Example
+Consider the function $ f: \mathbb{R} \rightarrow \mathbb{R} $ defined by:
+
+$$
+f(x) = 2x + 1
+$$
+
+This is a linear function, and it is injective because for any two different inputs $ x_1 $ and $ x_2 $ in the domain the output will be different. To prove this, we can assume that $ f(x_1) = f(x_2) $:
+
+$$
+f(x_1) = 2x_1 + 1 = 2x_2 + 1 = f(x_2)
+$$
+
+Subtracting $ 1 $ from both sides gives us:
+
+$$
+2x_1 = 2x_2
+$$
+
+Dividing both sides by $ 2 $ gives us:
+
+$$
+x_1 = x_2
+$$
+
+This shows that if the outputs are equal, then the inputs must also be equal, confirming that the function is injective.
+
+#### Example of Non-Injective Function
+
+Consider the function $ g: \mathbb{R} \rightarrow \mathbb{R} $ defined by:
+
+$$
+g(x) = x^2
+$$
+
+This function is not injective because both $ g(2) $ and $ g(-2) $ produce the same output:
+
+$$
+g(2) = 2^2 = 4
+$$
+
+$$
+g(-2) = (-2)^2 = 4
+$$
+
+This means that two different inputs produce the same output, violating the injective property. Therefore, $ g $ is not an injective function.
+
+It is important to note that injective depends on how the domain and codomain are defined. For example, if we restrict the domain of $ g $ to only non-negative numbers, then it becomes injective:
+
+$$
+g: [0, \infty) \rightarrow [0, \infty)
+$$
+
+In this case, the function is injective because there are no two different non-negative numbers that produce the same output. For example, $ g(2) = 4 $ and $ g(-2) $ is not defined in this case.
+
+### Surjective Functions
+
+A function $ f: A \rightarrow B $ is surjective if for every element $ b \in B $, there exists at least one element $ a \in A $ such that $ f(a) = b $. This means that the function covers the entire codomain, ensuring that every possible output has a corresponding input.
+
+#### Example
+
+Consider the function $ f: \mathbb{R} \rightarrow \mathbb{R} $ defined by:
+
+$$
+f(x) = 2x + 1
+$$
+
+This function is surjective because for any real number $ y $, we can find a corresponding input $ x $ such that $ f(x) = y $. For a given output, we can determine the input by rearranging the equation:
+
+$$
+y = 2x + 1
+$$
+
+Subtracting $ 1 $ from both sides gives us:
+
+$$
+y - 1 = 2x
+$$
+
+Dividing both sides by $ 2 $ gives us:
+
+$$
+x = \frac{y - 1}{2}
+$$
+
+This shows that for any real number $ y $, we can find a corresponding input $ x $ in the domain such that $ f(x) = y $. Therefore, the function is surjective.
+
+#### Example of Non-Surjective Function
+
+Consider the function $ g: \mathbb{R} \rightarrow \mathbb{R} $ defined by:
+
+$$
+g(x) = x^2
+$$
+
+This function is not surjective because there are real numbers in the codomain that cannot be produced by any input in the domain. For example, there is no real number $ x $ such that $ g(x) = -1 $ because the square of any real number is always non-negative. Therefore, the function does not cover the entire codomain, violating the surjective property.
+
+If we restrict the codomain of $ g $ to only non-negative numbers, then it becomes surjective:
+
+$$
+g: \mathbb{R} \rightarrow [0, \infty)
+$$
+
+In this case, the function is surjective because every non-negative number has a corresponding input in the domain. For example, for any non-negative number $ y $, we can find an input $ x $ such that $ g(x) = y $ by taking the square root:
+
+$$
+x = \sqrt{y}
+$$
+
+This shows that for any non-negative number $ y $, we can find a corresponding input $ x $ in the domain such that $ g(x) = y $. Therefore, the function is surjective.
+
+### Bijective Functions
+
+A function $ f: A \rightarrow B $ is bijective if it is both injective and surjective. This means that every element in the domain maps to a unique element in the codomain, and every element in the codomain is mapped to by a unique element in the domain. Bijective functions establish a one-to-one correspondence between the domain and codomain, allowing for an inverse function to be defined.
+
+#### Example
+
+Consider the function $ f: \mathbb{R} \rightarrow \mathbb{R} $ defined by:
+
+$$
+f(x) = 2x + 1
+$$
+
+This function is bijective because it is both injective and surjective. We have already shown that it is injective because no two different inputs produce the same output. We have also shown that it is surjective because every real number in the codomain has a corresponding input in the domain.
+Therefore, the function is bijective. This means that there is a one-to-one correspondence between the domain and codomain, allowing us to define an inverse function.
+
+The inverse function $ f^{-1} $ can be found by rearranging the equation:
+
+$$
+y = 2x + 1
+$$
+
+Subtracting $ 1 $ from both sides gives us:
+
+$$
+y - 1 = 2x
+$$
+
+Dividing both sides by $ 2 $ gives us:
+
+$$
+x = \frac{y - 1}{2}
+$$
+
+This shows that the inverse function is:
+
+$$
+f^{-1}(y) = \frac{y - 1}{2}
+$$
+
+This means that for any output $ y $, we can find the corresponding input $ x $ in the domain such that $ f^{-1}(y) = x $. This illustrates the one-to-one correspondence between the domain and codomain, confirming that the function is bijective.
+
+#### Example of Non-Bijective Function
+
+Consider the function $ g: \mathbb{R} \rightarrow \mathbb{R} $ defined by:
+
+$$
+g(x) = x^2
+$$
+
+This function is not bijective because it is not injective. We have already shown that it is not injective because both $ g(2) $ and $ g(-2) $ produce the same output. Therefore, the function does not establish a one-to-one correspondence between the domain and codomain, violating the bijective property.
+
+If we restrict the domain of $ g $ to only non-negative numbers, then it becomes bijective:
+
+$$
+g: [0, \infty) \rightarrow [0, \infty)
+$$
+
+In this case, the function is bijective because it is both injective and surjective. We have already shown that it is injective because no two different non-negative numbers produce the same output. We have also shown that it is surjective because every non-negative number in the codomain has a corresponding input in the domain. Therefore, the function is bijective. This means that there is a one-to-one correspondence between the domain and codomain, allowing us to define an inverse function.
+
+The inverse function $ g^{-1} $ can be found by rearranging the equation:
+
+$$
+y = x^2
+$$
+
+Taking the square root of both sides gives us:
+
+$$
+x = \sqrt{y}
+$$
+
+This shows that the inverse function is:
+
+$$
+g^{-1}(y) = \sqrt{y}
+$$
+
+This means that for any output $ y $, we can find the corresponding input $ x $ in the domain such that $ g^{-1}(y) = x $. This illustrates the one-to-one correspondence between the domain and codomain, confirming that the function is bijective.
+
+## Horizontal and Vertical Line Test
+
+The horizontal and vertical line tests are graphical methods used to determine whether a function is injective or surjective, respectively. These tests are particularly useful for visualizing the properties of functions in the Cartesian plane.
+
+### Horizontal Line Test
+
+The horizontal line test is used to determine whether a function is injective. According to this test, if any horizontal line intersects the graph of the function at more than one point, then the function is not injective. This means that there are at least two different inputs that produce the same output.
+
+#### Example
+
+Consider the function $ f: \mathbb{R} \rightarrow \mathbb{R} $ defined by:
+
+$$
+f(x) = x^2
+$$
+
+The graph of this function is a parabola that opens upwards. If we draw a horizontal line at $ y = 4 $, we can see that it intersects the graph at two points: $ x = 2 $ and $ x = -2 $. This means that the function is not injective because both inputs produce the same output.
+
+Similarly, if we draw a horizontal line at $ y = 1 $, we can see that it intersects the graph at one point: $ x = 1 $. This means that the function is injective for this input. However, since there are other inputs that produce the same output, the function is not injective overall.
+
+
+### Vertical Line Test
+
+The vertical line test is used to determine whether a function is well-defined. According to this test, if any vertical line intersects the graph of the function at more than one point, then the relation is not a function. This means that there are at least two different inputs that produce the same output.
+
+#### Example
+Consider the relation $ R $ defined by the set of points:
+
+$$
+R = \{(1, 2), (1, 3), (2, 4), (3, 5)\}
+$$
+
+The graph of this relation consists of the points $(1, 2)$, $(1, 3)$, $(2, 4)$, and $(3, 5)$. If we draw a vertical line at $ x = 1 $, we can see that it intersects the graph at two points: $ (1, 2) $ and $ (1, 3) $. This means that the relation is not a function because both inputs produce different outputs. Therefore, the relation does not satisfy the definition of a function.
+
+Similarly, if we draw a vertical line at $ x = 2 $, we can see that it intersects the graph at one point: $ (2, 4) $. This means that the relation is a function for this input. However, since there are other inputs that produce different outputs, the relation is not a function overall.
+
+## Inverse Functions
+
+An inverse function is a function that "reverses" the effect of the original function. If $ f: A \rightarrow B $ is a bijective function, then its inverse function $ f^{-1}: B \rightarrow A $ is defined such that:
+
+$$
+f^{-1}(f(x)) = x \quad \text{for all } x \in A
+$$
+
+$$
+f(f^{-1}(y)) = y \quad \text{for all } y \in B
+$$
+
+This means that applying the inverse function to the output of the original function returns the original input, and applying the original function to the output of the inverse function returns the original output.
+
+A function must be bijective in order to have an inverse function. This is because the inverse function relies on a one-to-one correspondence between the domain and codomain, ensuring that each output has a unique input.
+If a function is not bijective, it may not have an inverse function or may have multiple inverse functions. In such cases, the inverse function may not be well-defined, leading to ambiguity in the mapping between the domain and codomain.
+
+#### Multiple Inverse Function Example
+
+Consider the function $ g: \mathbb{R} \rightarrow \mathbb{R} $ defined by:
+
+$$
+g(x) = x^2
+$$  
+
+This function is not bijective because it is not injective. We have already shown that it is not injective because both $ g(2) $ and $ g(-2) $ produce the same output. Therefore, the function does not establish a one-to-one correspondence between the domain and codomain, violating the bijective property. In this case, the inverse function is not well-defined because there are multiple inputs that produce the same output. For example, if we take the output $ y = 4 $, we can find two different inputs $ x = 2 $ and $ x = -2 $ such that $ g(x) = y $. This means that the inverse function is not unique, leading to ambiguity in the mapping between the domain and codomain.
+
+The function $ g $ has two inverse functions:
+
+$$
+g^{-1}(y) = \sqrt{y} \quad \text{for } y \geq 0
+$$
+
+$$
+g^{-1}(y) = -\sqrt{y} \quad \text{for } y \geq 0
+$$
+
+This means that for any output $ y $, we can find two different inputs $ x = \sqrt{y} $ and $ x = -\sqrt{y} $ such that $ g(x) = y $. This illustrates the ambiguity in the mapping between the domain and codomain, confirming that the function does not have a well-defined inverse function.
+
+
+## Even and Odd Functions
+
+Even and odd functions are special types of functions that exhibit specific symmetry properties. These properties can be useful for analyzing the behavior of functions and their graphs.
+
+### Even Functions
+
+An even function is a function that satisfies the following property:
+
+$$
+f(-x) = f(x) \quad \text{for all } x \in A
+$$
+
+This means that the function is symmetric with respect to the y-axis. In other words, if we reflect the graph of the function across the y-axis, it remains unchanged.
+
+#### Example
+
+Consider the function $ f: \mathbb{R} \rightarrow \mathbb{R} $ defined by:
+
+$$
+f(x) = x^2
+$$
+
+To prove that this function is even, we can substitute $ -x $ into the function:
+
+$$
+f(-x) = (-x)^2 = \left((-1) \cdot x \right)^2 = (-1)^2 \cdot x^2 = 1 \cdot x^2 = x^2 = f(x)
+$$
+
+Notice this demonstrates $f(x) = f(-x)$ for all $x \in \mathbb{R}$.
+
+### Odd Functions
+
+An odd function is a function that satisfies the following property:
+
+$$
+f(-x) = -f(x) \quad \text{for all } x \in A
+$$
+
+This means that the function is symmetric with respect to the origin. In other words, if we rotate the graph of the function 180 degrees around the origin, it remains unchanged.
+
+#### Example
+
+Consider the function $ f: \mathbb{R} \rightarrow \mathbb{R} $ defined by:
+
+$$
+f(x) = x^3
+$$
+
+To prove that this function is odd, we can substitute $ -x $ into the function:
+
+$$
+f(-x) = (-x)^3 = (-1)^3 \cdot x^3 = -1 \cdot x^3 = -x^3 = -f(x)
+$$
+
+Notice this demonstrates $f(x) = -f(-x)$ for all $x \in \mathbb{R}$.
+
+### Neither Even nor Odd Functions
+
+A function can also be neither even nor odd. This means that it does not satisfy either of the properties for all inputs in the domain. In other words, the function does not exhibit any specific symmetry with respect to the y-axis or the origin.
+
+#### Example
+
+Consider the function $ f: \mathbb{R} \rightarrow \mathbb{R} $ defined by:
+
+$$
+f(x) = x^3 + 2x
+$$
+
+To prove that this function is neither even nor odd, we can substitute $ -x $ into the function:
+
+$$
+f(-x) = (-x)^3 + 2(-x) = -x^3 - 2x
+$$
+
+Notice this does not satisfy either of the properties for all inputs in the domain.
+
+### Classic Even and Odd Functions
+
+Below is a list of classic even functions
+
+* $ f(x) = x^2 $
+* $ f(x) = \cos(x) $
+* $ f(x) = |x| $
+* $ f(x) = x^4 $
+* $ f(x) = \cosh(x) $
+* $ f(x) = 5x^2 + 3 $
+* $ f(x) = 2x^4 + 3x^2 + 1 $
+* $ f(x) = 2\cos(x) + 3 $
+* $ f(x) = 3\cosh(x) + 2 $
+* $ f(x) = 2x^4 + 3x^2 + 1 $
+
+Below is a list of classic odd functions
+
+* $ f(x) = x^3 $
+* $ f(x) = \sin(x) $
+* $ f(x) = x $
+* $ f(x) = x^5 $
+* $ f(x) = \tanh(x) $
+* $ f(x) = 5x^3 + 3x $
+* $ f(x) = 2x^5 + 3x^3 + x $
+* $ f(x) = 2\sin(x) + 3x $
+* $ f(x) = 3\tanh(x) + 2x $
+
+
+## Conclusion
+
+In summary, functions are a special type of relation that satisfy the properties of uniqueness and totality. They can be classified into injective, surjective, and bijective functions based on their properties. The horizontal and vertical line tests are useful for determining whether a function is injective or surjective, respectively. Inverse functions are defined for bijective functions, allowing for a one-to-one correspondence between the domain and codomain. Finally, even and odd functions exhibit specific symmetry properties that can be useful for analyzing their behavior.
