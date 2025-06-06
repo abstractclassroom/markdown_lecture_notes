@@ -65,4 +65,151 @@ The word linear has a very specific meaning in mathematics with respect to equat
 * The solution to an equation in four or more variables is a hyperplane in higher-dimensional space.
 
 The solution to a system of linear equations in two variables is the intersection of two lines on a Cartesian plane. The figure below shows the intersection of the two lines used in the example above.
+
+* The blue line represents the first equation $2x + 3y = 6$.
+* The red line represents the second equation $4x - y = 5$.
+* The intersection of the two lines is the point $\left( \frac{3}{2}, 1 \right)$, which is the solution to the system of equations.
+
 ![Graphical Representation of a System of Linear Equations](https://abstract-classroom-teaching.s3.amazonaws.com/mathematics/systems_of_equations/introduction/2d-intersection.png)
+
+## Solving Systems of Linear Equations
+
+There are several methods to solve systems of linear equations.  The list below is just a few of the most common methods.
+* **Graphical Method**: Plotting the equations on a graph and identifying the intersection point(s).
+  * This method is useful for visualizing the solution but may not be precise for complex systems.
+  * This method is best suited for systems with two variables.
+  * Tends to be less efficient for larger systems.
+  * Lacks precision for systems with non-integer solutions.
+* **Substitution Method**: Solving one equation for one variable and substituting that expression into the other equation(s).
+  * This method is effective for systems with two or three equations.
+  * It can be cumbersome for larger systems.
+  * It may lead to complex algebraic manipulations.
+* **Elimination Method**: Adding or subtracting equations to eliminate one variable, making it easier to solve for the remaining variables.
+  * This method is efficient for systems with two or more equations.
+  * It can handle larger systems effectively.
+  * It may require careful manipulation of equations to avoid mistakes.
+* **Matrix Method**: Representing the system as a matrix and using techniques like Gaussian elimination or matrix inversion to find the solution.
+  * This method is powerful for large systems and can handle many equations simultaneously.
+  * It requires knowledge of matrix operations.
+  * It is often implemented in computer algorithms for efficiency.
+  * Several programming languages and software libraries provide built-in functions for solving systems of equations using matrices.
+* **Cramer's Rule**: A mathematical theorem that provides a solution to a system of linear equations using determinants.
+  * This method is applicable only for square systems (same number of equations and variables).
+  * It can be computationally intensive for large systems.
+  * It is not commonly used in practice due to its complexity and inefficiency compared to other methods.
+  * Implementations are typically oriented toward theoretical applications or proofs rather than practical computation.
+
+## Substitution Method Example
+
+This example demonstrates the substitution method for solving a system of linear equations.
+
+Consider the system of equations:
+$$
+\begin{align*}
+\left\{
+\begin{array}{l}
+2x + 3y = 6 \\
+4x - y = 5
+\end{array}
+\right.
+\end{align*}
+$$
+
+To solve this system using the substitution method, we can follow these steps:
+
+1. **Solve one equation for one variable**: The variable $y$ appears to be easier to isolate in the second equation. We can rearrange the second equation to express $y$ in terms of $x$:
+   $$
+   4x - y = 5 \implies y = 4x - 5
+   $$
+2. **Substitute the expression into the other equation**: Now, we can substitute this expression for $y$ into the first equation:
+    $$ 2x + 3\underbrace{(4x - 5)}_{y} = 6 $$
+3. **Simplify and solve for $x$**:  Notice the substitution has created a single equation in terms of $x$:
+   $$
+   2x + 12x - 15 = 6 \implies 14x - 15 = 6 \implies 14x = 21 \implies x = \frac{3}{2}
+   $$
+4. **Substitute back to find $y$**: Now that we have the value of $x$, we can substitute it back into the expression for $y$:
+   $$
+   y = 4\left(\frac{3}{2}\right) - 5 = 6 - 5 = 1
+   $$
+5. **Final solution**: The solution to the system of equations is:
+   $$
+   \left( x, y \right) = \left( \frac{3}{2}, 1 \right)
+   $$
+
+This means that the values $x = \frac{3}{2}$ and $y = 1$ satisfy both equations in the system.
+
+## Substitution Method Three Variable Example
+
+This example demonstrates the substitution method for solving a system of linear equations with three variables.
+Consider the system of equations:
+$$
+\begin{align*}
+\left\{
+\begin{array}{l}
+x + 2y + 3z = 9 \\
+2x - y + z = 4 \\
+3x + 4y - z = 2
+\end{array}
+\right.
+\end{align*}
+$$
+
+To solve this system using the substitution method, we can follow these steps:
+1. **Solve one equation for one variable**: The first equation appears to be the simplest to isolate a variable. We can rearrange it to express $x$ in terms of $y$ and $z$:
+   $$
+   x = 9 - 2y - 3z
+   $$
+2. **Substitute the expression into the other equations**: Now, we can substitute this expression for $x$ into the second and third equations:
+   - For the second equation:
+   $$
+   2(9 - 2y - 3z) - y + z = 4 \implies 18 - 4y - 6z - y + z = 4 \implies -5y - 5z = -14 \implies y + z = \frac{14}{5}
+   $$
+   - For the third equation:
+   $$
+   3(9 - 2y - 3z) + 4y - z = 2 \implies 27 - 6y - 9z + 4y - z = 2 \implies -2y - 10z = -25 \implies y + 5z = \frac{25}{2}
+   $$
+3. **Now we have a new system of equations**:
+$$
+\begin{align*}
+\left\{
+\begin{array}{l}
+y + z = \frac{14}{5} \\
+y + 5z = \frac{25}{2}
+\end{array}
+\right.
+\end{align*}
+$$      
+4. **Solve the new system**: We can solve this new system for $y$ and $z$. From the first equation, we can express $y$ in terms of $z$:
+   $$
+   y = \frac{14}{5} - z
+   $$
+   Now substitute this into the second equation:
+   $$
+   \left(\frac{14}{5} - z\right) + 5z = \frac{25}{2}
+   $$
+   Simplifying this gives:
+   $$
+   \frac{14}{5} + 4z = \frac{25}{2}
+   $$
+   To eliminate the fractions, we can multiply through by 10 (the least common multiple of 5 and 2):
+   $$
+   28 + 40z = 125 \implies 40z = 97 \implies z = \frac{97}{40}
+   $$
+5. **Substitute back to find $y$**: Now that we have the value of $z$, we can substitute it back into the expression for $y$:
+   $$
+   y = \frac{14}{5} - \frac{97}{40} = \frac{112 - 97}{40} = \frac{15}{40} = \frac{3}{8}
+   $$
+6. **Substitute back to find $x$**: Now that we have the values of $y$ and $z$, we can substitute them back into the expression for $x$:
+   $$
+   x = 9 - 2\left(\frac{3}{8}\right) - 3\left(\frac{97}{40}\right) = 9 - \frac{6}{8} - \frac{291}{40} = 9 - \frac{3}{4} - \frac{291}{40}
+   $$
+   To combine these, we can convert 9 to a fraction with a denominator of 40:
+   $$
+   x = \frac{360}{40} - \frac{30}{40} - \frac{291}{40} = \frac{360 - 30 - 291}{40} = \frac{39}{40}
+   $$
+7. **Final solution**: The solution to the system of equations is:
+   $$
+   \left( x, y, z \right) = \left( \frac{39}{40}, \frac{3}{8}, \frac{97}{40} \right)
+   $$
+
+Notice that as the number of variables increases, the complexity of the substitution method also increases. For systems with more than three variables, it is often more efficient to use matrix methods or elimination methods. These methods will be demonstrated in other lecture notes. 
