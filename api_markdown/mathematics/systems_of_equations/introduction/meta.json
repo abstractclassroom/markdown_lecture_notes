@@ -1,0 +1,21 @@
+{
+    "subject": "Mathematics",
+    "topic": "Systems of Equations",
+    "subtopic": "Introduction To Systems",
+    "views" : "2133",
+    "datePublished": "June 11, 2024",
+    "dateUpdated" : "June 5, 2025",
+    "title" : "Introduction to Systems",
+    "description" : "This introduces the concept of systems of equations.  This will cover solving and representing systems of equations.",
+    "objectives" : [
+        "Understand the concept of systems of equations",
+        "Understand how to represent systems of equations using matrices",
+        "Learn methods for solving systems of equations",
+        "Understand the graphical representation of systems of equations"
+    ],
+    "prerequisites" : [
+        "Basic understanding of solving linear equations",
+        "Familiarity with algebraic expressions",
+        "Knowledge of graphing linear equations"
+    ]
+}
