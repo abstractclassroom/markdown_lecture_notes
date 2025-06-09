@@ -213,3 +213,63 @@ $$
    $$
 
 Notice that as the number of variables increases, the complexity of the substitution method also increases. For systems with more than three variables, it is often more efficient to use matrix methods or elimination methods. These methods will be demonstrated in other lecture notes. 
+
+## Representing Systmems Using Matrices
+
+A system of linear equations can be represented using matrices, which provides a compact and efficient way to handle the equations. The matrix representation consists of a coefficient matrix, a variable vector, and a constant vector.
+
+Recall the system of equations from earlier with three variables:
+
+$$
+\begin{align*}
+\left\{
+\begin{array}{l}
+x + 2y + 3z = 9 \\
+2x - y + z = 4 \\
+3x + 4y - z = 2
+\end{array}
+\right.
+\end{align*}
+$$
+
+This system can be represented in matrix form as follows:
+
+$$
+\begin{align*}
+A &=
+\begin{bmatrix}
+1 & 2 & 3 \\
+2 & -1 & 1 \\
+3 & 4 & -1
+\end{bmatrix}
+\\
+\vec{x} &=
+\begin{bmatrix}
+x \\
+y \\
+z
+\end{bmatrix}
+\\
+\vec{b} &=
+\begin{bmatrix}
+9 \\
+4 \\
+2
+\end{bmatrix}
+\end{align*}
+$$
+
+This allows us to express the system of equations in a compact form:
+$$
+A \vec{x} = \vec{b}
+$$
+
+Where:
+- $A$ is the coefficient matrix containing the coefficients of the variables.
+- $\vec{x}$ is the variable vector containing the variables \(x\), \(y\), and \(z\).
+- $\vec{b}$ is the constant vector containing the constants from the right-hand side of the equations.
+
+Notice the matrix multiplication expands to the original system of equations.  Also, notice that the expression appears like a single linear equation.  Representing systems of equations in this way allows for efficient computation and manipulation, especially when using matrix operations such as Gaussian elimination or matrix inversion to find solutions.
+
+## Conclusion
+Systems of linear equations are fundamental in mathematics and have applications in various fields, including physics, engineering, economics, and computer science.
