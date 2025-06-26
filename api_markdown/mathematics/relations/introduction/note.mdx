@@ -119,15 +119,19 @@ Prove the following for $R$.
    **Proof**: For any real number $x$, we have $\frac{x}{x} = 1 \in \mathbb{Q}$, hence $(x,x) \in R$ for all $x \in \mathbb{R}$.  Notice this proof is valid for all $x \in (0,\infty)$. 
 
 2. The relation $R$ is not irreflexive.
+
     **Proof**: Proof by couterexample.  Consider the number $2$.  Notice that $(2,2) \in R$ since $\frac{2}{2} = 1 \in \mathbb{Q}$.  Since there is at least one element that is related to itself, the relation is not irreflexive.
 
 3. The relation $R$ is symmetric.
+
     **Proof**: If $(x,y) \in R$, then $\frac{x}{y} \in \mathbb{Q}$. This implies that $\frac{y}{x} = \frac{m}{n}$ for some $m,n \in \mathbb{Z}$.  Notice that $\frac{n}{m} \in \mathbb{Q}$ and so $(y,x) \in R$.
 
 4. The relation $R$ is not anti-symmetric.
+
     **Proof**: Proof by counterexample.  Consider the ordered pair $(2,4)$.  Notice that $\frac{2}{4} = \frac{1}{2} \in \mathbb{Q}$ and so $(2,4) \in R$.  Also notice that $\frac{4}{2} = 2 \in \mathbb{Q}$ and so $(4,2) \in R$.  Since both ordered pairs are in the relation $R$ and $2 \neq 4$, the relation is not anti-symmetric.
 
 5. The relation $R$ is transitive.
+
     **Proof**: Suppose $(x,y) \in R$ and $(y,z) \in R$. This implies that $\frac{x}{y} = \frac{m_1}{n_1}$ and $\frac{y}{z} = \frac{m_2}{n_2}$ for some $m_1, n_1, m_2, n_2 \in \mathbb{Z}$.  Notice that $\frac{x}{z} = \frac{x}{y} \cdot \frac{y}{z} = \frac{m_1}{n_1} \cdot \frac{m_2}{n_2}$.  Recall that rational numbers are closed under multiplication and so $\frac{x}{z} \in \mathbb{Q}$. This implies that $(x,z) \in R$ and given the arbitrary choice of $x,y,z$, the relation is transitive.
 
 ## Conclusion
