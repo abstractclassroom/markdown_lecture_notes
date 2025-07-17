@@ -1,0 +1,22 @@
+{
+    "subject": "Cryptography",
+    "topic": "Asymmetric Encryption",
+    "subtopic": "Elliptic Encryption",
+    "views" : "902",
+    "datePublished": "June 25, 2024",
+    "dateUpdated" : "June 29, 2025",
+    "title" : "Elliptic Curve Encryption",
+    "description" : "Elliptic Curve Encryption (ECC) is a form of public-key cryptography based on the algebraic structure of elliptic curves over finite fields. ECC offers the same level of security as traditional methods like RSA but with smaller key sizes, making it more efficient. In this lesson, we will explore the mathematics behind ECC and its applications in securing communications.",
+    "objectives" : [
+        "Understand the mathematical principles behind elliptic curves",
+        "Learn how ECC keys are generated and managed",
+        "Explore the advantages of ECC over traditional encryption methods"
+    ],
+    "prerequisites" : [
+        "Basic understanding of prime numbers",
+        "Basic knowledge of modular arithmetic",
+        "Familiarity with public-key cryptography concepts",
+        "Understanding of basic elliptic curve properties",
+        "Familiarity with finite fields"
+    ]
+}
