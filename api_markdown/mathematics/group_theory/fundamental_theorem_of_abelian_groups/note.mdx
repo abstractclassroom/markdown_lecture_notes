@@ -7,7 +7,7 @@ The fundamental theorem of finite abelian groups states that every finite abelia
 Let $G$ be a finite abelian group. Then $G$ is isomorphic to a direct product of cyclic groups of the form:
 
 $$
-G \cong \mathbb{Z}_{p_1^{k_1}} \times \mathbb{Z}_{p_2^{k_2}} \times \cdots \times \mathbb{Z}_{p_m^{k_m}}
+G \cong \mathbb{Z}_{p_1^{k_1}} \oplus \mathbb{Z}_{p_2^{k_2}} \oplus \cdots \oplus \mathbb{Z}_{p_m^{k_m}}
 $$
 
 where $p_i$ are prime numbers and $k_i$ are positive integers. The number of cyclic groups in the product and their orders are uniquely determined by the structure of $G$.
@@ -49,18 +49,20 @@ $$
    - $2$
    - $1 + 1$
 
-   This gives us the cyclic groups $\mathbb{Z}_{4}$ and $\mathbb{Z}_{2} \times \mathbb{Z}_{2}$.
+   Each partitions gives a unique direct sum
+   - $\mathbb{Z}_{4}$
+   - $\mathbb{Z}_{2} \oplus \mathbb{Z}_{2}$.
 2. For $3^1$, the integer partition of 1 is trivial:
    - $1$
 
    This gives us the cyclic group $\mathbb{Z}_{3}$.
 3. Combining these, we can form the following direct products:
-   - $\mathbb{Z}_{4} \times \mathbb{Z}_{3}$
-   - $\mathbb{Z}_{2} \times \mathbb{Z}_{2} \times \mathbb{Z}_{3}$
+   - $\mathbb{Z}_{4} \oplus \mathbb{Z}_{3}$
+   - $\mathbb{Z}_{2} \oplus \mathbb{Z}_{2} \oplus \mathbb{Z}_{3}$
 
 As a result, there are only two non-isomorphic abelian groups of order 12:
-- $\mathbb{Z}_{12} \cong \mathbb{Z}_{4} \times \mathbb{Z}_{3}$
-- $\mathbb{Z}_{2} \times \mathbb{Z}_{2} \times \mathbb{Z}_{3}$
+- $\mathbb{Z}_{12} \cong \mathbb{Z}_{4} \oplus \mathbb{Z}_{3}$
+- $\mathbb{Z}_{2} \oplus \mathbb{Z}_{2} \oplus \mathbb{Z}_{3}$
 
 ## Example - Determine the number of non-isomorphic abelian groups of order 36
 
@@ -74,22 +76,22 @@ $$
    - $2$
    - $1 + 1$
 
-   This gives us the cyclic groups $\mathbb{Z}_{4}$ and $\mathbb{Z}_{2} \times \mathbb{Z}_{2}$.
+   This gives us the cyclic groups $\mathbb{Z}_{4}$ and $\mathbb{Z}_{2} \oplus \mathbb{Z}_{2}$.
 2. For $3^2$, the integer partitions of 2 are:
    - $2$
    - $1 + 1$
-    This gives us the cyclic groups $\mathbb{Z}_{9}$ and $\mathbb{Z}_{3} \times \mathbb{Z}_{3}$.
+    This gives us the cyclic groups $\mathbb{Z}_{9}$ and $\mathbb{Z}_{3} \oplus \mathbb{Z}_{3}$.
 3. Combining these, we can form the following direct products:
-   - $\mathbb{Z}_{4} \times \mathbb{Z}_{9}$
-   - $\mathbb{Z}_{4} \times \mathbb{Z}_{3} \times \mathbb{Z}_{3}$
-   - $\mathbb{Z}_{2} \times \mathbb{Z}_{2} \times \mathbb{Z}_{9}$
-   - $\mathbb{Z}_{2} \times \mathbb{Z}_{2} \times \mathbb{Z}_{3} \times \mathbb{Z}_{3}$
+   - $\mathbb{Z}_{4} \oplus \mathbb{Z}_{9}$
+   - $\mathbb{Z}_{4} \oplus \mathbb{Z}_{3} \oplus \mathbb{Z}_{3}$
+   - $\mathbb{Z}_{2} \oplus \mathbb{Z}_{2} \oplus \mathbb{Z}_{9}$
+   - $\mathbb{Z}_{2} \oplus \mathbb{Z}_{2} \oplus \mathbb{Z}_{3} \oplus \mathbb{Z}_{3}$
 
 As a result, there are four non-isomorphic abelian groups of order 36:
-- $\mathbb{Z}_{36} \cong \mathbb{Z}_{4} \times \mathbb{Z}_{9}$
-- $\mathbb{Z}_{4} \times \mathbb{Z}_{3} \times \mathbb{Z}_{3}$
-- $\mathbb{Z}_{2} \times \mathbb{Z}_{2} \times \mathbb{Z}_{9}$
-- $\mathbb{Z}_{2} \times \mathbb{Z}_{2} \times \mathbb{Z}_{3} \times \mathbb{Z}_{3}$
+- $\mathbb{Z}_{36} \cong \mathbb{Z}_{4} \oplus \mathbb{Z}_{9}$
+- $\mathbb{Z}_{4} \oplus \mathbb{Z}_{3} \oplus \mathbb{Z}_{3}$
+- $\mathbb{Z}_{2} \oplus \mathbb{Z}_{2} \oplus \mathbb{Z}_{9}$
+- $\mathbb{Z}_{2} \oplus \mathbb{Z}_{2} \oplus \mathbb{Z}_{3} \oplus \mathbb{Z}_{3}$
 
 ## Conclusion
 The fundamental theorem of finite abelian groups provides a powerful tool for classifying and understanding the structure of finite abelian groups. By breaking down a group into its cyclic components, we can gain insights into its properties and behavior, making it easier to work with in various mathematical contexts.
