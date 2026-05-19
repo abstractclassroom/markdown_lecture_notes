@@ -1,0 +1,20 @@
+{
+    "subject": "Cryptography",
+    "topic": "Block Ciphers",
+    "subtopic": "Historical Approaches",
+    "views" : "25411",
+    "datePublished": "June 27, 2024",
+    "dateUpdated" : "May 4, 2026",
+    "title" : "Block Ciphers: Historical Approaches",
+    "description" : "Effective encryption methods have evolved over time. Effective cryptographic techniques typically implement procedures that are computationally infeasible to break.  It is important to realize this entails much more than just tedious and lengthy operations and calculations. This lecture demonstrates some historical approaches to block ciphers.  The examples in the lecture are considered weak even by hand calculation standards, much less by modern computational standards.",
+    "objectives" : [
+        "Understand the concept of block ciphers and their historical development",
+        "Learn about the weaknesses of early block cipher designs",
+        "Recognize the importance of computational infeasibility in cryptographic techniques",
+        "Identify common tricks to break very weak block ciphers"
+    ],
+    "prerequisites" : [
+        "Basic understanding of matrix operations",
+        "Basic understanding of modular arithmetic"
+    ]
+}
