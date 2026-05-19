@@ -1,15 +1,44 @@
 # Introduction to Group Theory
 
+Groups are a powerful and useful encapsulaton tool in mathematics. They are used to capture the essence of symmetry and structure in a variety of mathematical objects.  Groups are used in physics, chemistry, computer science, and many other fields.  The concept of a group is fundamental to understanding many mathematical structures and has applications in various branches of mathematics and science.
+
+## Magma
+
+A magma is a set with a single operation that is closed on the set.  Closure simply means that when the operation is applied to any two elements in the set, the result is also an element in the set. The expression below defines closure for a magma $M$ with operation $+$.
+
+$a + b \in M$ for all $a,b \in M$
+
+
+## Semigroup
+
+A semigroup is a magma with the added requirement that the operation is associative.  The expression below defines associativity for a semigroup $M$ with operation $+$.
+
+$(a + b) + c = a + (b + c)$ for all $a,b,c \in M$
+
+
+## Monoid
+
+A monoid is a semigroup with the added requirement that there exists an identity element.  The expression below defines the identity element for a monoid $M$ with operation $+$.
+
+$\exists e \in M$ such that $a + e = e + a = a$ for all $a \in M$
+
+It is common to use the symbol $e$ to represent the identity element.
+
+## Group
+
+A group is a monoid with the added requirement that every element has an inverse.  The expression below defines the inverse element for a group $G$ with operation $+$, identity element $e$, and inverse notation $-a$.
+
+$\forall a \in G, \exists -a \in G$ such that $a + (-a) = (-a) + a = e$
+
 A group $G$ is a set with a well-defined operation $+$ (operation symbol may differ) on the elements.  A group must satisfy the properties listed below.
 
-* A group is a set of objects 
+* A group is a set of objects
 * The group has a single operation that is well-defined for all elements in the set. This operation may be traditional (e.g. addition) or an abstract operation defined for a single use.
 * The elements of the group (set) must be closed under the operation.
 * There must exist a unique identity element $0 \in G$, such that $a +0 = 0+a = a$ for all $a \in G$.
 * For every element in the group, the element must have a unique inverse. When the operation is applied to an element and it's inverse the result is the group identity.  Symbollically, if $a \in G$ then there exists $-a \in G$ such that $a + (-a) = 0$.
 * The operation on the elements must be associative. Symbollically, $a + b +c = (a+b)+c = a + (b+c)$ for all $a,b,c \in G$.
 
-*** 
 
 ## Group Example
 
