@@ -29,7 +29,7 @@ Below are the steps to decompose a finite abelian group using the fundamental th
 1. **Factor the order of the group**: Let $|G| = n$. Factor $n$ into its prime factorization:
 
    $$
-   n = p_1^{a_1} p_2^{a_2} \cdots p_k^{a_k}
+   n = p_1^{a_1} \cdot  p_2^{a_2} \cdots p_k^{a_k}
    $$
 
 2. **Find integer partitions**: For each prime factor $p_i^{a_i}$, find all integer partitions of $a_i$.
@@ -45,17 +45,17 @@ $$
 12 = 2^2 \cdot 3^1
 $$
 
-1. For $2^2$, the integer partitions of 2 are:
-   - $2$
-   - $1 + 1$
+1. For $2^2$, the integer partitions of the exponent 2 are:
+   - $2^2$
+   - $2^{1 + 1}$
 
    Each partitions gives a unique direct sum
    - $\mathbb{Z}_{4}$
    - $\mathbb{Z}_{2} \oplus \mathbb{Z}_{2}$.
-2. For $3^1$, the integer partition of 1 is trivial:
+2. For $3^1$, the integer partition of exponent 1 is trivial:
    - $1$
-
-   This gives us the cyclic group $\mathbb{Z}_{3}$.
+    This results in a single cyclic group
+   - $\mathbb{Z}_{3}$
 3. Combining these, we can form the following direct products:
    - $\mathbb{Z}_{4} \oplus \mathbb{Z}_{3}$
    - $\mathbb{Z}_{2} \oplus \mathbb{Z}_{2} \oplus \mathbb{Z}_{3}$
@@ -72,15 +72,18 @@ $$
 36 = 2^2 \cdot 3^2
 $$
 
-1. For $2^2$, the integer partitions of 2 are:
-   - $2$
-   - $1 + 1$
-
-   This gives us the cyclic groups $\mathbb{Z}_{4}$ and $\mathbb{Z}_{2} \oplus \mathbb{Z}_{2}$.
-2. For $3^2$, the integer partitions of 2 are:
-   - $2$
-   - $1 + 1$
-    This gives us the cyclic groups $\mathbb{Z}_{9}$ and $\mathbb{Z}_{3} \oplus \mathbb{Z}_{3}$.
+1. For $2^2$, the integer partitions of exponent 2 are:
+   - $2^2$
+   - $2^{1 + 1}$
+    Each partition implies a different direct sum
+   - $\mathbb{Z}_{4}$
+   - $\mathbb{Z}_{2} \oplus \mathbb{Z}_{2}$
+2. For $3^2$, the integer partitions of the exponent 2 are:
+   - $3^2$
+   - $3^{1 + 1}$
+   This gives two different direct sums
+   - $\mathbb{Z}_{9}$
+   - $\mathbb{Z}_{3} \oplus \mathbb{Z}_{3}$.
 3. Combining these, we can form the following direct products:
    - $\mathbb{Z}_{4} \oplus \mathbb{Z}_{9}$
    - $\mathbb{Z}_{4} \oplus \mathbb{Z}_{3} \oplus \mathbb{Z}_{3}$
