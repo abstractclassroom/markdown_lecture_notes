@@ -1,0 +1,21 @@
+{
+    "subject": "Mathematics",
+    "topic": "Group Theory",
+    "subtopic": "Fundamental Theorem of Abelian Groups",
+    "views" : "69551",
+    "datePublished": "Feb 21, 2024",
+    "dateUpdated" : "April 21, 2026",
+    "title" : "Fundamental Theorem of Finite Abelian Groups",
+    "description" : "The fundamental theory of finite abelian groups is a cornerstone of group theory, providing a comprehensive classification of finite abelian groups. This lecture explores the structure of finite abelian groups, demonstrating how they can be expressed as direct sums of cyclic groups. The fundamental theorem states that every finite abelian group can be decomposed into a direct sum of cyclic subgroups, which are uniquely determined up to isomorphism. This classification allows us to understand the properties and behavior of finite abelian groups in a systematic way.",
+    "objectives" : [
+        "Understand integer partitions and their role in classifying finite abelian groups",
+        "Learn how to express finite abelian groups as direct sums of cyclic groups",
+        "Recognize the uniqueness of the decomposition of finite abelian groups up to isomorphism",
+        "Apply the fundamental theorem of finite abelian groups to classify specific examples",
+        "Determine the number of non-isomorphic finite abelian groups of a given order using integer partitions"
+    ],
+    "prerequisites" : [
+        "Basic understanding of group properties",
+        "Familiarity with cyclic groups and direct sums"
+    ]
+}

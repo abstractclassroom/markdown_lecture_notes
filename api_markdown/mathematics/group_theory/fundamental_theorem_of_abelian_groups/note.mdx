@@ -1,0 +1,97 @@
+# Fundamental Theory of Abelian Groups
+
+The fundamental theorem of finite abelian groups states that every finite abelian group can be expressed as a direct product of cyclic groups of prime power order. This theorem provides a complete classification of finite abelian groups, allowing us to understand their structure and properties.
+
+## Statement of the Theorem
+
+Let $G$ be a finite abelian group. Then $G$ is isomorphic to a direct product of cyclic groups of the form:
+
+$$
+G \cong \mathbb{Z}_{p_1^{k_1}} \times \mathbb{Z}_{p_2^{k_2}} \times \cdots \times \mathbb{Z}_{p_m^{k_m}}
+$$
+
+where $p_i$ are prime numbers and $k_i$ are positive integers. The number of cyclic groups in the product and their orders are uniquely determined by the structure of $G$.
+
+## Integer Partitions
+
+In order to apply the fundamental theorem, we often need to find integer partitions for the exponents of the prime factors of the order of the group. An integer partition of a positive integer $n$ is a way of writing $n$ as a sum of natural numbers (order does not matter). For example, the integer partitions of 4 are:
+
+- $4$
+- $3 + 1$
+- $2 + 2$
+- $2 + 1 + 1$
+- $1 + 1 + 1 + 1$
+
+## Decomposition of Finite Abelian Groups
+
+Below are the steps to decompose a finite abelian group using the fundamental theorem:
+
+1. **Factor the order of the group**: Let $|G| = n$. Factor $n$ into its prime factorization:
+
+   $$
+   n = p_1^{a_1} p_2^{a_2} \cdots p_k^{a_k}
+   $$
+
+2. **Find integer partitions**: For each prime factor $p_i^{a_i}$, find all integer partitions of $a_i$.
+3. **Construct cyclic groups**: For each partition of $a_i$, construct the corresponding cyclic groups $\mathbb{Z}_{p_i^{k_j}}$ where $k_j$ are the parts of the partition.
+4. **Form the direct product**: Combine the cyclic groups from all prime factors to form the direct product that is isomorphic to $G$.
+
+
+## Example
+
+Consider a finite abelian group $G$ of order 12. The prime factorization of 12 is:
+
+$$
+12 = 2^2 \cdot 3^1
+$$
+
+1. For $2^2$, the integer partitions of 2 are:
+   - $2$
+   - $1 + 1$
+
+   This gives us the cyclic groups $\mathbb{Z}_{4}$ and $\mathbb{Z}_{2} \times \mathbb{Z}_{2}$.
+2. For $3^1$, the integer partition of 1 is trivial:
+   - $1$
+
+   This gives us the cyclic group $\mathbb{Z}_{3}$.
+3. Combining these, we can form the following direct products:
+   - $\mathbb{Z}_{4} \times \mathbb{Z}_{3}$
+   - $\mathbb{Z}_{2} \times \mathbb{Z}_{2} \times \mathbb{Z}_{3}$
+
+As a result, there are only two non-isomorphic abelian groups of order 12:
+- $\mathbb{Z}_{12} \cong \mathbb{Z}_{4} \times \mathbb{Z}_{3}$
+- $\mathbb{Z}_{2} \times \mathbb{Z}_{2} \times \mathbb{Z}_{3}$
+
+## Example - Determine the number of non-isomorphic abelian groups of order 36
+
+The prime factorization of 36 is:
+
+$$
+36 = 2^2 \cdot 3^2
+$$
+
+1. For $2^2$, the integer partitions of 2 are:
+   - $2$
+   - $1 + 1$
+
+   This gives us the cyclic groups $\mathbb{Z}_{4}$ and $\mathbb{Z}_{2} \times \mathbb{Z}_{2}$.
+2. For $3^2$, the integer partitions of 2 are:
+   - $2$
+   - $1 + 1$
+    This gives us the cyclic groups $\mathbb{Z}_{9}$ and $\mathbb{Z}_{3} \times \mathbb{Z}_{3}$.
+3. Combining these, we can form the following direct products:
+   - $\mathbb{Z}_{4} \times \mathbb{Z}_{9}$
+   - $\mathbb{Z}_{4} \times \mathbb{Z}_{3} \times \mathbb{Z}_{3}$
+   - $\mathbb{Z}_{2} \times \mathbb{Z}_{2} \times \mathbb{Z}_{9}$
+   - $\mathbb{Z}_{2} \times \mathbb{Z}_{2} \times \mathbb{Z}_{3} \times \mathbb{Z}_{3}$
+
+As a result, there are four non-isomorphic abelian groups of order 36:
+- $\mathbb{Z}_{36} \cong \mathbb{Z}_{4} \times \mathbb{Z}_{9}$
+- $\mathbb{Z}_{4} \times \mathbb{Z}_{3} \times \mathbb{Z}_{3}$
+- $\mathbb{Z}_{2} \times \mathbb{Z}_{2} \times \mathbb{Z}_{9}$
+- $\mathbb{Z}_{2} \times \mathbb{Z}_{2} \times \mathbb{Z}_{3} \times \mathbb{Z}_{3}$
+
+## Conclusion
+The fundamental theorem of finite abelian groups provides a powerful tool for classifying and understanding the structure of finite abelian groups. By breaking down a group into its cyclic components, we can gain insights into its properties and behavior, making it easier to work with in various mathematical contexts.
+
+This is important because abelian groups are simply groups where the group operation is commutative.  Many important mathematical structures are abelian groups.  Abelian groups also serve as a foundation for more complex algebraic structures, such as rings and modules.
