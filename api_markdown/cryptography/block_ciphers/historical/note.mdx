@@ -8,13 +8,13 @@ Since mathematics is at the heart of cryptography, plaintext messages are often 
 
 Suppose we only consider the 26 letters of the English alphabet.  We can represent each letter as a number from 0 to 25 and use the number 26 for spaces. For example, the message "HELLO WORLD" can be represented as the sequence of numbers:
 
-```7 4 11 11 14 26 22 14 17 11 3```
+$7\ 4\ 11\ 11\ 14\ 26\ 22\ 14\ 17\ 11\ 3$
 
 Obviously, it would not take long for an adversary to guess the message if we just sent the numbers.
 
 The Caesar Cipher adds a little bit of complexity by shifting the letters by a fixed amount.  For example, if we shift each letter by 3, then the message "HELLO    WORLD" would be represented as:
 
-```10 7 14 14 17 26 25 17 20 14 6```
+$10\ 7\ 14\ 14\ 17\ 26\ 25\ 17\ 20\ 14\ 6$
 
 Perhaps the shift is not always 3, but it is some number between 1 and 25.  This cipher is called the Caesar Cipher because Julius Caesar used it to protect his messages.  It is also known as a shift cipher or a substitution cipher.
 
@@ -41,14 +41,19 @@ where `y` is the number representing the encrypted letter, `k` is the shift amou
 The Caesar Cipher is a simple substitution cipher, but it can be easily broken by trying all possible shifts.  To make it more secure, we can use a keyword to determine the shift for each letter.  This is called the Vignere Cipher.  For example, if we use the keyword "KEY", then the first letter of the message will be shifted by the letter 'K', the second letter will be shifted by the letter 'E', and the third letter will be shifted by the letter 'Y'.  Then, the fourth letter will be shifted by the letter 'K' again, and so on.  This way, the shift is not constant and depends on the position of the letter in the message.
 
 Mathematically, we can represent the keyword as a sequence of numbers, where each letter is mapped to a number as before.  For example, the keyword "KEY" can be represented as:
+
 ```10 4 24```
 
 Then, to encrypt a message, we can use the following formula:
+
 ```E(x_i) = (x_i + k_j) mod 27```
+
 where `x_i` is the number representing the i-th letter of the message, `k_j` is the number representing the j-th letter of the keyword (where j = i mod length of keyword), and `E(x_i)` is the encrypted letter.
 
 To decrypt the message, we can use the following formula:
+
 ```D(y_i) = (y_i - k_j) mod 27```
+
 where `y_i` is the number representing the i-th letter of the encrypted message, `k_j` is the number representing the j-th letter of the keyword (where j = i mod length of keyword), and `D(y_i)` is the decrypted letter.
 
 
@@ -59,6 +64,7 @@ The Vignere Cipher is more secure than the Caesar Cipher, but it can still be br
 Recall that a matrix is a rectangular array of numbers and that only square matrices have inverses. The Hill Cipher uses a square matrix as the key to encrypt and decrypt messages.  For example, if we use an $n \times n$ matrix as the key, then we can encrypt a message by dividing it into blocks of size $n$ and multiplying each block by the key matrix.  To decrypt the message, we can multiply the encrypted blocks by the inverse of the key matrix.
 
 For example, consider the following 3 x 3 key matrix:
+
 $K = \begin{bmatrix}
 2 & 3 & 1 \\
 1 & 2 & 3 \\
@@ -68,14 +74,14 @@ $
 
 Now consider the message "HELLO WORLD".  We can represent it as a sequence of numbers as before:
 
-```7 4 11 11 14 26 22 14 17 11 3```
+$7\ 4\ 11\ 11\ 14\ 26\ 22\ 14\ 17\ 11\ 3$
 
 We can divide the message into blocks of size 3:
 
-```(7, 4, 11), (11, 14, 26), (22, 14, 17), (11, 3)```
+$(7, 4, 11),\ (11, 14, 26),\ (22, 14, 17),\ (11, 3)$
 
 In order for matrix multiplication to work, we need every block to have three numbers. We can simply add a padding character (e.g., space) to the last block to make it have three numbers:
-```(7, 4, 11), (11, 14, 26), (22, 14, 17), (11, 3, 26)```
+$(7, 4, 11),\ (11, 14, 26),\ (22, 14, 17),\ (11, 3, 26)$
 
 To encrypt the message, we can multiply each block by the key matrix:
 
@@ -105,7 +111,7 @@ $C_4 = K \cdot M_4 = \begin{bmatrix} 11 \\ 3 \\ 26 \end{bmatrix} \cdot \begin{bm
 
 The plaintext message blocks have been encrypted to the following cipher blocks:
 
-```(8, 22, 26), (16, 22, 9), (9, 22, 9), (19, 8, 4)```
+$(8, 22, 26),\ (16, 22, 9),\ (9, 22, 9),\ (19, 8, 4)$
 
 We then transmit these cipher blocks to the recipient.  We assume the recipient knows the key matrix and can compute its inverse. The inverse of the key matrix is:
 
