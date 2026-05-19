@@ -7,6 +7,7 @@ Secrets have always played a crucial role in human history.  Leaders need to pro
 Since mathematics is at the heart of cryptography, plaintext messages are often represented as sequences of numbers.  For basic messages, we can disregard some grammar components, such as punctuation, and focus on the letters.
 
 Suppose we only consider the 26 letters of the English alphabet.  We can represent each letter as a number from 0 to 25 and use the number 26 for spaces. For example, the message "HELLO WORLD" can be represented as the sequence of numbers:
+
 ```7 4 11 11 14 26 22 14 17 11 3```
 
 Obviously, it would not take long for an adversary to guess the message if we just sent the numbers.
@@ -55,87 +56,94 @@ where `y_i` is the number representing the i-th letter of the encrypted message,
 
 The Vignere Cipher is more secure than the Caesar Cipher, but it can still be broken by analyzing the frequency of letters in the encrypted message.  To make it even more secure, we can use matrix multiplication and matrix inverses to encrypt and decrypt messages.
 
-Recall that a matrix is a rectangular array of numbers and that only square matrices have inverses. The Hill Cipher uses a square matrix as the key to encrypt and decrypt messages.  For example, if we use an $$n \times n$$ matrix as the key, then we can encrypt a message by dividing it into blocks of size $$n$$ and multiplying each block by the key matrix.  To decrypt the message, we can multiply the encrypted blocks by the inverse of the key matrix.
+Recall that a matrix is a rectangular array of numbers and that only square matrices have inverses. The Hill Cipher uses a square matrix as the key to encrypt and decrypt messages.  For example, if we use an $n \times n$ matrix as the key, then we can encrypt a message by dividing it into blocks of size $n$ and multiplying each block by the key matrix.  To decrypt the message, we can multiply the encrypted blocks by the inverse of the key matrix.
 
 For example, consider the following 3 x 3 key matrix:
-$$K = \begin{bmatrix}
+$K = \begin{bmatrix}
 2 & 3 & 1 \\
 1 & 2 & 3 \\
 3 & 1 & 2 \\
 \end{bmatrix}
-$$
+$
 
 Now consider the message "HELLO WORLD".  We can represent it as a sequence of numbers as before:
+
 ```7 4 11 11 14 26 22 14 17 11 3```
 
 We can divide the message into blocks of size 3:
+
 ```(7, 4, 11), (11, 14, 26), (22, 14, 17), (11, 3)```
 
 In order for matrix multiplication to work, we need every block to have three numbers. We can simply add a padding character (e.g., space) to the last block to make it have three numbers:
 ```(7, 4, 11), (11, 14, 26), (22, 14, 17), (11, 3, 26)```
 
 To encrypt the message, we can multiply each block by the key matrix:
-$$C_i = K \cdot M_i$$
 
-where $$M_i$$ is the i-th block of the message and $$C_i$$ is the i-th block of the encrypted message (cipher block).
+$C_i = K \cdot M_i$
 
-$$C_1 = K \cdot M_1 = \begin{bmatrix} 7 \\ 4 \\ 11 \end{bmatrix} \cdot \begin{bmatrix}2 & 3 & 1 \\
+where $M_i$ is the i-th block of the message and $C_i$ is the i-th block of the encrypted message (cipher block).
+
+$C_1 = K \cdot M_1 = \begin{bmatrix} 7 \\ 4 \\ 11 \end{bmatrix} \cdot \begin{bmatrix}2 & 3 & 1 \\
 1 & 2 & 3 \\
 3 & 1 & 2 \\
-\end{bmatrix} = \begin{bmatrix} 7*2 + 4*3 + 11*1 \\ 7*1 + 4*2 + 11*3 \\ 7*3 + 4*1 + 11*2 \end{bmatrix} = \begin{bmatrix} 35 \\ 49 \\ 53 \end{bmatrix} \mod 27 = \begin{bmatrix} 8 \\ 22 \\ 26 \end{bmatrix}$$
+\end{bmatrix} = \begin{bmatrix} 7*2 + 4*3 + 11*1 \\ 7*1 + 4*2 + 11*3 \\ 7*3 + 4*1 + 11*2 \end{bmatrix} = \begin{bmatrix} 35 \\ 49 \\ 53 \end{bmatrix} \mod 27 = \begin{bmatrix} 8 \\ 22 \\ 26 \end{bmatrix}$
 
-$$C_2 = K \cdot M_2 = \begin{bmatrix} 11 \\ 14 \\ 26 \end{bmatrix} \cdot \begin{bmatrix}2 & 3 & 1 \\
+$C_2 = K \cdot M_2 = \begin{bmatrix} 11 \\ 14 \\ 26 \end{bmatrix} \cdot \begin{bmatrix}2 & 3 & 1 \\
 1 & 2 & 3 \\
 3 & 1 & 2 \\
-\end{bmatrix} = \begin{bmatrix} 11*2 + 14*3 + 26*1 \\ 11*1 + 14*2 + 26*3 \\ 11*3 + 14*1 + 26*2 \end{bmatrix} = \begin{bmatrix} 97 \\ 133 \\ 117 \end{bmatrix} \mod 27 = \begin{bmatrix} 16 \\ 22 \\ 9 \end{bmatrix}$$
+\end{bmatrix} = \begin{bmatrix} 11*2 + 14*3 + 26*1 \\ 11*1 + 14*2 + 26*3 \\ 11*3 + 14*1 + 26*2 \end{bmatrix} = \begin{bmatrix} 97 \\ 133 \\ 117 \end{bmatrix} \mod 27 = \begin{bmatrix} 16 \\ 22 \\ 9 \end{bmatrix}$
 
-$$C_3 = K \cdot M_3 = \begin{bmatrix} 22 \\ 14 \\ 17 \end{bmatrix} \cdot \begin{bmatrix}2 & 3 & 1 \\
+$C_3 = K \cdot M_3 = \begin{bmatrix} 22 \\ 14 \\ 17 \end{bmatrix} \cdot \begin{bmatrix}2 & 3 & 1 \\
 1 & 2 & 3 \\
 3 & 1 & 2 \\
-\end{bmatrix} = \begin{bmatrix} 22*2 + 14*3 + 17*1 \\ 22*1 + 14*2 + 17*3 \\ 22*3 + 14*1 + 17*2 \end{bmatrix} = \begin{bmatrix} 117 \\ 133 \\ 117 \end{bmatrix} \mod 27 = \begin{bmatrix} 9 \\ 22 \\ 9 \end{bmatrix}$$
+\end{bmatrix} = \begin{bmatrix} 22*2 + 14*3 + 17*1 \\ 22*1 + 14*2 + 17*3 \\ 22*3 + 14*1 + 17*2 \end{bmatrix} = \begin{bmatrix} 117 \\ 133 \\ 117 \end{bmatrix} \mod 27 = \begin{bmatrix} 9 \\ 22 \\ 9 \end{bmatrix}$
 
-$$C_4 = K \cdot M_4 = \begin{bmatrix} 11 \\ 3 \\ 26 \end{bmatrix} \cdot \begin{bmatrix}2 & 3 & 1 \\
+$C_4 = K \cdot M_4 = \begin{bmatrix} 11 \\ 3 \\ 26 \end{bmatrix} \cdot \begin{bmatrix}2 & 3 & 1 \\
 1 & 2 & 3 \\
 3 & 1 & 2 \\
-\end{bmatrix} = \begin{bmatrix} 11*2 + 3*3 + 26*1 \\ 11*1 + 3*2 + 26*3 \\ 11*3 + 3*1 + 26*2 \end{bmatrix} = \begin{bmatrix} 73 \\ 89 \\ 85 \end{bmatrix} \mod 27 = \begin{bmatrix} 19 \\ 8 \\ 4 \end{bmatrix}$$
+\end{bmatrix} = \begin{bmatrix} 11*2 + 3*3 + 26*1 \\ 11*1 + 3*2 + 26*3 \\ 11*3 + 3*1 + 26*2 \end{bmatrix} = \begin{bmatrix} 73 \\ 89 \\ 85 \end{bmatrix} \mod 27 = \begin{bmatrix} 19 \\ 8 \\ 4 \end{bmatrix}$
 
 The plaintext message blocks have been encrypted to the following cipher blocks:
+
 ```(8, 22, 26), (16, 22, 9), (9, 22, 9), (19, 8, 4)```
 
 We then transmit these cipher blocks to the recipient.  We assume the recipient knows the key matrix and can compute its inverse. The inverse of the key matrix is:
-$$K^{-1} = \begin{bmatrix}
+
+
+$K^{-1} = \begin{bmatrix}
 11 & 17 & 20 \\
 20 & 11 & 17 \\
 17 & 20 & 11 \\
-\end{bmatrix}$$
+\end{bmatrix}
+$
 
 To decrypt the message, the recipient can multiply each cipher block by the inverse of the key matrix:
-$$M_i = K^{-1} \cdot C_i$$
+$M_i = K^{-1} \cdot C_i$
 
 For example, to decrypt the first cipher block:
-$$M_1 = K^{-1} \cdot C_1 = \begin{bmatrix} 8 \\ 22 \\ 26 \end{bmatrix} \cdot \begin{bmatrix}
+$M_1 = K^{-1} \cdot C_1 = \begin{bmatrix} 8 \\ 22 \\ 26 \end{bmatrix} \cdot \begin{bmatrix}
 11 & 17 & 20 \\
 20 & 11 & 17 \\
 17 & 20 & 11 \\
-\end{bmatrix} = \begin{bmatrix} 8*11 + 22*17 + 26*20 \\ 8*20 + 22*11 + 26*17 \\ 8*17 + 22*20 + 26*11 \end{bmatrix} = \begin{bmatrix} 7 \\ 4 \\ 11 \end{bmatrix} \mod 27 = \begin{bmatrix} 7 \\ 4 \\ 11 \end{bmatrix}$$
+\end{bmatrix} = \begin{bmatrix} 8*11 + 22*17 + 26*20 \\ 8*20 + 22*11 + 26*17 \\ 8*17 + 22*20 + 26*11 \end{bmatrix} = \begin{bmatrix} 7 \\ 4 \\ 11 \end{bmatrix} \mod 27 = \begin{bmatrix} 7 \\ 4 \\ 11 \end{bmatrix}$
 
 This gives us the original message block (7, 4, 11), which corresponds to the letters "H", "E", and "L".  The recipient can repeat this process for the remaining cipher blocks to recover the entire plaintext message "HELLO WORLD".
 
-$$M_2 = K^{-1} \cdot C_2 = \begin{bmatrix} 16 \\ 22 \\ 9 \end{bmatrix} \cdot \begin{bmatrix}
+$M_2 = K^{-1} \cdot C_2 = \begin{bmatrix} 16 \\ 22 \\ 9 \end{bmatrix} \cdot \begin{bmatrix}
 11 & 17 & 20 \\
 20 & 11 & 17 \\
 17 & 20 & 11 \\
-\end{bmatrix} = \begin{bmatrix} 11 \\ 14 \\ 26 \end{bmatrix}$$
-$$M_3 = K^{-1} \cdot C_3 = \begin{bmatrix} 9 \\ 22 \\ 9 \end{bmatrix} \cdot \begin{bmatrix}
+\end{bmatrix} = \begin{bmatrix} 11 \\ 14 \\ 26 \end{bmatrix}$
+$M_3 = K^{-1} \cdot C_3 = \begin{bmatrix} 9 \\ 22 \\ 9 \end{bmatrix} \cdot \begin{bmatrix}
 11 & 17 & 20 \\
 20 & 11 & 17 \\
 17 & 20 & 11 \\
-\end{bmatrix} = \begin{bmatrix} 22 \\ 14 \\ 17 \end{bmatrix}$$
-$$M_4 = K^{-1} \cdot C_4 = \begin{bmatrix} 19 \\ 8 \\ 4 \end{bmatrix} \cdot \begin{bmatrix}
+\end{bmatrix} = \begin{bmatrix} 22 \\ 14 \\ 17 \end{bmatrix}$
+$M_4 = K^{-1} \cdot C_4 = \begin{bmatrix} 19 \\ 8 \\ 4 \end{bmatrix} \cdot \begin{bmatrix}
 11 & 17 & 20 \\
 20 & 11 & 17 \\
 17 & 20 & 11 \\
-\end{bmatrix} = \begin{bmatrix} 11 \\ 3 \\ 26 \end{bmatrix}$$
+\end{bmatrix} = \begin{bmatrix} 11 \\ 3 \\ 26 \end{bmatrix}$
 
 
 ## Typical Attacks on Historical Ciphers
