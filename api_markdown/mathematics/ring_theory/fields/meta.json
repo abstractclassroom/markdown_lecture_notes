@@ -1,0 +1,22 @@
+{
+    "subject": "Mathematics",
+    "topic": "Ring Theory",
+    "subtopic": "Fields",
+    "views" : "87451",
+    "datePublished": "May 19, 2024",
+    "dateUpdated" : "May 21, 2026",
+    "title" : "Mathematical Fields",
+    "description" : "Fields are algebraic structures that generalize the properties of familiar number systems that incorporate multiplicative inverses.",
+    "objectives" : [
+        "Understand the basic properties of fields",
+        "Identify whether a set and operations represent a field",
+        "Understand that all fields of a given finite order are isomorphic",
+        "Understand how to construct finite fields using irreducible polynomials"
+    ],
+    "prerequisites" : [
+        "Basic understanding of set theory",
+        "Basic understanding of group theory",
+        "Basic understanding of ring theory",
+        "Familiarity with polynomials and their properties"
+    ]
+}

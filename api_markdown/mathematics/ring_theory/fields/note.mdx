@@ -1,0 +1,277 @@
+# Fields
+
+A field is a ring with the additional property that every element, other than the additive identity, has a multiplicative inverse.  In other words, a field is a set equipped with two operations (addition and multiplication) that satisfy the following properties:
+* **Closure**: The sum and product of any two elements in the field are also elements of the field.
+* **Associativity**: Both addition and multiplication are associative.
+* **Commutativity**: Both addition and multiplication are commutative.
+* **Identity Elements**: There exist an additive identity and a multiplicative identity.
+* **Inverses**: Every element has an additive inverse, and every element has a multiplicative inverse, except for the additive identity.
+* **Distributivity**: Multiplication distributes over addition.
+
+## Infinite Fields
+
+Below are some examples of infinite fields applying traditional arithmetic operations.
+
+* **Rational Numbers ($\mathbb{Q}$)**: The set of rational numbers, which includes all numbers that can be expressed as a fraction of two integers, forms a field under the usual addition and multiplication operations.
+* **Real Numbers ($\mathbb{R}$)**: The set of real numbers, which includes all rational and irrational numbers, forms a field under the usual addition and multiplication operations.
+* **Complex Numbers ($\mathbb{C}$)**: The set of complex numbers, which includes all numbers of the form $a + bi$ where $a$ and $b$ are real numbers and $i$ is the imaginary unit, forms a field under the usual addition and multiplication operations.
+
+## Finite Fields
+
+Finite fields are fields that contain a finite number of elements. Finite fields are also known as Galois fields, named after the mathematician Évariste Galois. The most common notation for a finite field is $\mathbb{F}_q$ or $GF(q)$, where $q$ is the number of elements.
+
+Finite fields appear in many areas of mathematics and applied sciences, including coding theory, cryptography, and algebraic geometry. The structure of finite fields is well understood.  Below are some properties of finite fields:
+
+* All finite fields of a given order are isomorphic to each other. This means that there is essentially only one finite field of a given size, up to isomorphism.
+* The order of a finite field is always a power of a prime number.
+* Finite fields with prime order (i.e., $\mathbb{F}_p$ where $p$ is a prime) can be constructed using the integers modulo $p$ under addition and multiplication.
+* Finite fields with non-prime order (i.e., $\mathbb{F}_{p^n}$ where $p$ is a prime and $n$ is a positive integer) can be constructed using polynomials over $\mathbb{F}_p$ and taking the quotient by an irreducible polynomial of degree $n$.
+
+
+## Finite Fields of Prime Order
+
+The simplest finite fields are those of prime order, denoted $\mathbb{F}_p$ where $p$ is a prime number. Recall that mathematical structures such as groups, rings, and fields may be composed of very complicated objects. However, the structure itself (e.g., operation tables) may be equivalent to another structure composed of much simpler objects. This is the case for finite fields of prime order.
+
+Given that all finite fields of a given order are isomorphic to each other, we might as well use the simplest and familiar construction to represent the finite field.
+
+Consider $\mathbb{F}_7$. Since $7$ is a prime number, $\mathbb{F}_7$ can be represented very easily using the integers modulo $7$ under addition and multiplication.  The elements of $\mathbb{F}_7$ are given below.
+
+$$\mathbb{F}_7 = \{0, 1, 2, 3, 4, 5, 6\}$$
+
+The addition operation is shown below.
+
+$$
+\begin{array}{c|ccccccc}
++ & 0 & 1 & 2 & 3 & 4 & 5 & 6 \\\hline
+0 & 0 & 1 & 2 & 3 & 4 & 5 & 6 \\
+1 & 1 & 2 & 3 & 4 & 5 & 6 & 0 \\
+2 & 2 & 3 & 4 & 5 & 6 & 0 & 1 \\
+3 & 3 & 4 & 5 & 6 & 0 & 1 & 2 \\
+4 & 4 & 5 & 6 & 0 & 1 & 2 & 3 \\
+5 & 5 & 6 & 0 & 1 & 2 & 3 & 4 \\
+6 & 6 & 0 & 1 & 2 & 3 & 4 & 5 \\
+\end{array}
+$$
+
+The multiplication operation is shown below.
+
+$$
+\begin{array}{c|ccccccc}
+\times & 0 & 1 & 2 & 3 & 4 & 5 & 6 \\\hline
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+1 & 0 & 1 & 2 & 3 & 4 & 5 & 6 \\
+2 & 0 & 2 & 4 & 6 & 1 & 3 & 5 \\
+3 & 0 & 3 & 6 & 2 & 5 & 1 & 4 \\
+4 & 0 & 4 & 1 & 5 & 2 & 6 & 3 \\
+5 & 0 & 5 & 3 & 1 & 6 & 4 & 2 \\
+6 & 0 & 6 & 5 & 4 & 3 & 2 & 1 \\
+\end{array}
+$$
+
+Below are the additive and multiplicative inverses of the elements in $\mathbb{F}_7$.
+
+Additive inverses:
+
+$$
+\begin{align}
+-0 & \mapsto 0 \\
+-1 & \mapsto 6 \\
+-2 & \mapsto 5 \\
+-3 & \mapsto 4 \\
+-4 & \mapsto 3 \\
+-5 & \mapsto 2 \\
+-6 & \mapsto 1 \\
+\end{align}
+$$
+
+Multiplicative inverses:
+
+$$
+\begin{align}
+1^{-1} & \mapsto 1 \\
+2^{-1} & \mapsto 4 \\
+3^{-1} & \mapsto 5 \\
+4^{-1} & \mapsto 2 \\
+5^{-1} & \mapsto 3 \\
+6^{-1} & \mapsto 6 \\
+\end{align}
+$$
+
+It is trivial to verify the field axioms. The associative and distributive properties hold because the operations are defined using the usual addition and multiplication of integers, which are associative and distributive. The commutative properties hold for the same reason. The identity elements are $0$ for addition and $1$ for multiplication. The inverses are as shown above. Therefore, $\mathbb{F}_7$ is a field.
+
+Given that all finite fields of a given order are isomorphic to each other, we can conclude that any field with $7$ elements is isomorphic to $\mathbb{F}_7$.
+
+## Finite Fields of Non-Prime Order
+
+Finite fields of non-prime order, denoted $\mathbb{F}_{p^n}$ where $p$ is a prime and $n > 1$, are a little more complicated to construct.  It requires some extra overhead and notation to represent the elements and operations.
+
+### Polynomials over Finite Fields
+
+The notation $\mathbb{F}_{p}[x]$ is used to denote the set of all polynomials whose coefficients are elements of $\mathbb{F}_{p}$.
+
+Consider $\mathbb{F}_{3}[x]$. This is an infinite set, but below are some examples of elements in $\mathbb{F}_{3}[x]$:
+
+$$
+\begin{align}
+0 & \\
+1 & \\
+2 & \\
+x & \\
+x+1 & \\
+x+2 & \\
+2x & \\
+2x+1 & \\
+2x+2 & \\
+x^2 & \\
+2x^2 & \\
+2x^4 + x^3 + 2x^2 + 2 & \\
+\end{align}
+$$
+
+### Irreducible Polynomials over Finite Fields
+
+Recall from algebra class that polynomials can be factored.
+
+$$x^2 + 3x + 2 = (x+1)(x+2)$$
+
+The polynomials $(x+1)$ and $(x+2)$ are called factors of the polynomial $x^2 + 3x + 2$. They are also called prime polynomials because they cannot be factored further. This statement requires a bit more precision to be accurate.
+
+Consider the polynomial below
+
+$$x^2 + 1$$
+
+This polynomial cannot be factored using polynomials whose coefficients are real numbers.  However, it can be factored over the complex numbers.
+
+$$x^2 + 1 = (x+i)(x-i)$$
+
+
+Now consider the polynomial below
+
+$$x^2 - 2$$
+
+This polynomial cannot be factored over the set of integers (or rational numbers).  However, it can be factored over the real numbers.
+
+$$x^2 - 2 = (x-\sqrt{2})(x+\sqrt{2})$$
+
+To be precise, a polynomial is called irreducible over a field $F$ if it cannot be factored into the product of two non-constant polynomials with coefficients in $F$.
+
+Below are examples of polynomials that can be factored over $\mathbb{F}_3$.  Remember arithmetic behaves like modulo $3$.
+
+$$
+\begin{align}
+x^2 + 1 & = (x+1)(x+2) \\
+x^2 + 2x & = x(x+2) \\
+x^2 + 2x + 1 & = (x+1)(x+1)
+\end{align}
+$$
+
+Below are examples of polynomials that cannot be factored over $\mathbb{F}_3$.
+
+$$
+\begin{align}
+x^2 + 2 & \\
+x^2 + x + 1 & \\
+x^2 + 2x + 2 & \\
+x^3 + 2x + 1 &
+\end{align}
+$$
+
+### Constructing $\mathbb{F}_{p^n}$
+
+To construct $\mathbb{F}_{p^n}$, we need to find an irreducible polynomial of degree $n$ over $\mathbb{F}_p$.  Once we have an irreducible polynomial, we simply start with the set of all polynomials of degree less than $n$ and define addition and multiplication modulo the irreducible polynomial.  The resulting structure will be a field with $p^n$ elements.
+
+### Example $\mathbb{F}_{3^2}$
+
+Consider the finite field $\mathbb{F}_{3^2}$.  We need to find an irreducible polynomial of degree $2$ over $\mathbb{F}_3$.  The polynomial below is an example of an irreducible polynomial of degree $2$ over $\mathbb{F}_3$.
+
+$$x^2 + 1$$
+
+Now we can construct $\mathbb{F}_{3^2}$ using the set of all polynomials of degree less than $2$ and defining addition and multiplication modulo $x^2 + 1$.  The elements of $\mathbb{F}_{3^2}$ are given below.
+
+$$\mathbb{F}_{3^2} = \{0, 1, 2, x, x+1, x+2, 2x, 2x+1, 2x+2\}$$
+
+
+Below is the addition operation for $\mathbb{F}_{3^2}$.
+
+$$
+\begin{array}{c|ccccccccc}
++ & 0 & 1 & 2 & x & x+1 & x+2 & 2x & 2x+1 & 2x+2 \\\hline
+0 & 0 & 1 & 2 & x & x+1 & x+2 & 2x & 2x+1 & 2x+2 \\
+1 & 1 & 2 & 0 & x+1 & x+2 & x & 2x+1 & 2x+2 & 2x \\
+2 & 2 & 0 & 1 & x+2 & x & x+1 & 2x+2 & 2x & 2x+1 \\
+x & x & x+1 & x+2 & 0 & 1 & 2 & x & x+1 & x+2 \\
+x+1 & x+1 & x+2 & x & 1 & 2 & 0 & x+1 & x+2 & x \\
+x+2 & x+2 & x & x+1 & 2 & 0 & 1 & x+2 & x & x+1 \\
+2x & 2x & 2x+1 & 2x+2 & x & x+1 & x+2 & 0 & 1 & 2 \\
+2x+1 & 2x+1 & 2x+2 & 2x & x+1 & x+2 & x & 1 & 2 & 0 \\
+2x+2 & 2x+2 & 2x & 2x+1 & x+2 & x & x+1 & 2 & 0 & 1 \\
+\end{array}
+$$
+
+The multiplication operation for $\mathbb{F}_{3^2}$ is defined as multiplication of polynomials modulo $x^2 + 1$.  Below is the multiplication operation for $\mathbb{F}_{3^2}$.
+
+$$
+\begin{array}{c|ccccccccc}
+\times & 0 & 1 & 2 & x & x+1 & x+2 & 2x & 2x+1 & 2x+2 \\\hline
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+1 & 0 & 1 & 2 & x & x+1 & x+2 & 2x & 2x+1 & 2x+2 \\
+2 & 0 & 2 & 1 & 2x & 2x+2 & 2x+1 & x & x+2 & x+1 \\
+ x & 0 & x & 2x & 2 & 2+x & 2+2x & 1 & 1+x & 1+2x \\
+ x+1 & 0 & x+1 & 2+2x & 2+x & 2x & 1 & 1+2x & 2 & x \\
+ x+2 & 0 & x+2 & 1+2x & 2+2x & 1 & x & 1+x & 2x & 2 \\
+ 2x & 0 & 2x & x & 1 & 1+2x & 1+x & 2 & 2+2x & 2+x \\
+ 2x+1 & 0 & 2x+1 & 2+x & 1+x & 2 & 2x & 2+2x & x & 1 \\
+ 2x+2 & 0 & 2x+2 & 1+x & 1+2x & x & 2 & 2+x & 1 & 2x \\
+\end{array}
+$$
+
+
+Below are the additive inverses of the elements in $\mathbb{F}_{3^2}$.
+
+$$
+\begin{align}
+-0 & \mapsto 0 \\
+-1 & \mapsto 2 \\
+-2 & \mapsto 1 \\
+-x & \mapsto 2x \\
+-(x+1) & \mapsto 2x+2 \\
+-(x+2) & \mapsto 2x+1 \\
+-2x & \mapsto x \\
+-(2x+1) & \mapsto x+2 \\
+-(2x+2) & \mapsto x+1 \\
+\end{align}
+$$
+
+Below are the multiplicative inverses of the elements in $\mathbb{F}_{3^2}$.
+
+$$
+\begin{align}
+1^{-1} & \mapsto 1 \\
+2^{-1} & \mapsto 2 \\
+x^{-1} & \mapsto 2x \\
+(x+1)^{-1} & \mapsto x+2 \\
+(x+2)^{-1} & \mapsto x+1 \\
+(2x+1)^{-1} & \mapsto 2x+2 \\
+(2x+2)^{-1} & \mapsto 2x+1 \\
+\end{align}
+$$
+
+It may appear that the multiplication operation is not closed.  For example, $x \times x = x^2$ is not an element of $\mathbb{F}_{3^2}$.  However, we are defining multiplication modulo $x^2 + 1$.
+
+Notice the following equivalence:
+
+$$x^2 = (x^2 + 1) - 1$$
+
+Since $x^2 + 1$ is the modulus, it must be the case
+
+$$x^2 + 1 \equiv 0 \mod (x^2 + 1)$$
+
+Therefore, we can conclude that
+
+$$x \cdot x = x^2 = (x^2 + 1) - 1 \equiv 0 -1 \equiv -1 \equiv 2 \mod (x^2 + 1)$$
+
+
+
+## Conclusion
+
+It is remarkable that the structure of finite fields is so well understood.  The fact that all finite fields of a given order are isomorphic to each other means that we can use the simplest construction to represent any finite field. This is very powerful.  It is also remarkable that structures that require such tedious constructions, such as prime power fields, have such reliable and well understood properties.  This is why finite fields are so widely implemented in areas such as cryptography.
