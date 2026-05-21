@@ -8,6 +8,8 @@ A field is a ring with the additional property that every element, other than th
 * **Inverses**: Every element has an additive inverse, and every element has a multiplicative inverse, except for the additive identity.
 * **Distributivity**: Multiplication distributes over addition.
 
+---
+
 ## Infinite Fields
 
 Below are some examples of infinite fields applying traditional arithmetic operations.
@@ -15,6 +17,8 @@ Below are some examples of infinite fields applying traditional arithmetic opera
 * **Rational Numbers ($\mathbb{Q}$)**: The set of rational numbers, which includes all numbers that can be expressed as a fraction of two integers, forms a field under the usual addition and multiplication operations.
 * **Real Numbers ($\mathbb{R}$)**: The set of real numbers, which includes all rational and irrational numbers, forms a field under the usual addition and multiplication operations.
 * **Complex Numbers ($\mathbb{C}$)**: The set of complex numbers, which includes all numbers of the form $a + bi$ where $a$ and $b$ are real numbers and $i$ is the imaginary unit, forms a field under the usual addition and multiplication operations.
+
+---
 
 ## Finite Fields
 
@@ -26,6 +30,8 @@ Finite fields appear in many areas of mathematics and applied sciences, includin
 * The order of a finite field is always a power of a prime number.
 * Finite fields with prime order (i.e., $\mathbb{F}_p$ where $p$ is a prime) can be constructed using the integers modulo $p$ under addition and multiplication.
 * Finite fields with non-prime order (i.e., $\mathbb{F}_{p^n}$ where $p$ is a prime and $n$ is a positive integer) can be constructed using polynomials over $\mathbb{F}_p$ and taking the quotient by an irreducible polynomial of degree $n$.
+
+---
 
 
 ## Finite Fields of Prime Order
@@ -101,9 +107,13 @@ It is trivial to verify the field axioms. The associative and distributive prope
 
 Given that all finite fields of a given order are isomorphic to each other, we can conclude that any field with $7$ elements is isomorphic to $\mathbb{F}_7$.
 
+---
+
 ## Finite Fields of Non-Prime Order
 
 Finite fields of non-prime order, denoted $\mathbb{F}_{p^n}$ where $p$ is a prime and $n > 1$, are a little more complicated to construct.  It requires some extra overhead and notation to represent the elements and operations.
+
+---
 
 ### Polynomials over Finite Fields
 
@@ -127,6 +137,8 @@ x^2 & \\
 2x^4 + x^3 + 2x^2 + 2 & \\
 \end{align}
 $$
+
+---
 
 ### Irreducible Polynomials over Finite Fields
 
@@ -176,9 +188,13 @@ x^3 + 2x + 1 &
 \end{align}
 $$
 
+---
+
 ### Constructing $\mathbb{F}_{p^n}$
 
 To construct $\mathbb{F}_{p^n}$, we need to find an irreducible polynomial of degree $n$ over $\mathbb{F}_p$.  Once we have an irreducible polynomial, we simply start with the set of all polynomials of degree less than $n$ and define addition and multiplication modulo the irreducible polynomial.  The resulting structure will be a field with $p^n$ elements.
+
+---
 
 ### Example $\mathbb{F}_{3^2}$
 
@@ -270,7 +286,7 @@ Therefore, we can conclude that
 
 $$x \cdot x = x^2 = (x^2 + 1) - 1 \equiv 0 -1 \equiv -1 \equiv 2 \mod (x^2 + 1)$$
 
-
+---
 
 ## Conclusion
 
