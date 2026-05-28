@@ -181,7 +181,7 @@ Both approaches can work, but they have different security tradeoffs (XSS risk, 
 
 The png image below shows how a JWT might be stored using an `Authorization` header:
 
-![JWT in Authorization header](https://abstractclassroom.com/notes/cryptography/hashing_functions/jwt/browser_example_auth_bearer.png)
+![JWT in Authorization header](https://abstract-classroom-teaching.s3.us-east-1.amazonaws.com/cryptography/hashing_functions/jwt/browser_example_auth_bearer.png)
 
 
 ## Integrity vs confidentiality
@@ -200,6 +200,8 @@ If you need confidentiality, use **JWE** (JSON Web Encryption) or use TLS plus s
 ---
 
 ## Common JWT security pitfalls
+
+Below are some common mistakes when implementing JWTs.  This is not an exhaustive list, but it covers some of the most common issues.
 
 ### 1) Not validating claims
 
@@ -246,7 +248,7 @@ Web Application Firewalls (WAFs) and Content Delivery Networks (CDNs) may cache 
 
 The rules for configuring WAFs and CDNs can be very complex.  Many developers are not even aware of their existence.  You may have noticed that websites using CloudFlare as a WAF/CDN require users to click a box indicating they are human.
 
-![CloudFlare CAPTCHA](https://abstractclassroom.com/notes/cryptography/hashing_functions/jwt/captcha_cloudflare.gif)
+![CloudFlare CAPTCHA](https://abstract-classroom-teaching.s3.us-east-1.amazonaws.com/cryptography/hashing_functions/jwt/captcha_cloudflare.gif)
 
 
 There are several large companies/services that provide WAF and CDN services. Below are a few popular ones.
