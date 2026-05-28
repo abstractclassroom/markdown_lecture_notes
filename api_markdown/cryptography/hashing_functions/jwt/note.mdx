@@ -26,23 +26,25 @@ Recall that hash functions take arbitrary input and produce a fixed-size output.
 
 Base64 is another way to represent binary data as a string. It uses 64 characters (A-Z, a-z, 0-9, +, /) to represent 6 bits of data per character. The pattern for Base64 can be determined from a few examples:
 
-| Base64 Character | Decimal Value | Binary Value |
-|------------------|---------------|--------------|
-| A                | 0             | 000000       |
-| B                | 1             | 000001       |
-| C                | 2             | 000010       |
-| ...              | ...           | ...          |
-| a                | 26            | 011010       |
-| b                | 27            | 011011       |
-| ...              | ...           | ...          |
-| z                | 51            | 110011       |
-| 0                | 52            | 110100       |
-| 1                | 53            | 110101       |
-| ...              | ...           | ...          |
-| 9                | 61            | 111101       |
-| +                | 62            | 111110       |
-| /                | 63            | 111111       |
-|------------------|---------------|--------------|
+$$
+\begin{array}{c|c|c}
+	ext{Base64 Character} & \text{Decimal Value} & \text{Binary Value}\\\hline
+A & 0 & 000000\\
+B & 1 & 000001\\
+C & 2 & 000010\\
+\vdots & \vdots & \vdots\\
+a & 26 & 011010\\
+b & 27 & 011011\\
+\vdots & \vdots & \vdots\\
+z & 51 & 110011\\
+0 & 52 & 110100\\
+1 & 53 & 110101\\
+\vdots & \vdots & \vdots\\
+9 & 61 & 111101\\
+	exttt{+} & 62 & 111110\\
+	exttt{/} & 63 & 111111\\
+\end{array}
+$$
 
 Base64 encoding takes binary data and encodes it into a string using these 64 characters.
 
@@ -64,11 +66,14 @@ Restated using modulo arithmetic:
 
 Below are some examples of Base64 encoding:
 
-| Input (ASCII) | Input (Hex) | Base64 Encoded |
-|---------------|-------------|----------------|
-| "Hello"       | 48656c6c6f  | SGVsbG8=         |
-| "World"       | 576f726c64  | V29ybGQ=         |
-| "Hello World" | 48656c6c6f20576f726c64 | SGVsbG8gV29ybGQ= |
+$$
+\begin{array}{c|c|c}
+	ext{Input (ASCII)} & \text{Input (Hex)} & \text{Base64 Encoded}\\\hline
+	ext{"Hello"} & \texttt{48656c6c6f} & \texttt{SGVsbG8=}\\
+	ext{"World"} & \texttt{576f726c64} & \texttt{V29ybGQ=}\\
+	ext{"Hello World"} & \texttt{48656c6c6f20576f726c64} & \texttt{SGVsbG8gV29ybGQ=}\\
+\end{array}
+$$
 
 Consider the input "Hello". The ASCII values of the characters are:
 * H: 72 (01001000)
