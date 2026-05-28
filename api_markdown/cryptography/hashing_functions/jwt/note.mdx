@@ -1,0 +1,282 @@
+# JWT Tokens (JSON Web Tokens)
+
+Imagine that you are a courier delivering a package from Alice to Bob. There are at least three things that are important for Bob to know about the package:
+
+1. **What is in the package?** (the claims)
+2. **Did Alice send the package?** (authenticity)
+3. **Has the package been tampered with?** (integrity)
+
+Suppose Alice and Bob have a shared secret (like a password) that they can use to create a tamper-evident seal on the package. When Bob receives the package, he can check the seal to verify that it was indeed sent by Alice and that it has not been modified. This is essentially how a signed JWT works.
+
+Many web applications use JWTs.  Have you ever logged into a website and noticed that after logging in, the URL contains a long string of characters? Or perhaps you've seen a token being sent in the `Authorization` header of an HTTP request? These are often JWTs.
+
+Applications are often built on stateless architectures, where the server does not maintain session state. Instead, the server issues a JWT to the client after authentication, and the client includes this token in subsequent requests. The server is able to verify that it issued the token and that it has not been tampered with, without needing to store any session information on the server side.  The JWT contains information the server can use to identify the user and load any necessary data from a database.
+
+JSON Web Tokens (JWT) are a compact, URL-safe representation of **claims** that can be passed between parties (most commonly a browser/client and a web server). JWTs are widely used for stateless authentication, session management, and service-to-service authorization.
+
+A JWT is typically shown as three Base64URL-encoded parts separated by dots:
+
+`header.payload.signature`
+
+---
+
+## What is Base64?
+
+Recall that hash functions take arbitrary input and produce a fixed-size output.  The output is really a string of bytes, which may not be human-readable. Hashes are often represented in hexadecimal (base 16 using characters 0-9 and a-f).  The binary string is chunked into 4-bit groups, and each group is represented by a single hexadecimal character.  For example, the binary string `110101101011` can be chunked into `1101 0110 1011`, which corresponds to the hexadecimal string `d6b`.
+
+Base64 is another way to represent binary data as a string. It uses 64 characters (A-Z, a-z, 0-9, +, /) to represent 6 bits of data per character. The pattern for Base64 can be determined from a few examples:
+
+| Base64 Character | Decimal Value | Binary Value |
+|------------------|---------------|--------------|
+| A                | 0             | 000000       |
+| B                | 1             | 000001       |
+| C                | 2             | 000010       |
+| ...              | ...           | ...          |
+| a                | 26            | 011010       |
+| b                | 27            | 011011       |
+| ...              | ...           | ...          |
+| z                | 51            | 110011       |
+| 0                | 52            | 110100       |
+| 1                | 53            | 110101       |
+| ...              | ...           | ...          |
+| 9                | 61            | 111101       |
+| +                | 62            | 111110       |
+| /                | 63            | 111111       |
+|------------------|---------------|--------------|
+
+Base64 encoding takes binary data and encodes it into a string using these 64 characters.
+
+### Padding Schemes
+
+Base64 encoding often includes padding with `=` characters to ensure that the total length of the encoded string is a multiple of 4. The padding rules are as follows:
+
+* If the number of bytes in the input is a multiple of 3, no padding is added.
+* If the number of bytes in the input is one more than a multiple of 3, two `=` characters are added to the end of the encoded string.
+* If the number of bytes in the input is two more than a multiple of 3, one `=` character is added to the end of the encoded string.
+
+Restated using modulo arithmetic:
+
+* If `len(input) % 3 == 0`, no padding is added.
+* If `len(input) % 3 == 1`, two `=` characters are added.
+* If `len(input) % 3 == 2`, one `=` character is added.
+
+### Examples
+
+Below are some examples of Base64 encoding:
+
+| Input (ASCII) | Input (Hex) | Base64 Encoded |
+|---------------|-------------|----------------|
+| "Hello"       | 48656c6c6f  | SGVsbG8=         |
+| "World"       | 576f726c64  | V29ybGQ=         |
+| "Hello World" | 48656c6c6f20576f726c64 | SGVsbG8gV29ybGQ= |
+
+Consider the input "Hello". The ASCII values of the characters are:
+* H: 72 (01001000)
+* e: 101 (01100101)
+* l: 108 (01101100)
+* l: 108 (01101100)
+* o: 111 (01101111)
+
+When we concatenate the binary values, we get:
+`01001000 01100101 01101100 01101100 01101111`
+
+This is 40 bits of data. We can split it into 6-bit groups:
+`010010 000110 010101 101100 011011 000110 111100`
+
+Now we can convert each 6-bit group to its corresponding Base64 character:
+* 010010 (18) -> S
+* 000110 (6) -> G
+* 010101 (21) -> V
+* 101100 (44) -> s
+* 011011 (27) -> b
+* 000110 (6) -> G
+* 111100 (60) -> 8
+
+Since the input length is not a multiple of 3 bytes, Base64 adds padding so the encoded output length is a multiple of 4 characters. For "Hello" (5 bytes), there is 1 leftover byte in the final 3-byte block, so the output ends with one `=` padding character. The final Base64 encoded string is `SGVsbG8=`.
+
+## What is Base64URL?
+
+Base64URL is a variant of Base64 encoding that is designed to be safe for use in URLs and HTTP headers. It replaces the `+` and `/` characters with `-` and `_`, respectively, and omits padding `=` characters.
+
+## Why JWT belongs under hashing functions
+
+A signed JWT relies on a **cryptographic signature** to provide **integrity** (the token cannot be modified without detection) and **authenticity** (the signer had the secret/private key).
+
+Two common signature families:
+
+* **HMAC-based (symmetric)**: HS256 / HS384 / HS512
+  * Uses a shared secret and a hash function (e.g., HMAC-SHA-256).
+* **Public-key signatures (asymmetric)**: RS256 / ES256 (and others)
+  * Uses a private key to sign, and a public key to verify.
+
+Even though JWTs are often discussed in "web auth" contexts, the signature portion is a direct application of hashing (HMAC) or cryptographic signing (which itself uses hashing internally).
+
+---
+
+## The three parts of a JWT
+
+### 1) Header
+
+The header is a JSON object describing how the token is signed.
+
+Example header (HS256):
+
+```json
+{ "alg": "HS256", "typ": "JWT" }
+```
+
+Common fields:
+
+* `alg`: algorithm used to sign (e.g., `HS256`, `RS256`, `ES256`)
+* `typ`: usually `JWT`
+* `kid` (optional): key identifier (tells the server which key to use)
+
+### 2) Payload
+
+The payload is a JSON object containing claims.
+
+Example payload:
+
+```json
+{
+  "sub": "12345",
+  "name": "Ada Lovelace",
+  "iat": 1717000000,
+  "exp": 1717003600,
+  "iss": "https://auth.example.com",
+  "aud": "my-api"
+}
+```
+
+Common registered claims:
+
+* `iss` (issuer)
+* `sub` (subject / user id)
+* `aud` (audience)
+* `iat` (issued-at time)
+* `exp` (expiration time)
+* `nbf` (not before)
+
+Important: the payload is **not encrypted** in a typical JWT. Anyone who can see the token can Base64URL-decode it.
+
+### 3) Signature
+
+The signature is what prevents tampering.
+
+If the algorithm is HS256, the signature is:
+
+`HMAC_SHA256(secret, base64url(header) + "." + base64url(payload))`
+
+If the algorithm is RS256, the server signs with its RSA private key and clients/servers verify with the RSA public key.
+
+---
+
+
+## Where JWTs are commonly stored/transmitted
+
+* `Authorization: Bearer <token>` header
+* HTTP cookies (often `HttpOnly; Secure; SameSite=...`)
+
+Both approaches can work, but they have different security tradeoffs (XSS risk, CSRF risk, CORS behavior, etc.).
+
+The png image below shows how a JWT might be stored using an `Authorization` header:
+
+![JWT in Authorization header](https://abstractclassroom.com/notes/cryptography/hashing_functions/jwt/browser_example_auth_bearer.png)
+
+
+## Integrity vs confidentiality
+
+A signed JWT (JWS) provides:
+
+* **Integrity**: you can detect modification
+* **Authenticity**: you can identify the signer (given the right verification key)
+
+But it does **not** provide:
+
+* **Confidentiality**: hiding the contents
+
+If you need confidentiality, use **JWE** (JSON Web Encryption) or use TLS plus server-side session state instead of placing sensitive data in the token.
+
+---
+
+## Common JWT security pitfalls
+
+### 1) Not validating claims
+
+Verifying the signature is necessary but not sufficient.
+
+There are a few common tags (payload keys) that you should include and validate:
+
+* `exp` (expiration time): reject tokens that are expired
+* `nbf` (not before): reject tokens that are not yet valid
+* `aud` (audience): reject tokens that are not intended for your server
+* `iss` (issuer): reject tokens that were not issued by your trusted authority
+
+### 2) Accepting the wrong algorithm
+
+A classic bug is accepting tokens where `alg` is changed by an attacker (for example, to `none` or to a different algorithm family).
+
+Rules of thumb:
+
+* Your server should be configured to accept **only** the algorithm(s) you intend.
+* Never infer trust decisions solely from what the token says in its own header.
+
+### 3) Weak HMAC secrets
+
+If you use HS256, the security relies completely on the shared secret.
+
+* Use a long, random secret (do not use human passwords).
+* Rotate secrets and support key IDs (`kid`) when operating at scale.
+
+### 4) Treating JWT as a database
+
+JWT payloads should not be treated as a place to store large or sensitive data:
+
+* Tokens are sent frequently (bandwidth cost)
+* Tokens can leak through logs/referrers
+* Payload is readable unless encrypted
+
+### 5) Not using HTTPS
+
+Always use HTTPS to protect tokens in transit. Even if the token is signed, an attacker could steal it and use it (replay attack) if it's sent over an insecure connection.
+
+### 6) WAF and CDN caching issues
+
+Web Application Firewalls (WAFs) and Content Delivery Networks (CDNs) may cache responses.  These services attempt to reduce latency and bandwidth by caching responses.  When a user visits a website, the WAF or CDN may load the page from a cache near the user instead of fetching it from the origin server.
+
+The rules for configuring WAFs and CDNs can be very complex.  Many developers are not even aware of their existence.  You may have noticed that websites using CloudFlare as a WAF/CDN require users to click a box indicating they are human.
+
+![CloudFlare CAPTCHA](https://abstractclassroom.com/notes/cryptography/hashing_functions/jwt/captcha_cloudflare.gif)
+
+
+There are several large companies/services that provide WAF and CDN services. Below are a few popular ones.
+
+1. CloudFlare
+2. Akamai
+3. Fastly
+4. Amazon CloudFront
+5. Microsoft Azure CDN
+6. Google Cloud CDN
+
+Utilizing an outsourcing service can be a great way to improve performance and security.  However, it is important to understand the risks.  If a WAF or CDN is not configured properly, it may cache responses that contain JWTs.  This can lead to security vulnerabilities, such as:
+
+* **Token leakage**: If a JWT is cached, it may be accessible to other users who access the same cached response. This can lead to unauthorized access if the token contains sensitive information or grants access to protected resources.
+* **Replay attacks**: An attacker could potentially reuse a cached JWT to gain unauthorized access to resources if the token is still valid.
+
+
+There have been numerous reported incidents of misconfigured WAFs/CDNs leading to JWT leakage. In 2017, the “Cloudbleed” vulnerability exposed sensitive data such as authentication tokens and cookies from websites using Cloudflare infrastructure.
+[Cloudflare data leak overview](https://www.wordfence.com/blog/2017/02/cloudflare-data-leak/)
+
+WAFs and CDNs are often updated to help with security and maintenance events.  Whenever a company performs maintenance, they may need to bring down their services for a short period of time.  The company may use the CDN to display temporary maintenance pages.  Situations like this can lead to clumsy misconfigurations where engineers are rushed to update the WAF/CDN rules and accidentally allow caching of JWTs.
+
+---
+
+## Summary
+
+JWTs are a structured, signed token format that is heavily used in modern authentication and authorization.
+
+* They are compact: `header.payload.signature`
+* They are usually signed (HMAC or public-key)
+* The signature depends on hashing (directly for HMAC, indirectly for public-key signatures)
+* Correct verification includes both signature verification and claim validation
+

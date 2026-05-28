@@ -1,0 +1,20 @@
+{
+    "subject": "Cryptography",
+    "topic": "Hashing Functions",
+    "subtopic": "JWT Tokens",
+    "views" : "25640",
+    "datePublished": "May 22, 2024",
+    "dateUpdated" : "May 28, 2026",
+    "title" : "JWT Tokens",
+    "description" : "JSON Web Tokens (JWT) are a compact, URL-safe way to represent claims between parties. They are very commonly used to maintain sessions.   This note explains the JWT structure (header.payload.signature), how signatures are created using hashing (HMAC) or public-key cryptography (RSA/ECDSA), and common security pitfalls.",
+    "objectives" : [
+        "Understand the three-part JWT structure and Base64URL encoding",
+        "Explain how JWT signatures are created and verified (HMAC vs public-key)",
+        "Identify common JWT security pitfalls"
+    ],
+    "prerequisites" : [
+        "Basic understanding of hashing functions (e.g., SHA-256)",
+        "Basic understanding of HTTP cookies and Authorization headers"
+    ]
+}
+
