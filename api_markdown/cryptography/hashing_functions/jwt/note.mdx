@@ -208,7 +208,7 @@ If you need confidentiality, use **JWE** (JSON Web Encryption) or use TLS plus s
 
 Below are some common mistakes when implementing JWTs.  This is not an exhaustive list, but it covers some of the most common issues.
 
-### 1) Not validating claims
+##### 1) Not validating claims
 
 Verifying the signature is necessary but not sufficient.
 
@@ -219,7 +219,7 @@ There are a few common tags (payload keys) that you should include and validate:
 * `aud` (audience): reject tokens that are not intended for your server
 * `iss` (issuer): reject tokens that were not issued by your trusted authority
 
-### 2) Accepting the wrong algorithm
+##### 2) Accepting the wrong algorithm
 
 A classic bug is accepting tokens where `alg` is changed by an attacker (for example, to `none` or to a different algorithm family).
 
@@ -228,14 +228,14 @@ Rules of thumb:
 * Your server should be configured to accept **only** the algorithm(s) you intend.
 * Never infer trust decisions solely from what the token says in its own header.
 
-### 3) Weak HMAC secrets
+##### 3) Weak HMAC secrets
 
 If you use HS256, the security relies completely on the shared secret.
 
 * Use a long, random secret (do not use human passwords).
 * Rotate secrets and support key IDs (`kid`) when operating at scale.
 
-### 4) Treating JWT as a database
+##### 4) Treating JWT as a database
 
 JWT payloads should not be treated as a place to store large or sensitive data:
 
@@ -243,11 +243,11 @@ JWT payloads should not be treated as a place to store large or sensitive data:
 * Tokens can leak through logs/referrers
 * Payload is readable unless encrypted
 
-### 5) Not using HTTPS
+##### 5) Not using HTTPS
 
 Always use HTTPS to protect tokens in transit. Even if the token is signed, an attacker could steal it and use it (replay attack) if it's sent over an insecure connection.
 
-### 6) WAF and CDN caching issues
+##### 6) WAF and CDN caching issues
 
 Web Application Firewalls (WAFs) and Content Delivery Networks (CDNs) may cache responses.  These services attempt to reduce latency and bandwidth by caching responses.  When a user visits a website, the WAF or CDN may load the page from a cache near the user instead of fetching it from the origin server.
 
