@@ -166,7 +166,21 @@ $$
 a^n = e
 $$
 
-Any time you raise an element to the power of the order of the group, you will get the identity element.  This result provides a powerful explanation for Euler's theorem.  Since the order of the multiplicative group of integers modulo $n$ is $\phi(n)$, we have
+This is relatively easy to see.  If $n$ is the order of the group, then the order of $a$ must divide $n$.  Let $|a| = m$.  Since $m$ divides $n$, we can write $n = km$ for some integer $k$.  Therefore,
+
+$$
+a^n = a^{km} = (a^m)^k
+$$
+
+However, since $m$ is the order of $a$, we have $a^m = e$ (identity element).  Therefore,
+
+$$
+a^n = (a^m)^k = e^k = e
+$$
+
+In short, any time you raise an element to the power of the order of the group, you will get the identity element.
+
+This result provides a powerful explanation for Euler's theorem.  Since the order of the multiplicative group of integers modulo $n$ is $\phi(n)$, we have
 
 $$
 a^{\phi(n)} = e
@@ -186,7 +200,9 @@ Below is a summary of the key points about multiplicative groups:
 
 - A multiplicative group is a group where the operation is multiplication.
 - The multiplicative group of integers modulo $n$ consists of the integers from $1$ to $n-1$ that are relatively prime to $n$.
-- The order of the multiplicative group of integers modulo $n$ is given by Euler's totient function $\phi(n)$.
+- The order of the multiplicative group of integers modulo $n$ is given by Euler's totient function $\phi(n)$. The totient function counts the number of integers from $1$ to $n$ that are relatively prime to $n$.
 - Fermat's little theorem states that if $p$ is a prime and $a$ is an integer not divisible by $p$, then $a^{p-1} \equiv 1 \mod p$.
 - Euler's theorem states that if $a$ is an integer that is relatively prime to $n$, then $a^{\phi(n)} \equiv 1 \mod n$. Euler's theorem is a generalization of Fermat's little theorem.
 - Lagrange's theorem states that the order of any element in a finite group divides the order of the group, which explains why $a^{\phi(n)} \equiv 1 \mod n$ for elements in the multiplicative group of integers modulo $n$. Lagrange's theorem provides a powerful group generalization for Euler's theorem.
+
+Significant insight can be gained by analyzing abstract algebraic structures.
