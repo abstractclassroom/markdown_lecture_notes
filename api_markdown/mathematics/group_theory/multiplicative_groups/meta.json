@@ -10,7 +10,8 @@
     "objectives" : [
         "Define multiplicative groups",
         "Identify examples of multiplicative groups",
-        "Connect multiplicative groups to cyclic groups and Euler's totient function"
+        "Connect multiplicative groups to cyclic groups and Euler's totient function",
+        "Understand the implications of Lagrange's theorem and how it relates to Euler's theorem"
     ],
     "prerequisites" : [
         "Basic understanding of group properties",
