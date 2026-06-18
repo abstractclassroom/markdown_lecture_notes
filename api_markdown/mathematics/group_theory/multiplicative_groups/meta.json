@@ -6,7 +6,7 @@
     "datePublished": "June 11, 2025",
     "dateUpdated" : "June 18, 2026",
     "title" : "Multiplicative Groups",
-    "description" : "Multiplicative groups are groups whose operation behaves like multiplication combined with modular arithmetic. This section introduces multiplicative groups, explains why zero is usually excluded, and connects the units modulo n to cyclic groups and Euler's totient function.",
+    "description" : "This lecture explores the concept of multiplicative groups, which are groups formed under the operation of multiplication. We will focus on the multiplicative group of integers modulo n. This group consists of the integers that are coprime to n, with the group operation being multiplication modulo n. We will examine the structure of these groups, their properties, and how they relate to cyclic groups and Euler's totient function. By understanding multiplicative groups, we can gain insights into number theory and its applications in cryptography and other areas of mathematics.",
     "objectives" : [
         "Define multiplicative groups",
         "Identify examples of multiplicative groups",
