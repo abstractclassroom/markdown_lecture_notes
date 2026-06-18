@@ -1,0 +1,22 @@
+{
+    "subject": "Mathematics",
+    "topic": "Group Theory",
+    "subtopic": "Multiplicative Groups",
+    "views" : "4725",
+    "datePublished": "June 11, 2025",
+    "dateUpdated" : "June 18, 2026",
+    "title" : "Multiplicative Groups",
+    "description" : "Multiplicative groups are groups whose operation behaves like multiplication combined with modular arithmetic. This section introduces multiplicative groups, explains why zero is usually excluded, and connects the units modulo n to cyclic groups and Euler's totient function.",
+    "objectives" : [
+        "Define multiplicative groups",
+        "Identify examples of multiplicative groups",
+        "Connect multiplicative groups to cyclic groups and Euler's totient function"
+    ],
+    "prerequisites" : [
+        "Basic understanding of group properties",
+        "Basic understanding of modular arithmetic",
+        "Basic understanding of cyclic groups",
+        "Basic understanding of Euler's totient function"
+    ]
+}
+
