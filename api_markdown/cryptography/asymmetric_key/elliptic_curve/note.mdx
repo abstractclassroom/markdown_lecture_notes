@@ -24,7 +24,7 @@ Notice this implies symmetry with respect to the x-axis. For example, if one poi
 
 The image below shows the common toy curve $y^2=x^3+2x+2$ over the real numbers.
 
-![Continuous elliptic curve over the real numbers](ecc_real_curve.png)
+![Continuous elliptic curve over the real numbers](https://abstract-classroom-teaching.s3.amazonaws.com/cryptography/asymmetric_key/elliptic_curve/ecc_real_curve.png)
 
 To avoid curves with sharp cusps or self-intersections, the curve must be nonsingular. For the form $y^2 = x^3 + ax + b$, this means the discriminant condition below must hold.
 
@@ -141,11 +141,11 @@ Over the real numbers, the graph appears continuous. Over a finite field, the sa
 
 Recall the toy curve $y^2=x^3+2x+2$ over the real numbers.
 
-![Continuous elliptic curve over the real numbers](ecc_real_curve.png)
+![Continuous elliptic curve over the real numbers](https://abstract-classroom-teaching.s3.amazonaws.com/cryptography/asymmetric_key/elliptic_curve/ecc_real_curve.png)
 
 The image below shows the same toy curve equation over $\mathbb{F}_{17}$.
 
-![Discrete points on the elliptic curve modulo 17](ecc_mod17_points.png)
+![Discrete points on the elliptic curve modulo 17](https://abstract-classroom-teaching.s3.amazonaws.com/cryptography/asymmetric_key/elliptic_curve/ecc_mod17_points.png)
 
 The fact that $\mathbb{F}_p$ is a field matters because division is defined for all elements other than the additive identity.  Specifically, division is effectively multiplying by multiplicative inverses. For example, the slope between two points usually has the form below.
 
@@ -161,7 +161,7 @@ One way to visualize this wrapping is to imagine gluing opposite sides of the sq
 
 The image below demonstrates a larger elliptic curve over a finite field.  Notice how the slope lines wrap around the torus and the edges of the grid.
 
-![Elliptic Curve Embedded On Torus](elliptic_curve_torus_slope.png)
+![Elliptic Curve Embedded On Torus](https://abstract-classroom-teaching.s3.amazonaws.com/cryptography/asymmetric_key/elliptic_curve/elliptic_curve_torus_slope.png)
 
 
 ---
@@ -179,7 +179,7 @@ Graphically, the addition rule works as follows.
 3. Reflect that third point across the $x$-axis.
 4. The reflected point is defined to be $P+Q$.
 
-![Elliptic Curve Point Addition](point_addition.png)
+![Elliptic Curve Point Addition](https://abstract-classroom-teaching.s3.amazonaws.com/cryptography/asymmetric_key/elliptic_curve/point_addition.png)
 
 Over $\mathbb{F}_p$, the same rule is implemented with modular arithmetic. If $P \neq Q$ and $x_1 \not\equiv x_2 \pmod p$, calculate the slope below.
 
@@ -213,7 +213,7 @@ $$2P = P + P$$
 
 Graphically, instead of drawing a line through two different points, we draw the tangent line at $P$. The tangent line intersects the curve at another point, and that point is reflected across the $x$-axis. The reflected point is defined to be $2P$.
 
-![Elliptic Curve Point Doubling](point_doubling.png)
+![Elliptic Curve Point Doubling](https://abstract-classroom-teaching.s3.amazonaws.com/cryptography/asymmetric_key/elliptic_curve/point_doubling.png)
 
 If $P=(x_1,y_1)$, the doubling slope over $\mathbb{F}_p$ is below.
 
