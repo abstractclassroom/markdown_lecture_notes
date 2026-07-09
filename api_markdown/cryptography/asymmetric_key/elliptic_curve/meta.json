@@ -1,22 +1,26 @@
 {
     "subject": "Cryptography",
     "topic": "Asymmetric Encryption",
-    "subtopic": "Elliptic Encryption",
+    "subtopic": "Elliptic Curve Cryptography",
     "views" : "902",
     "datePublished": "June 25, 2024",
-    "dateUpdated" : "June 29, 2025",
-    "title" : "Elliptic Curve Encryption",
-    "description" : "Elliptic Curve Encryption (ECC) is a form of public-key cryptography based on the algebraic structure of elliptic curves over finite fields. ECC offers the same level of security as traditional methods like RSA but with smaller key sizes, making it more efficient. In this lesson, we will explore the mathematics behind ECC and its applications in securing communications.",
+    "dateUpdated" : "July 9, 2026",
+    "title" : "Elliptic Curve Cryptography",
+    "description" : "Elliptic Curve Cryptography (ECC) is a form of public-key cryptography based on the group structure of elliptic curves over finite fields. This lecture introduces elliptic curves over the real numbers as relations of ordered pairs, explains how the same equations become finite point sets modulo a prime, develops the point addition and point doubling formulas, and connects scalar multiplication to the elliptic curve discrete logarithm problem. We will also examine how Alice and Bob can use elliptic curves to establish a shared secret for encrypted communication and identify commonly used NIST-approved curves.",
     "objectives" : [
-        "Understand the mathematical principles behind elliptic curves",
-        "Learn how ECC keys are generated and managed",
-        "Explore the advantages of ECC over traditional encryption methods"
+        "Describe elliptic curves over the real numbers as relations of ordered pairs",
+        "Explain how elliptic curves are represented over finite fields modulo a prime",
+        "Compute elliptic curve point addition and point doubling using modular arithmetic",
+        "Interpret scalar multiplication as repeated elliptic curve addition",
+        "Explain the general discrete logarithm problem and the elliptic curve discrete logarithm problem",
+        "Describe how elliptic curves are used in an Alice and Bob encryption scenario",
+        "Identify common NIST-approved elliptic curves"
     ],
     "prerequisites" : [
         "Basic understanding of prime numbers",
         "Basic knowledge of modular arithmetic",
         "Familiarity with public-key cryptography concepts",
-        "Understanding of basic elliptic curve properties",
+        "Basic understanding of multiplicative inverses in modular arithmetic",
         "Familiarity with finite fields"
     ]
 }
