@@ -1,0 +1,23 @@
+{
+    "subject": "Cryptography",
+    "topic": "Implementations",
+    "subtopic": "Certificate Authorities",
+    "views" : "9211",
+    "datePublished": "July 1, 2024",
+    "dateUpdated" : "July 14, 2026",
+    "title" : "Certificate Authorities and Domain Validation",
+    "description" : "Certificate Authorities (CAs) are trusted third parties that issue digital certificates used in HTTPS and other public-key infrastructure systems. This note explains how CAs validate control of a domain, how certificates bind public keys to domain names, and why hashes, digital signatures, certificate chains, and browser trust stores are central to TLS security.",
+    "objectives" : [
+        "Explain the role of Certificate Authorities in public-key infrastructure",
+        "Describe how domain validation proves control of a domain",
+        "Understand common validation methods such as DNS, HTTP, email, and TLS-based challenges",
+        "Explain how certificate chains connect a website certificate to a trusted root certificate",
+        "Identify important limitations and security risks in the CA model"
+    ],
+    "prerequisites" : [
+        "Basic understanding of hash functions",
+        "Basic understanding of digital signatures",
+        "Basic understanding of public-key cryptography",
+        "Basic understanding of DNS and HTTPS"
+    ]
+}

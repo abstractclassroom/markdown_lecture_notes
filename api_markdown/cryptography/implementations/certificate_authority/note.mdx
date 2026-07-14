@@ -1,0 +1,698 @@
+# Certificate Authorities and Domain Validation
+
+When you visit a website, your browser/computer will first reach out to a DNS (Domain Name System) server to resolve the domain name into an IP address.  Similar to a phone book, DNS servers maintain a mapping of domain names to IP addresses.  Once the browser has the IP address, it can connect to the server hosting the website.  This opens the door for malicious actors to **spoof** a website.  Whenever a computer connects to a network, it is typically instructed to utilize a specific DNS server.  It is common for people to use the DNS servers provided by their Internet Service Provider (ISP) or to utilize public DNS servers such as Google Public DNS or Cloudflare. However, a malicious actor could just as easily point a computer to a malicious DNS server that returns incorrect IP addresses for domain names.
+
+For example, suppose a malicious actor configures a rapsberry pi to act like a WIFI access point.  Perhaps it may broadcast the SSID "Free Public WIFI" and wait for unsuspecting users to connect.  When a user connects to this access point, the raspberry pi will act like a DHCP server and provide the user with an IP address, a gateway, and a DNS server.  The malicious actor could configure the DNS server to return the IP address of a malicious website that is made to look like a legitimate website.  The user may visit their bank's website and see the correct domain name in the browser's address bar, but the IP address returned by the malicious DNS server points to a malicious website.  The user may not notice that they are on a malicious website and may enter their credentials, which are then stolen by the malicious actor.
+
+Nearly all websites today use HTTPS, which is HTTP over TLS (Transport Layer Security).  HTTPS provides encryption and authentication.  The encryption ensures that the data sent between the browser and the server is private.  The authentication ensures that the browser is communicating with the correct server.  TLS is effectively a handshake protocol that establishes a secure connection between the browser and the server.  The TLS handshake uses public-key cryptography to establish a shared secret key that is used for symmetric encryption of the data sent between the browser and the server.
+
+When you visit a website using HTTPS, your browser needs to answer an important question:
+
+**Is this public key really associated with this domain name?**
+
+For example, suppose your browser connects to:
+
+`https://www.example.com`
+
+The server will present a digital certificate containing a public key. The browser must decide whether to trust that certificate. If the browser simply accepted any public key sent by the server, an attacker could intercept the connection and provide their own public key instead.
+
+Certificate Authorities, often abbreviated as **CAs**, help solve this problem. A Certificate Authority is a trusted organization that issues digital certificates. These certificates bind an identity, such as a domain name, to a public key.
+
+At a high level, a certificate says:
+
+> This public key belongs to this domain name, and a trusted Certificate Authority has digitally signed that statement.
+
+A CA takes certificate data, hashes it, and signs the hash using the CA's private key. Anyone with the CA's public key can verify the signature.
+
+The important implementation question is:
+
+**How does the CA know that the requester actually controls the domain?**
+
+
+---
+
+## The Problem Certificate Authorities Solve
+
+Public-key cryptography allows one party to publish a public key while keeping a private key secret. However, public keys by themselves do not prove identity.
+
+Suppose Alice wants to connect to Bob's website. Bob sends Alice a public key. Alice can use that public key to establish encrypted communication, but Alice still needs to know whether the key actually belongs to Bob.
+
+An attacker, Mallory, could intercept Alice's network connection and send to Alice the public key for Mallory instead. Alice might then unknowingly encrypt information to send to Mallory.
+
+This is a classic authentication problem.
+
+A digital certificate helps solve this by connecting three pieces of information:
+
+1. A domain name, such as `example.com`
+2. A public key
+3. A digital signature from a trusted Certificate Authority
+
+The simplified structure for a certificate is:
+
+* Domain name: `example.com`
+* Public key: `-----BEGIN PUBLIC KEY----- ... -----END PUBLIC KEY-----`
+* Digital signature (CA): `-----BEGIN SIGNATURE----- ... -----END SIGNATURE-----`
+
+The CA signature is computed over the certificate contents. Conceptually:
+
+$signature = Sign_{CAPrivateKey}(Hash(certificate\ data))$
+
+The browser verifies the certificate using the CA's public key:
+
+$Verify_{CAPublicKey}(Hash(certificate\ data), signature)$
+
+If verification succeeds, the browser knows that the certificate was signed by the CA and has not been modified.
+
+However, this only matters if the CA correctly validated the domain before signing the certificate.
+
+---
+
+## What Is a Certificate Authority?
+
+A Certificate Authority is an organization trusted to issue digital certificates. Examples include:
+
+1. DigiCert
+2. GlobalSign
+3. Let's Encrypt (free and automated)
+4. Sectigo
+5. Google Trust Services
+6. Amazon Trust Services
+
+Browsers and operating systems maintain lists of trusted root Certificate Authorities. These are called **root trust stores**. The underlying assumption is that you would not be utilizing a browser or operating system that trusts a malicious CA. If you did, the CA could issue certificates for any domain, and your browser would accept them.  In enterprise environments, administrators can configure their own trusted root CAs. This is common for internal corporate networks.  Employees may be required to install a corporate root CA certificate on their devices.  This allows the corporate network to issue certificates for internal services, and the employees' browsers will trust those certificates.
+
+A root CA has a public key that is already trusted by the browser or operating system. When a website presents a certificate, the browser tries to build a chain of trust from the website certificate back to one of these trusted root certificates.
+
+The chain usually looks like this:
+
+1. Website certificate
+2. Intermediate CA certificate
+3. Root CA certificate
+
+The root certificate is trusted directly by the browser or operating system. The intermediate certificate is signed by the root CA. The website certificate is signed by the intermediate CA.
+
+This creates a chain of signatures:
+
+$Website\ Certificate \leftarrow Intermediate\ CA \leftarrow Root\ CA$
+
+If every signature in the chain verifies, and the root CA is trusted, then the browser can trust the website certificate.
+
+---
+
+## What a Digital Certificate Contains
+
+A real TLS certificate contains many fields. Some of the most important are:
+
+1. **Subject**
+    * The entity the certificate is issued to.
+2. **Subject Alternative Name**
+    * The domain names covered by the certificate.
+    * For modern HTTPS certificates, this is the important field for domain matching.
+3. **Public Key**
+    * The public key associated with the domain.
+4. **Issuer**
+    * The CA that issued the certificate.
+5. **Validity Period**
+    * The start and expiration dates.
+6. **Signature Algorithm**
+    * The algorithm used by the CA to sign the certificate.
+7. **Digital Signature**
+    * The CA's signature over the certificate data.
+
+For example, a certificate might be valid for:
+
+`www.example.com`
+
+and may contain a public key that the server controls. The CA's signature states that the CA validated control of `www.example.com` before issuing the certificate.
+
+---
+
+## Domain Validation
+
+Most common HTTPS certificates are **Domain Validation** certificates, often abbreviated as **DV certificates**.
+
+Domain validation does not prove that a company is legitimate. It does not prove that a website is honest. It only proves that the requester demonstrated control over a domain name.
+
+For example, if a CA issues a DV certificate for:
+
+`example.com`
+
+the CA is saying:
+
+> The requester demonstrated control over `example.com` according to an approved validation method.
+
+The CA is not saying:
+
+> This website is safe.
+
+or:
+
+> This business is trustworthy.
+
+This distinction is important. HTTPS protects the connection between the browser and the server. It does not guarantee that the server itself is good, honest, or safe.
+
+---
+
+## The Basic Certificate Issuance Process
+
+The certificate issuance process usually looks like this:
+
+1. A domain owner generates a public/private key pair.
+2. The domain owner creates a Certificate Signing Request, called a CSR.
+3. The CSR contains the public key and requested domain names.
+4. The domain owner sends the CSR to a Certificate Authority.
+5. The CA verifies that the requester controls the domain.
+6. If validation succeeds, the CA signs a certificate containing the domain name and public key.
+7. The domain owner installs the certificate on their web server.
+8. Browsers can now verify the certificate during HTTPS connections.
+
+The private key should never be sent to the CA.
+
+Only the public key is included in the CSR and certificate.
+
+---
+
+## Certificate Signing Requests
+
+A **Certificate Signing Request**, or **CSR**, is a message sent to a CA requesting a certificate.
+
+The CSR includes information such as:
+
+1. The requested domain name
+2. The public key
+3. Information about the requested certificate
+4. A signature created using the corresponding private key
+
+The CSR signature proves that the requester controls the private key corresponding to the public key in the request.
+
+This matters because the CA should not issue a certificate for a public key unless the requester can prove possession of the matching private key.
+
+A simplified CSR relationship is:
+
+$CSR = domain\ name + public\ key + signature\ from\ private\ key$
+
+The CA can verify the CSR signature using the included public key. This proves key possession, but it does not yet prove domain control.
+
+Domain validation is the separate step that proves control over the domain name.
+
+---
+
+## Validating Domain Control
+
+A CA must validate domain control before issuing a certificate. There are several common methods.
+
+The most common modern automated methods are used by the ACME protocol, which is used by Let's Encrypt and other CAs.
+
+ACME stands for **Automatic Certificate Management Environment**.
+
+The basic idea is that the CA gives the requester a random challenge value. The requester must place a response somewhere that only someone controlling the domain should be able to modify.
+
+The challenge usually proves one of the following:
+
+1. The requester can modify files served by the website.
+2. The requester can modify DNS records for the domain.
+3. The requester can configure TLS responses for the domain.
+4. The requester can receive email at an administrative contact address for the domain.
+
+If the requester can do one of these things, the CA treats that as evidence of domain control.
+
+---
+
+## HTTP-Based Validation
+
+One common method is HTTP validation. In ACME, this is called the **HTTP-01 challenge**.
+
+The CA gives the requester a random token. The requester must place a file containing a specific response at a specific URL under the domain.
+
+For example, the CA might require the requester to serve a response at:
+
+`http://example.com/.well-known/acme-challenge/<token>`
+
+The process is:
+
+1. The requester asks the CA for a certificate for `example.com`.
+2. The CA generates a random token.
+3. The requester places the expected challenge response on the web server.
+4. The CA makes an HTTP request to the domain.
+5. If the response matches, the CA concludes that the requester controls the web content for the domain.
+6. The CA issues the certificate.
+
+A simplified version looks like this:
+
+1. CA: Put this random challenge response at `http://example.com/.well-known/acme-challenge/abc123`.
+2. Requester: Configure the web server to serve the response.
+3. CA: Request the URL and verify the response.
+
+This proves that the requester can control web content served from the domain.
+
+However, HTTP validation has limitations. It may not work well if the server is behind certain proxies, load balancers, firewalls, or complicated redirects. It also requires the domain to be reachable over HTTP.
+
+---
+
+## DNS-Based Validation
+
+Another common method is DNS validation. In ACME, this is called the **DNS-01 challenge**.
+
+Instead of placing a file on a web server, the requester places a specific TXT record in DNS.
+
+For example, the CA may require a TXT record at:
+
+`_acme-challenge.example.com`
+
+The process is:
+
+1. The requester asks for a certificate for `example.com`.
+2. The CA generates a random challenge.
+3. The requester creates a DNS TXT record containing the expected response.
+4. The CA queries DNS for the TXT record.
+5. If the TXT record matches, the CA concludes that the requester controls DNS for the domain.
+6. The CA issues the certificate.
+
+A simplified DNS TXT record might contain:
+
+`_acme-challenge.example.com. TXT "random-validation-response"`
+
+DNS validation is especially useful for wildcard certificates.
+
+For example, a certificate for:
+
+`*.example.com`
+
+usually requires DNS validation because the CA needs evidence that the requester controls the broader domain namespace.
+
+DNS validation is powerful because control over DNS often implies strong control over the domain. However, it also means that DNS account security is extremely important. If an attacker compromises the DNS provider account, the attacker may be able to obtain valid certificates for the domain.
+
+---
+
+## TLS-Based Validation
+
+Another method is TLS-based validation. In ACME, this is called the **TLS-ALPN-01 challenge**.
+
+In this method, the requester configures the server to respond during a TLS handshake with a temporary special certificate containing challenge information.
+
+The process is:
+
+1. The requester asks for a certificate.
+2. The CA generates a random challenge.
+3. The requester configures the TLS server to present a special temporary validation certificate.
+4. The CA connects to the domain using TLS.
+5. The CA checks whether the special certificate contains the expected challenge response.
+6. If the challenge response is correct, the CA issues the real certificate.
+
+This proves that the requester can control the TLS endpoint for the domain.
+
+---
+
+## Email-Based Validation
+
+Some CAs also support email-based validation.
+
+In this method, the CA sends a validation message to an administrative email address associated with the domain. The recipient must follow a link or provide a response to confirm control.
+
+Common administrative addresses include:
+
+1. `admin@example.com`
+2. `administrator@example.com`
+3. `hostmaster@example.com`
+4. `postmaster@example.com`
+5. `webmaster@example.com`
+
+The CA may also use contact information from domain registration data when available.
+
+Email validation is conceptually simple, but it depends on the security of email accounts and domain registration records. If an attacker can compromise an administrative mailbox, the attacker may be able to obtain a certificate.
+
+---
+
+## Why Random Challenges Matter
+
+The CA does not simply ask the requester to place a fixed value somewhere. Instead, the CA generates a fresh random challenge.
+
+Fresh randomness prevents replay attacks.
+
+Suppose the CA always required a website to serve the same validation file. An attacker might copy an old validation response from the website and reuse it later. Random challenge values prevent this.
+
+The challenge should be unpredictable. Conceptually, the CA generates a random value:
+
+$r \leftarrow Random()$
+
+Then the requester must prove domain control by publishing a response derived from $r$.
+
+The CA checks:
+
+$ExpectedResponse(r) = ObservedResponse$
+
+If the observed response matches the expected response, validation succeeds.
+
+---
+
+## How Hashes Are Used in Domain Validation
+
+Hashes appear in several places in certificate systems.
+
+First, hashes are used inside digital signatures. A CA usually does not directly sign an entire certificate byte-by-byte using the private-key operation. Instead, the certificate data is hashed, and the hash is signed.
+
+Conceptually:
+
+$h = Hash(certificate\ data)$
+
+$signature = Sign_{CAPrivateKey}(h)$
+
+Second, some challenge responses are derived using hashes or thumbprints.
+
+A thumbprint is a hash of key material or certificate-related data. For example, ACME challenge responses may include values derived from an account key thumbprint.
+
+The important security property is that a cryptographic hash should be collision resistant. An attacker should not be able to find different certificate data with the same hash.
+
+If an attacker could find two different certificate bodies with the same hash, then a CA signature on one certificate might be reused as a valid signature on another. Modern certificate systems avoid weak hash functions such as MD5 and SHA-1 because of this risk.
+
+---
+
+## How Digital Signatures Are Used
+
+Digital signatures are central to the certificate authority model.
+
+When a CA issues a certificate, it signs the certificate data with the CA's private key.
+
+The browser verifies the signature using the CA's public key.
+
+A simplified verification process is:
+
+1. Hash the certificate data.
+2. Verify the signature using the issuer's public key.
+3. Compare the verified message digest to the computed hash value, when the signature scheme exposes that relationship.
+4. If verification succeeds, the certificate has not been altered and was signed by the issuer.
+
+In modern signature schemes, the exact verification procedure depends on the algorithm, such as RSA-PSS, ECDSA, or EdDSA. The high-level idea remains the same:
+
+$Verify(public\ key, message, signature) \rightarrow true\ or\ false$
+
+The browser repeats this process along the certificate chain.
+
+---
+
+## Certificate Chains
+
+A website certificate is usually not signed directly by a root CA. Instead, it is signed by an intermediate CA.
+
+This reduces risk. Root CA private keys are extremely sensitive and are usually kept offline or protected by strong hardware security controls. Intermediate CA keys are used for day-to-day certificate issuance.
+
+A typical chain is:
+
+1. Website certificate, signed by an intermediate CA
+2. Intermediate CA certificate, signed by a root CA
+3. Root CA certificate, trusted by the browser or operating system
+
+The browser verifies the chain from the website certificate upward.
+
+The browser checks:
+
+1. Is the website certificate signed by the intermediate CA?
+2. Is the intermediate CA certificate signed by the root CA?
+3. Is the root CA trusted by the browser or operating system?
+4. Is the certificate currently valid?
+5. Does the certificate match the requested domain name?
+6. Has the certificate been revoked?
+7. Are the algorithms and key sizes acceptable?
+
+If these checks pass, the browser accepts the certificate.
+
+---
+
+## Domain Name Matching
+
+A valid CA signature is not enough. The certificate must also match the domain the user is visiting.
+
+If the browser visits:
+
+`https://www.example.com`
+
+then the certificate must be valid for:
+
+`www.example.com`
+
+A certificate for `mail.example.com` should not be accepted for `www.example.com`.
+
+Modern certificates use the **Subject Alternative Name**, often abbreviated as **SAN**, to list valid domain names.
+
+A certificate might include these DNS names:
+
+1. `example.com`
+2. `www.example.com`
+3. `api.example.com`
+
+Wildcard certificates can match multiple subdomains.
+
+For example:
+
+`*.example.com`
+
+can match:
+
+1. `www.example.com`
+2. `api.example.com`
+3. `mail.example.com`
+
+But it does not usually match:
+
+`example.com`
+
+and it does not match deeper names such as:
+
+`dev.api.example.com`
+
+Domain matching rules are strict because accepting the wrong domain would allow impersonation.
+
+---
+
+## CAA Records
+
+DNS can also contain **Certification Authority Authorization** records, usually called **CAA records**.
+
+CAA records allow a domain owner to specify which CAs are allowed to issue certificates for the domain.
+
+For example, a domain owner might configure DNS to say:
+
+`example.com. CAA 0 issue "letsencrypt.org"`
+
+This tells CAs that Let's Encrypt is authorized to issue certificates for `example.com`.
+
+Before issuing a certificate, a CA is expected to check CAA records. If the CA is not authorized by the CAA policy, it should not issue the certificate.
+
+CAA records do not replace domain validation. They add another policy layer that can reduce the risk of accidental or malicious issuance by an unexpected CA.
+
+---
+
+## Certificate Transparency
+
+Certificate Transparency, often abbreviated as **CT**, is a public logging system for certificates.
+
+The goal is to make certificate issuance visible.
+
+When a CA issues a certificate, the certificate is submitted to public CT logs. Domain owners and security researchers can monitor these logs to detect suspicious certificates.
+
+For example, if an attacker somehow obtains a certificate for:
+
+`bank.example.com`
+
+the domain owner may notice the unexpected certificate in CT logs.
+
+Certificate Transparency does not prevent every attack, but it improves accountability. It makes silent misissuance much harder.
+
+Many browsers require publicly trusted TLS certificates to include evidence that they were submitted to CT logs.
+
+---
+
+## Revocation
+
+Sometimes a certificate must be invalidated before it expires.
+
+Reasons include:
+
+1. The private key was compromised.
+2. The certificate was issued incorrectly.
+3. The domain owner no longer controls the domain.
+4. The certificate contains incorrect information.
+
+Certificate revocation is the process of marking a certificate as no longer trustworthy.
+
+Common revocation mechanisms include:
+
+1. Certificate Revocation Lists, or CRLs
+2. Online Certificate Status Protocol, or OCSP
+3. OCSP stapling
+
+In practice, revocation is one of the more complicated and imperfect parts of public-key infrastructure. Browsers often make performance and reliability tradeoffs when checking revocation status.
+
+---
+
+## Domain Validation Does Not Prove Human Trustworthiness
+
+It is important to understand what a certificate does and does not prove.
+
+A valid HTTPS certificate proves that:
+
+1. The certificate was signed by a trusted CA.
+2. The requester demonstrated control over the domain at issuance time.
+3. The public key in the certificate is associated with that domain.
+4. The browser can use that public key to authenticate the TLS handshake.
+
+A valid HTTPS certificate does not prove that:
+
+1. The website is safe.
+2. The website is honest.
+3. The website is free from malware.
+4. The company behind the website is reputable.
+5. The domain name is not misleading.
+
+For example, an attacker may register a domain such as:
+
+`secure-example-login.com`
+
+The attacker may legitimately control that domain and obtain a valid HTTPS certificate for it. The browser may show a secure connection, but the site could still be malicious.
+
+HTTPS authenticates the connection to the domain. It does not authenticate the intentions of the domain owner.
+
+---
+
+## Common Security Risks
+
+The CA system is very useful, but it is not perfect.
+
+Some important risks include:
+
+1. **CA Misissuance**
+    * A CA might accidentally or improperly issue a certificate to someone who does not control the domain.
+    * Certificate Transparency helps detect this, but detection may happen after issuance.
+2. **DNS Compromise**
+    * If an attacker compromises DNS settings for a domain, the attacker may be able to complete DNS-based validation and obtain a certificate.
+    * This is why DNS provider accounts should use strong passwords, multi-factor authentication, and strict access controls.
+3. **Web Server Compromise**
+    * If an attacker can modify files on a web server, the attacker may be able to complete HTTP-based validation.
+4. **Email Account Compromise**
+    * If an attacker can read mail sent to an administrative domain contact, the attacker may be able to complete email-based validation.
+5. **Weak Private Key Protection**
+    * If the domain's private key is stolen, an attacker can impersonate the website until the certificate is revoked or expires.
+6. **Trust Store Problems**
+    * Browsers and operating systems trust many root CAs. If any trusted CA behaves incorrectly or is compromised, the security of the larger ecosystem can be affected.
+7. **Expired Certificates**
+    * Certificates have expiration dates. If a certificate expires, browsers should reject it.
+    * Short-lived certificates reduce the damage caused by compromised keys or mistaken issuance, but they require reliable automation.
+
+---
+
+## Example: Issuing a Certificate for a Website
+
+Suppose Alice owns:
+
+`alice.example`
+
+Alice wants to deploy HTTPS for her website.
+
+The process may look like this:
+
+1. Alice's server generates a public/private key pair.
+2. Alice uses the public key to create a CSR for `alice.example`.
+3. Alice sends the CSR to a CA.
+4. The CA gives Alice an HTTP challenge.
+5. Alice places the challenge response at `http://alice.example/.well-known/acme-challenge/<token>`.
+6. The CA requests that URL.
+7. The CA verifies that the challenge response is correct.
+8. The CA signs a certificate for `alice.example`.
+9. Alice installs the certificate on her server.
+10. A browser visiting `https://alice.example` receives the certificate.
+11. The browser verifies the certificate chain.
+12. The browser checks that the certificate is valid for `alice.example`.
+13. The browser uses the certificate's public key during the TLS handshake.
+
+The result is that the browser can establish an encrypted and authenticated connection to Alice's domain.
+
+---
+
+## Example: Why the CA Must Validate the Domain
+
+Suppose Mallory wants to impersonate:
+
+`bank.example`
+
+Mallory creates her own public/private key pair and sends a CSR to a CA requesting a certificate for `bank.example`.
+
+If the CA did not validate domain control, it might sign Mallory's certificate. Mallory could then impersonate the bank.
+
+Domain validation prevents this.
+
+The CA asks Mallory to prove control over `bank.example`. Mallory should not be able to:
+
+1. Modify files at `http://bank.example/.well-known/acme-challenge/...`
+2. Add DNS TXT records under `_acme-challenge.bank.example`
+3. Configure the TLS endpoint for `bank.example`
+4. Receive administrative email for `bank.example`
+
+Because Mallory cannot complete the challenge, the CA should refuse to issue the certificate.
+
+---
+
+## The Role of TLS
+
+Certificates are most commonly encountered in TLS, the protocol used by HTTPS.
+
+During a TLS handshake, the server sends its certificate to the browser. The browser verifies the certificate before trusting the connection.
+
+The certificate helps authenticate the server. After authentication, TLS establishes symmetric encryption keys for the session.
+
+This is important because public-key cryptography is relatively expensive. TLS uses public-key cryptography for authentication and key exchange, then uses faster symmetric encryption for the actual data transfer.
+
+A simplified HTTPS connection looks like this:
+
+1. Browser connects to the server.
+2. Server sends certificate.
+3. Browser verifies certificate chain and domain name.
+4. Browser and server establish shared symmetric keys.
+5. Browser and server communicate using symmetric encryption.
+
+The certificate does not encrypt all traffic by itself. Instead, it helps authenticate the server and safely establish encryption keys.
+
+---
+
+## Extended Validation and Organization Validation
+
+Domain Validation certificates prove domain control.
+
+There are also other certificate types:
+
+1. **Organization Validation**, or OV
+2. **Extended Validation**, or EV
+
+These involve additional checks about the organization requesting the certificate.
+
+However, modern browsers have reduced the visual emphasis on EV certificates. Most users interact mainly with standard HTTPS indicators.
+
+For most technical purposes, the most important concept is still the same:
+
+A certificate binds a public key to a name, and a CA signs that binding after performing validation.
+
+---
+
+## Summary
+
+Certificate Authorities are trusted third parties that issue digital certificates.
+
+The main purpose of a certificate is to bind a public key to a domain name.
+
+Before issuing a certificate, the CA must validate that the requester controls the domain. Common validation methods include:
+
+1. HTTP-based validation
+2. DNS-based validation
+3. TLS-based validation
+4. Email-based validation
+
+Cryptographic hashes and digital signatures are central to the system.
+
+A simplified CA signature looks like:
+
+$signature = Sign_{CAPrivateKey}(Hash(certificate\ data))$
+
+Browsers verify certificate chains using trusted root CA public keys. If the chain verifies, the certificate is valid for the requested domain, and the certificate has not expired or been revoked, the browser can authenticate the server.
+
+The key idea is:
+
+**A Certificate Authority does not prove that a website is safe. It proves that a public key was certified for a domain after the requester demonstrated control of that domain.**
+
