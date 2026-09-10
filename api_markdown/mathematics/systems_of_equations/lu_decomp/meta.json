@@ -1,0 +1,23 @@
+{
+    "subject": "Mathematics",
+    "topic": "Systems of Equations",
+    "subtopic": "LU Decomposition",
+    "views" : "14725",
+    "datePublished": "October 3, 2023",
+    "dateUpdated" : "September 9, 2026",
+    "title" : "Solving Systems of Equations with LU Decomposition",
+    "description" : "This set of notes explains how LU decomposition records Gaussian elimination and uses forward and backward substitution to solve systems of linear equations.",
+    "objectives" : [
+        "Understand how a coefficient matrix is factored into lower and upper triangular matrices",
+        "Connect the entries of the lower triangular matrix to Gaussian elimination multipliers",
+        "Solve linear systems using forward and backward substitution",
+        "Explain why LU decomposition is efficient for repeated systems",
+        "Understand the roles of pivoting, singularity, sparsity, and numerical accuracy"
+    ],
+    "prerequisites" : [
+        "Basic understanding of systems of linear equations",
+        "Familiarity with matrix multiplication",
+        "Knowledge of Gaussian elimination",
+        "Basic understanding of triangular matrices"
+    ]
+}

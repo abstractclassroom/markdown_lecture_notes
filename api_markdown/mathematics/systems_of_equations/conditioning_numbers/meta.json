@@ -1,0 +1,24 @@
+{
+    "subject": "Mathematics",
+    "topic": "Systems of Equations",
+    "subtopic": "Condition Numbers and Numerical Stability",
+    "views" : "17433",
+    "datePublished": "October 14, 2022",
+    "dateUpdated" : "September 10, 2026",
+    "title" : "Condition Numbers and Numerical Stability",
+    "description" : "This set of notes introduces IEEE floating point arithmetic, numerical stability, condition numbers, error amplification, and reliable methods for solving systems of equations.",
+    "objectives" : [
+        "Describe IEEE binary32 and binary64 floating point formats",
+        "Explain rounding, overflow, underflow, signed zero, infinity, and NaN",
+        "Recognize how repeated operations and different groupings can change computed results",
+        "Calculate and interpret condition numbers for numerical problems",
+        "Distinguish conditioning, forward error, backward error, and numerical stability",
+        "Evaluate the reliability of a computed solution using residuals and condition estimates"
+    ],
+    "prerequisites" : [
+        "Basic understanding of systems of linear equations",
+        "Familiarity with matrix multiplication and matrix inverses",
+        "Knowledge of scientific notation",
+        "Basic understanding of LU decomposition"
+    ]
+}

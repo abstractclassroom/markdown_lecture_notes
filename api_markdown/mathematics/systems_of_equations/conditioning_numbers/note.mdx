@@ -1,0 +1,707 @@
+# Condition Numbers and Numerical Stability
+
+Numerical methods use a finite amount of memory to approximate real numbers. This limitation means that a mathematically correct formula can still produce an inaccurate computed result. Numerical stability studies how errors enter a computation and how an algorithm controls or amplifies those errors.
+
+Condition numbers study a related question. They measure how sensitive a mathematical problem is to small changes in its input. A stable algorithm cannot remove sensitivity that is already present in the problem. It can only avoid adding unnecessary error of its own.
+
+These two ideas should be considered together.
+
+* Conditioning is a property of the problem
+* Stability is a property of the algorithm
+* Floating point arithmetic affects the computed result
+
+## Caveats of Double Precision Arithmetic
+
+Double precision arithmetic is precise enough for many applications, but it is not exact real arithmetic. A double precision value has only a finite number of bits. Most real numbers must be rounded before they can be stored.
+
+Several caveats are important.
+
+* Most decimal fractions do not have an exact finite binary representation
+* Every basic operation can introduce a new rounding error
+* Adding a small number to a much larger number may have no effect
+* Subtracting nearly equal numbers can destroy significant digits
+* Intermediate values can overflow even when the exact final answer is finite
+* Very small values can become subnormal or round to zero
+* Repeated operations can accumulate or amplify small errors
+* Algebraically equivalent expressions can produce different floating point results
+
+For example, the decimal number $0.1$ has an infinite repeating representation in base two.
+
+$$
+(0.1)_{10}=(0.000110011001100110011\ldots)_2
+$$
+
+A double precision value stores a nearby binary fraction instead. The displayed value may still appear as $0.1$ even though the stored value is slightly different.
+
+This explains why a calculation such as
+
+$$
+0.1+0.1+0.1
+$$
+
+does not necessarily equal the floating point value used to represent $0.3$.
+
+### Repeated Operations
+
+A small error can become important when an operation is repeated many times. Suppose a program repeatedly adds $1$ to the binary64 value $10^{16}$. Near $10^{16}$, adjacent representable numbers are separated by $2$. Under rounding to nearest with ties going to the even final bit, the update below can return the original value.
+
+$$
+10^{16}+1=10^{16}
+$$
+
+This is a floating point equality, not an equality of real numbers. Repeating the update may leave the stored value unchanged every time. Performing an operation one million times does not guarantee that one million small changes will be preserved.
+
+Repeated multiplication can also amplify a small relative error. Repeated subtraction can expose rounding errors that were previously hidden. Long sums can depend on the order in which their terms are added.
+
+Useful responses include the following methods.
+
+* Add values of similar magnitude before combining them with larger values
+* Use pairwise summation for long collections of numbers
+* Use compensated summation when small terms must be preserved
+* Rescale a problem to keep intermediate values in a useful range
+* Use higher precision when the error budget requires it
+* Compare results from more than one sound formulation
+
+### Associativity Can Fail
+
+Real addition is associative.
+
+$$
+(a+b)+c=a+(b+c)
+$$
+
+Floating point addition is not always associative because each intermediate result is rounded. Overflow makes the difference especially dramatic.
+
+Let
+
+$$
+H=10^{308}
+$$
+
+and consider the same ordered values
+
+$$
+H+H-H-H
+$$
+
+The exact real result is zero. In IEEE binary64 arithmetic, changing only the placement of parentheses can produce four different results.
+
+The first grouping produces zero.
+
+$$
+H+\left((H-H)-H\right)=H+(0-H)=0
+$$
+
+The second grouping produces positive infinity because $H+H$ overflows.
+
+$$
+\left((H+H)-H\right)-H=+\infty
+$$
+
+The third grouping produces negative infinity because $-H-H$ overflows.
+
+$$
+H+\left(H+(-H-H)\right)=-\infty
+$$
+
+The fourth grouping produces NaN because it adds positive infinity to negative infinity.
+
+$$
+(H+H)+(-H-H)=+\infty+(-\infty)=\operatorname{NaN}
+$$
+
+The inputs and their order did not change. Only the grouping changed. This example shows why a compiler, a parallel reduction, or a revised formula can change a numerical result even when the same mathematical addition is intended.
+
+## The IEEE 754 Standard
+
+IEEE Standard 754 defines formats and operations for floating point arithmetic. The current revision is IEEE 754-2019. It specifies binary and decimal formats, rounding behavior, exceptional values, and the default results of exceptional operations.
+
+A normal binary floating point number has the form
+
+$$
+(-1)^s\left(1.f\right)_2 2^{e-\text{bias}}
+$$
+
+The stored fields have the following roles.
+
+* The sign bit $s$ records the sign
+* The exponent field $e$ controls the scale
+* The fraction field $f$ stores the significant binary digits
+
+The leading $1$ in a normal value is not stored explicitly. It is implied by the format. This hidden bit gives one additional bit of precision.
+
+IEEE 754 also defines subnormal numbers. A subnormal number has the form
+
+$$
+(-1)^s\left(0.f\right)_2 2^{1-\text{bias}}
+$$
+
+Subnormal values fill part of the gap between the smallest normal number and zero. Their leading significant bit is not fixed at $1$, so their relative precision decreases as they approach zero.
+
+### Single Precision
+
+IEEE binary32 is commonly called single precision. It uses $32$ bits.
+
+* $1$ sign bit
+* $8$ exponent bits
+* $23$ stored fraction bits
+* $24$ bits of precision after including the hidden bit
+* About $7$ reliable decimal digits
+* A largest finite magnitude near $3.4028235\times 10^{38}$
+* A smallest positive normal value near $1.1754944\times 10^{-38}$
+* A smallest positive subnormal value near $1.4012985\times 10^{-45}$
+
+The gap from $1$ to the next larger binary32 value is
+
+$$
+2^{-23}\approx 1.1920929\times 10^{-7}
+$$
+
+Under rounding to nearest, the largest relative rounding error for one normal result is commonly modeled with the unit roundoff
+
+$$
+u_{32}=2^{-24}\approx 5.9604645\times 10^{-8}
+$$
+
+### Double Precision
+
+IEEE binary64 is commonly called double precision. It uses $64$ bits.
+
+* $1$ sign bit
+* $11$ exponent bits
+* $52$ stored fraction bits
+* $53$ bits of precision after including the hidden bit
+* About $15$ to $16$ reliable decimal digits
+* A largest finite magnitude near $1.7976931\times 10^{308}$
+* A smallest positive normal value near $2.2250739\times 10^{-308}$
+* A smallest positive subnormal value near $4.9406565\times 10^{-324}$
+
+The gap from $1$ to the next larger binary64 value is
+
+$$
+2^{-52}\approx 2.2204460\times 10^{-16}
+$$
+
+The binary64 unit roundoff under rounding to nearest is
+
+$$
+u_{64}=2^{-53}\approx 1.1102230\times 10^{-16}
+$$
+
+Double precision has far more precision and range than single precision. It still has a fixed limit. An algorithm that amplifies error by more than about $1/u_{64}$ can lose all meaningful binary64 digits in a worst case.
+
+### Rounding
+
+The usual default IEEE 754 rounding direction is round to nearest with ties going to the value whose final stored bit is even. Other rounding directions are defined, including rounding toward zero, positive infinity, and negative infinity.
+
+For a normal result under rounding to nearest, a common model is
+
+$$
+\operatorname{fl}(a\mathbin{\circ}b)=(a\mathbin{\circ}b)(1+\delta)
+$$
+
+where
+
+$$
+|\delta|\leq u
+$$
+
+The symbol $\circ$ represents an arithmetic operation and $u$ is the unit roundoff for the chosen format. This simple model does not directly cover every exceptional case such as overflow, underflow, division by zero, or NaN.
+
+## Infinity and Signed Zero
+
+IEEE 754 includes positive infinity and negative infinity.
+
+$$
++\infty
+\qquad
+-\infty
+$$
+
+Overflow can produce an infinity under the default rounding behavior. Division of a nonzero finite value by a signed zero can also produce a signed infinity.
+
+$$
+\frac{1}{+0}=+\infty
+\qquad
+\frac{1}{-0}=-\infty
+$$
+
+Positive zero and negative zero compare as numerically equal in ordinary equality tests, but their sign can preserve directional information. The reciprocal example shows one place where the distinction affects a later result.
+
+Infinity is not simply a very large finite number. Some operations with infinity have a defined infinite result, while indeterminate operations produce NaN.
+
+$$
+5+(+\infty)=+\infty
+$$
+
+$$
+(+\infty)+(-\infty)=\operatorname{NaN}
+$$
+
+## NaN Values
+
+NaN means not a number. It represents an undefined or indeterminate numerical result.
+
+Common examples include
+
+$$
+\frac{0}{0}=\operatorname{NaN}
+$$
+
+$$
+0\times\infty=\operatorname{NaN}
+$$
+
+$$
+\infty-\infty=\operatorname{NaN}
+$$
+
+For real arithmetic, attempting to evaluate the square root of a negative value can also produce NaN.
+
+### Positive and Negative NaN Encodings
+
+An IEEE NaN bit pattern contains a sign bit. The sign bit may be zero or one, so bit patterns sometimes appear as positive NaN and negative NaN.
+
+$$
++\operatorname{NaN}
+\qquad
+-\operatorname{NaN}
+$$
+
+These labels describe encodings. They do not mean that one NaN is a positive number and another NaN is a negative number. NaN is unordered and does not represent a point on the real number line. Ordinary comparisons cannot use the NaN sign as a numerical sign.
+
+IEEE formats also distinguish quiet NaNs from signaling NaNs. A quiet NaN normally propagates through later operations. A signaling NaN is intended to signal an invalid operation before a quiet NaN result is delivered. NaN encodings may also carry payload bits that software can use for diagnostic information.
+
+Comparing a value directly with NaN does not behave like an ordinary equality comparison. Generally a conditional test for NaN should be utilized first. Even a NaN compared with itself is unordered.
+
+## Sources of Floating Point Error
+
+Several different effects are often grouped under the phrase floating point error. They should be distinguished because they have different causes and remedies.
+
+### Representation Error
+
+A real number may not be exactly representable in the chosen format. The stored value is a nearby representable number.
+
+### Rounding Error
+
+The exact result of an operation may fall between two representable values. It must be rounded to one of them.
+
+### Absorption
+
+A small term may be too small to change a much larger stored value.
+
+$$
+\operatorname{fl}(x+y)=x
+$$
+
+This can occur when $|y|$ is smaller than about half the spacing between floating point values near $x$.
+
+### Catastrophic Cancellation
+
+Subtracting nearly equal approximations can remove their leading matching digits. The small remaining result may be dominated by earlier errors.
+
+Suppose the stored values satisfy
+
+$$
+\widehat{x}=x+\delta_x
+\qquad
+\widehat{y}=y+\delta_y
+$$
+
+Then
+
+$$
+\widehat{x}-\widehat{y}=(x-y)+(\delta_x-\delta_y)
+$$
+
+If $x-y$ is very small, the error term can be large relative to the desired difference.
+
+### Overflow
+
+An intermediate magnitude may exceed the largest finite value. The result may become an infinity even when later exact operations would have returned the value to a finite range.
+
+### Underflow
+
+A nonzero result smaller than the normal range may become subnormal. An even smaller result may round to signed zero. Subnormal numbers provide gradual underflow, but with decreasing relative precision.
+
+## Conditioning of a Problem
+
+The condition number measures how much a small input change can affect an output. A well-conditioned problem changes only slightly when its input changes slightly. An ill-conditioned problem can change greatly in response to a small input change.
+
+Conditioning does not describe whether an algorithm is good or bad. It describes the sensitivity of the problem before an algorithm is selected.
+
+### A Scalar Example
+
+Consider the function
+
+$$
+f(x)=\sqrt{x}
+$$
+
+For a differentiable scalar function, a relative condition number can be written as
+
+$$
+\kappa_f(x)=\left|\frac{x f'(x)}{f(x)}\right|
+$$
+
+For $f(x)=\sqrt{x}$ and $x>0$, this gives
+
+$$
+\kappa_f(x)=\frac{1}{2}
+$$
+
+The problem is well conditioned with respect to small relative changes in positive $x$.
+
+Now consider
+
+$$
+g(x)=\frac{1}{1-x}
+$$
+
+Its relative condition number is
+
+$$
+\kappa_g(x)=\left|\frac{x}{1-x}\right|
+$$
+
+As $x$ approaches $1$, the condition number grows. Small input changes can then produce much larger relative changes in the output.
+
+## Matrix Condition Numbers
+
+For an invertible matrix $A$, the condition number associated with a matrix norm is
+
+$$
+\kappa_p(A)=\|A\|_p\|A^{-1}\|_p
+$$
+
+The condition number is always at least $1$ for a consistent operator norm.
+
+* A value near $1$ indicates a well-conditioned matrix
+* A large value indicates an ill-conditioned matrix
+* A singular matrix has an infinite condition number
+
+For the matrix $2$-norm, the condition number can be written using singular values.
+
+$$
+\kappa_2(A)=\frac{\sigma_{\max}(A)}{\sigma_{\min}(A)}
+$$
+
+A small value of $\sigma_{\min}(A)$ means that the matrix nearly sends some nonzero direction to zero. Information in that direction becomes difficult to recover when solving a system.
+
+### Sensitivity of a Linear System
+
+Consider
+
+$$
+A\vec{x}=\vec{b}
+$$
+
+Small changes $\Delta A$ and $\Delta\vec{b}$ can create a change $\Delta\vec{x}$. For sufficiently small perturbations, the relative solution change is commonly estimated by
+
+$$
+\frac{\|\Delta\vec{x}\|}{\|\vec{x}\|}
+\lesssim
+\kappa(A)
+\left(
+\frac{\|\Delta A\|}{\|A\|}
++
+\frac{\|\Delta\vec{b}\|}{\|\vec{b}\|}
+\right)
+$$
+
+The condition number acts as an error amplifier. This bound describes possible worst-case sensitivity. A particular perturbation may produce much less error.
+
+## An Ill-Conditioned System
+
+Consider the matrix
+
+$$
+A=
+\begin{bmatrix}
+1 & 1 \\
+1 & 1+\varepsilon
+\end{bmatrix}
+$$
+
+with
+
+$$
+\varepsilon=10^{-8}
+$$
+
+The two rows are nearly equal. The system
+
+$$
+A\vec{x}=
+\begin{bmatrix}
+2 \\
+2+\varepsilon
+\end{bmatrix}
+$$
+
+has the exact solution
+
+$$
+\vec{x}=
+\begin{bmatrix}
+1 \\
+1
+\end{bmatrix}
+$$
+
+Now change only the second entry of the constant vector by a small value $\delta$.
+
+$$
+\widehat{\vec{b}}=
+\begin{bmatrix}
+2 \\
+2+\varepsilon+\delta
+\end{bmatrix}
+$$
+
+The new exact solution is
+
+$$
+\widehat{\vec{x}}=
+\begin{bmatrix}
+1-\dfrac{\delta}{\varepsilon} \\
+1+\dfrac{\delta}{\varepsilon}
+\end{bmatrix}
+$$
+
+If
+
+$$
+\delta=10^{-10}
+$$
+
+then
+
+$$
+\frac{\delta}{\varepsilon}=10^{-2}
+$$
+
+A change of only $10^{-10}$ in the data changes both solution components by $10^{-2}$. The matrix has a $2$-norm condition number near
+
+$$
+\kappa_2(A)\approx\frac{4}{\varepsilon}=4\times 10^8
+$$
+
+The large response is not necessarily evidence of a faulty solver. The system itself is highly sensitive because its equations are almost dependent.
+
+## Condition Number and Available Precision
+
+A useful first estimate compares the condition number with unit roundoff.
+
+$$
+\kappa(A)u
+$$
+
+If this product is much smaller than $1$, useful relative accuracy may be possible. If it is near or above $1$, the working precision may not provide a meaningful worst-case accuracy guarantee.
+
+The approximate number of decimal digits that may be lost to conditioning is
+
+$$
+\log_{10}\left(\kappa(A)\right)
+$$
+
+For example, a condition number near $10^8$ can cost about eight decimal digits in a worst case.
+
+* Binary32 begins with about seven decimal digits, so a condition number near $10^8$ can remove all guaranteed digits
+* Binary64 begins with about sixteen decimal digits, so the same problem may retain roughly eight digits
+
+This rule is an estimate, not an exact prediction. The actual error also depends on the algorithm, the data, the direction of the perturbation, and the way error is measured.
+
+## Numerical Stability of an Algorithm
+
+An algorithm is stable when its computed result is close to the exact result for a nearby problem. This idea is called backward stability.
+
+Suppose a method returns $\widehat{\vec{x}}$. A backward error analysis asks whether there are small changes $\Delta A$ and $\Delta\vec{b}$ such that
+
+$$
+(A+\Delta A)\widehat{\vec{x}}=\vec{b}+\Delta\vec{b}
+$$
+
+If the required changes are small, the algorithm has solved a nearby problem accurately.
+
+Forward error measures the difference between the computed and exact solutions.
+
+$$
+\text{forward error}=\widehat{\vec{x}}-\vec{x}
+$$
+
+Backward error measures how much the original data would need to change to make the computed result exact.
+
+A backward stable algorithm can still have a large forward error when the problem is ill conditioned. The relationship can be summarized by
+
+$$
+\text{forward error}
+\lesssim
+\text{condition number}
+\times
+\text{backward error}
+$$
+
+## Residuals and Accuracy
+
+For a computed solution $\widehat{\vec{x}}$, the residual is
+
+$$
+\vec{r}=\vec{b}-A\widehat{\vec{x}}
+$$
+
+A small residual means that the computed solution nearly satisfies the given equations. It does not always mean that the computed solution is close to the exact solution.
+
+Return to the nearly singular example and choose
+
+$$
+\widehat{\vec{x}}=
+\begin{bmatrix}
+2 \\
+0
+\end{bmatrix}
+$$
+
+The exact solution was
+
+$$
+\vec{x}=
+\begin{bmatrix}
+1 \\
+1
+\end{bmatrix}
+$$
+
+The computed vector has a large solution error. Its residual is
+
+$$
+\vec{r}=
+\begin{bmatrix}
+2 \\
+2+\varepsilon
+\end{bmatrix}
+-
+\begin{bmatrix}
+1 & 1 \\
+1 & 1+\varepsilon
+\end{bmatrix}
+\begin{bmatrix}
+2 \\
+0
+\end{bmatrix}
+=
+\begin{bmatrix}
+0 \\
+\varepsilon
+\end{bmatrix}
+$$
+
+The residual is small even though the solution error is large. The large condition number explains the difference. Residual size and condition number should be considered together.
+
+## LU Decomposition and Stability
+
+LU decomposition with partial pivoting is generally backward stable for many practical systems. The row swaps avoid division by zero and reduce the use of dangerously small pivots.
+
+The factorization is written as
+
+$$
+PA=LU
+$$
+
+Stability and conditioning still play different roles.
+
+* Pivoting helps control errors introduced by the algorithm
+* The condition number describes sensitivity in the original system
+* A stable LU solve can still lose accuracy when $A$ is ill conditioned
+* A well-conditioned system can still be damaged by a poorly designed algorithm
+
+Estimating the reciprocal condition number is common in linear algebra software.
+
+$$
+\operatorname{rcond}(A)\approx\frac{1}{\kappa(A)}
+$$
+
+A reciprocal condition estimate near $1$ suggests good conditioning. A value near zero warns that the system is close to singular at the working precision.
+
+## Improving Numerical Reliability
+
+Several practices can improve the reliability of a numerical computation.
+
+### Scale the Data
+
+Rows, columns, or variables with very different magnitudes can create unnecessary numerical difficulty. Scaling can place values in comparable ranges and reduce extreme intermediate results.
+
+### Use Pivoting
+
+For general LU decomposition, partial pivoting is an important protection against zero or very small pivots.
+
+### Avoid Explicit Matrix Inverses
+
+To solve $A\vec{x}=\vec{b}$, use a factorization and triangular solves. Explicitly forming $A^{-1}$ usually requires more work and can introduce additional error.
+
+### Compute Residuals
+
+Check how closely the computed solution satisfies the original system.
+
+$$
+\vec{r}=\vec{b}-A\widehat{\vec{x}}
+$$
+
+Use a relative residual so that the scale of the problem is included.
+
+$$
+\frac{\|\vec{r}\|}{\|A\|\|\widehat{\vec{x}}\|+\|\vec{b}\|}
+$$
+
+### Estimate the Condition Number
+
+A residual without a condition estimate gives an incomplete picture. The condition number helps translate a small backward error into a possible forward error.
+
+### Use Iterative Refinement
+
+Iterative refinement computes a residual, solves a correction system, and updates the solution.
+
+$$
+A\Delta\vec{x}=\vec{r}
+$$
+
+$$
+\widehat{\vec{x}}_{\text{new}}=
+\widehat{\vec{x}}+\Delta\vec{x}
+$$
+
+Computing the residual in higher precision can make refinement especially effective.
+
+### Increase Precision When Needed
+
+Moving from binary32 to binary64 reduces unit roundoff by roughly nine decimal orders of magnitude. Some problems require even more precision. Higher precision helps with rounding error, but it does not change the mathematical condition number of the original problem.
+
+### Reformulate the Problem
+
+An algebraically equivalent expression may be numerically safer. Avoid unnecessary subtraction of nearly equal values and avoid intermediate overflow or underflow when a scaled expression is available.
+
+## A Practical Numerical Checklist
+
+Before trusting the solution of a system, consider the following questions.
+
+* Are the input values measured accurately enough for the desired result
+* Are single or double precision sufficient for the estimated condition number
+* Does the algorithm use pivoting or another suitable stability strategy
+* Are intermediate values at risk of overflow, underflow, or cancellation
+* Does the result contain infinity or NaN
+* Is the relative residual small
+* Is the condition estimate acceptable
+* Does a higher precision calculation give a consistent answer
+* Can the problem be scaled or reformulated
+
+## References
+
+* IEEE Standard 754-2019 for Floating-Point Arithmetic
+* Oracle Numerical Computation Guide chapter on IEEE arithmetic
+* LAPACK Users Guide sections on condition estimation and error bounds
+
+## Conclusion
+
+Floating point numbers are carefully designed approximations, not exact real numbers. IEEE 754 provides consistent formats and rules for binary32, binary64, signed zero, infinity, NaN, rounding, overflow, and underflow. Those rules make numerical behavior understandable, but they do not restore the laws of exact arithmetic in every computed expression.
+
+Condition numbers reveal how strongly a problem can amplify small input errors. Stability describes how well an algorithm avoids adding further error. Reliable numerical work requires both ideas. A good solution process uses a stable method, checks the residual, estimates conditioning, watches for exceptional values, and selects enough precision for the problem being solved.

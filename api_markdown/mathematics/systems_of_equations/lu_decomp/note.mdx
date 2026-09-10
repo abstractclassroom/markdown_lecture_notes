@@ -1,0 +1,535 @@
+# Solving Systems of Equations with LU Decomposition
+
+LU decomposition is a matrix method for solving systems of linear equations. It separates the work of elimination from the work of solving for the unknown variables. This separation is especially useful when several systems have the same coefficient matrix but different constant vectors.
+
+Consider a system written in matrix form.
+
+$$
+A\vec{x}=\vec{b}
+$$
+
+LU decomposition factors the coefficient matrix $A$ into two triangular matrices.
+
+$$
+A=LU
+$$
+
+The matrix $L$ is lower triangular. The matrix $U$ is upper triangular.
+
+$$
+L=
+\begin{bmatrix}
+1 & 0 & 0 \\
+\ell_{21} & 1 & 0 \\
+\ell_{31} & \ell_{32} & 1
+\end{bmatrix}
+\qquad
+U=
+\begin{bmatrix}
+u_{11} & u_{12} & u_{13} \\
+0 & u_{22} & u_{23} \\
+0 & 0 & u_{33}
+\end{bmatrix}
+$$
+
+The diagonal entries of $L$ are often chosen to be $1$. This convention is used throughout this note.
+
+## Why Triangular Matrices Help
+
+A triangular system can be solved one equation at a time. An upper triangular system begins with an equation involving only the last unknown. A lower triangular system begins with an equation involving only the first unknown.
+
+After replacing $A$ with $LU$, the original system becomes
+
+$$
+LU\vec{x}=\vec{b}
+$$
+
+Introduce an intermediate vector $\vec{y}$ defined by
+
+$$
+U\vec{x}=\vec{y}
+$$
+
+The system can now be solved as two triangular systems.
+
+1. Solve $L\vec{y}=\vec{b}$ using forward substitution
+2. Solve $U\vec{x}=\vec{y}$ using backward substitution
+
+This process is valid because
+
+$$
+L\underbrace{U\vec{x}}_{\vec{y}}=\vec{b}
+$$
+
+LU decomposition does not change the solution. It reorganizes the calculation into steps that are easier to perform.
+
+## Connection to Gaussian Elimination
+
+LU decomposition is a stored version of Gaussian elimination. Gaussian elimination uses row operations to transform $A$ into an upper triangular matrix. That upper triangular matrix becomes $U$.
+
+The multiples used during elimination are stored in $L$. These values describe how each row was changed. In this way, $U$ stores the result of elimination while $L$ stores the elimination history.
+
+Suppose a multiple $m_{21}$ of row one is subtracted from row two.
+
+$$
+R_2 \leftarrow R_2-m_{21}R_1
+$$
+
+The multiplier is
+
+$$
+m_{21}=\frac{a_{21}}{a_{11}}
+$$
+
+That multiplier is placed in entry $\ell_{21}$ of $L$. Every entry below the diagonal of $L$ has the same meaning. It records a multiplier that was used to remove an entry below a pivot.
+
+## A Complete Example
+
+Consider the system below.
+
+$$
+\begin{align*}
+\left\{
+\begin{array}{l}
+2x+y+z=5 \\
+4x-6y=-2 \\
+-2x+7y+2z=9
+\end{array}
+\right.
+\end{align*}
+$$
+
+The matrix form is
+
+$$
+\begin{bmatrix}
+2 & 1 & 1 \\
+4 & -6 & 0 \\
+-2 & 7 & 2
+\end{bmatrix}
+\begin{bmatrix}
+x \\
+y \\
+z
+\end{bmatrix}
+=
+\begin{bmatrix}
+5 \\
+-2 \\
+9
+\end{bmatrix}
+$$
+
+Therefore
+
+$$
+A=
+\begin{bmatrix}
+2 & 1 & 1 \\
+4 & -6 & 0 \\
+-2 & 7 & 2
+\end{bmatrix}
+\qquad
+\vec{b}=
+\begin{bmatrix}
+5 \\
+-2 \\
+9
+\end{bmatrix}
+$$
+
+### Constructing the Upper Triangular Matrix
+
+The first pivot is $2$. The multiplier that removes the $4$ below it is
+
+$$
+m_{21}=\frac{4}{2}=2
+$$
+
+Apply the row operation below.
+
+$$
+R_2 \leftarrow R_2-2R_1
+$$
+
+The multiplier that removes $-2$ below the first pivot is
+
+$$
+m_{31}=\frac{-2}{2}=-1
+$$
+
+Apply the next row operation.
+
+$$
+R_3 \leftarrow R_3-(-1)R_1
+$$
+
+The matrix is now
+
+$$
+\begin{bmatrix}
+2 & 1 & 1 \\
+0 & -8 & -2 \\
+0 & 8 & 3
+\end{bmatrix}
+$$
+
+The next pivot is $-8$. The multiplier that removes the $8$ below it is
+
+$$
+m_{32}=\frac{8}{-8}=-1
+$$
+
+Apply the final row operation.
+
+$$
+R_3 \leftarrow R_3-(-1)R_2
+$$
+
+The resulting upper triangular matrix is
+
+$$
+U=
+\begin{bmatrix}
+2 & 1 & 1 \\
+0 & -8 & -2 \\
+0 & 0 & 1
+\end{bmatrix}
+$$
+
+### Constructing the Lower Triangular Matrix
+
+Place the three elimination multipliers below the diagonal of $L$. Place $1$ along its diagonal.
+
+$$
+L=
+\begin{bmatrix}
+1 & 0 & 0 \\
+2 & 1 & 0 \\
+-1 & -1 & 1
+\end{bmatrix}
+$$
+
+The factorization is now
+
+$$
+\underbrace{
+\begin{bmatrix}
+2 & 1 & 1 \\
+4 & -6 & 0 \\
+-2 & 7 & 2
+\end{bmatrix}}_{A}
+=
+\underbrace{
+\begin{bmatrix}
+1 & 0 & 0 \\
+2 & 1 & 0 \\
+-1 & -1 & 1
+\end{bmatrix}}_{L}
+\underbrace{
+\begin{bmatrix}
+2 & 1 & 1 \\
+0 & -8 & -2 \\
+0 & 0 & 1
+\end{bmatrix}}_{U}
+$$
+
+Multiplying $L$ and $U$ reproduces $A$. This provides a direct check of the decomposition.
+
+## Forward Substitution
+
+The first triangular system is
+
+$$
+L\vec{y}=\vec{b}
+$$
+
+For this example it becomes
+
+$$
+\begin{bmatrix}
+1 & 0 & 0 \\
+2 & 1 & 0 \\
+-1 & -1 & 1
+\end{bmatrix}
+\begin{bmatrix}
+y_1 \\
+y_2 \\
+y_3
+\end{bmatrix}
+=
+\begin{bmatrix}
+5 \\
+-2 \\
+9
+\end{bmatrix}
+$$
+
+Read the equations from top to bottom.
+
+$$
+\begin{align*}
+y_1 &= 5 \\
+2y_1+y_2 &= -2 \\
+-y_1-y_2+y_3 &= 9
+\end{align*}
+$$
+
+Substitute each known value into the next equation.
+
+$$
+\begin{align*}
+y_1 &= 5 \\
+y_2 &= -2-2(5)=-12 \\
+y_3 &= 9+y_1+y_2=2
+\end{align*}
+$$
+
+Therefore
+
+$$
+\vec{y}=
+\begin{bmatrix}
+5 \\
+-12 \\
+2
+\end{bmatrix}
+$$
+
+## Backward Substitution
+
+The second triangular system is
+
+$$
+U\vec{x}=\vec{y}
+$$
+
+For this example it becomes
+
+$$
+\begin{bmatrix}
+2 & 1 & 1 \\
+0 & -8 & -2 \\
+0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix}
+x \\
+y \\
+z
+\end{bmatrix}
+=
+\begin{bmatrix}
+5 \\
+-12 \\
+2
+\end{bmatrix}
+$$
+
+Read the equations from bottom to top.
+
+$$
+\begin{align*}
+z &= 2 \\
+-8y-2z &= -12 \\
+2x+y+z &= 5
+\end{align*}
+$$
+
+Substitute each known value into the equation above it.
+
+$$
+\begin{align*}
+z &= 2 \\
+y &= \frac{-12+2(2)}{-8}=1 \\
+x &= \frac{5-y-z}{2}=1
+\end{align*}
+$$
+
+The solution is
+
+$$
+\vec{x}=
+\begin{bmatrix}
+1 \\
+1 \\
+2
+\end{bmatrix}
+$$
+
+### Verifying the Solution
+
+A solution should be checked in the original system.
+
+$$
+\begin{align*}
+2(1)+1+2 &= 5 \\
+4(1)-6(1) &= -2 \\
+-2(1)+7(1)+2(2) &= 9
+\end{align*}
+$$
+
+All three equations are satisfied and so the solution is verified.
+
+## Reusing the Decomposition
+
+The greatest practical advantage of LU decomposition appears when the coefficient matrix stays the same and the constant vector changes.
+
+Suppose several systems must be solved.
+
+$$
+A\vec{x}_1=\vec{b}_1
+\qquad
+A\vec{x}_2=\vec{b}_2
+\qquad
+A\vec{x}_3=\vec{b}_3
+$$
+
+Factor $A$ only once.
+
+$$
+A=LU
+$$
+
+For every new constant vector $\vec{b}_k$, solve
+
+$$
+L\vec{y}_k=\vec{b}_k
+$$
+
+and then solve
+
+$$
+U\vec{x}_k=\vec{y}_k
+$$
+
+The expensive elimination work is reused. Only the two triangular solves need to be repeated. This situation occurs in simulations, optimization, circuit analysis, and models that test many input conditions.
+
+## Computational Cost
+
+For a dense $n$ by $n$ matrix, constructing the LU decomposition requires an amount of work proportional to $n^3$. Forward substitution and backward substitution each require an amount of work proportional to $n^2$.
+
+This difference matters for repeated systems.
+
+* Refactoring the matrix for every constant vector repeats the $n^3$ work
+* Reusing $L$ and $U$ requires only $n^2$ work for each new constant vector
+* The benefit grows as the matrix becomes larger or as more systems are solved
+
+LU decomposition is valuable not because one solve is free. It is valuable because the expensive structure of the problem can be computed once and then reused.
+
+## Pivoting
+
+The basic decomposition can fail when a pivot is zero. It can also produce inaccurate results when a pivot is very small compared with other entries in its column.
+
+Consider the matrix below.
+
+$$
+A=
+\begin{bmatrix}
+0 & 2 \\
+1 & 3
+\end{bmatrix}
+$$
+
+The first pivot is zero, so the multiplier $a_{21}/a_{11}$ is undefined. Swapping the rows places a usable pivot in the first position.
+
+Row swaps are represented by a permutation matrix $P$. With pivoting, the decomposition is written as
+
+$$
+PA=LU
+$$
+
+The system $A\vec{x}=\vec{b}$ then becomes
+
+$$
+LU\vec{x}=P\vec{b}
+$$
+
+The entries of $\vec{b}$ must be rearranged by the same row swaps applied to $A$.
+
+Partial pivoting chooses the available entry with the largest absolute value from the current column and moves it into the pivot position. This reduces division by very small numbers and usually makes the computation more reliable.
+
+## Singular Matrices
+
+A square system has a unique solution only when $A$ is invertible. During LU decomposition, a zero pivot that cannot be repaired by a row swap indicates that the remaining equations do not provide an independent pivot.
+
+This may mean one of two things.
+
+* The system has no solution
+* The system has infinitely many solutions
+
+The constant vector determines which case occurs. LU decomposition exposes the loss of independence through a missing pivot, but the transformed system must still be examined to classify its solutions.
+
+When no row swaps are used and every pivot is nonzero, the determinant can be found from $U$.
+
+$$
+\det(A)=\det(L)\det(U)
+$$
+
+Since the diagonal entries of $L$ are all $1$, its determinant is $1$. Therefore
+
+$$
+\det(A)=u_{11}u_{22}\cdots u_{nn}
+$$
+
+A zero diagonal entry in $U$ makes this product zero and shows that $A$ is singular.
+
+## Numerical Accuracy
+
+Computers usually store real numbers with limited precision. Small rounding errors can grow during elimination. Pivoting helps control this growth, but it does not remove every source of numerical error.
+
+An ill-conditioned matrix is one for which small changes in $A$ or $\vec{b}$ can create large changes in $\vec{x}$. LU decomposition may correctly reveal this sensitivity even when the arithmetic steps are implemented well. A large residual or an unstable answer should lead to further investigation of the matrix.
+
+The residual vector is
+
+$$
+\vec{r}=\vec{b}-A\vec{x}
+$$
+
+An exact solution has $\vec{r}=\vec{0}$. In numerical work, a small residual gives evidence that the computed solution satisfies the equations closely. A small residual does not always guarantee that every component of $\vec{x}$ is highly accurate when the matrix is ill-conditioned.
+
+## Sparse and Structured Systems
+
+Many large systems contain mostly zero entries. These are called sparse systems. Storing every entry and applying dense matrix operations would waste memory and time.
+
+Sparse LU methods store only the needed entries. Elimination can create new nonzero entries in positions that were originally zero. This effect is called fill-in. The order of the equations can strongly affect how much fill-in occurs.
+
+Banded matrices have nonzero entries concentrated near the main diagonal. Their structure can reduce both storage and computation when the LU factors preserve a narrow band. Such matrices appear in models built from neighboring points, including discretized differential equations.
+
+The central idea remains unchanged. Factor the coefficient matrix, solve a lower triangular system, and then solve an upper triangular system. Efficient implementations take advantage of the pattern within the matrix.
+
+## When LU Decomposition Is a Good Choice
+
+LU decomposition is well suited to the following situations.
+
+* The coefficient matrix is square
+* The system has a unique solution
+* Several constant vectors use the same coefficient matrix
+* A determinant or related matrix information is also needed
+* The matrix is large enough that organized matrix methods are preferable
+
+Other methods may be better in some settings.
+
+* QR decomposition is often preferred for least squares problems
+* Cholesky decomposition is more efficient when the matrix is symmetric and positive definite
+* Specialized sparse solvers are preferred for very large sparse matrices
+* Iterative methods may be preferable when forming complete factors would require too much memory
+
+Choosing a method depends on the structure of the matrix and the purpose of the calculation.
+
+## General Solution Process
+
+The complete LU solution method can be summarized in five steps.
+
+1. Write the system as $A\vec{x}=\vec{b}$
+2. Find $P$, $L$, and $U$ so that $PA=LU$
+3. Apply the same permutation to the constant vector to obtain $P\vec{b}$
+4. Solve $L\vec{y}=P\vec{b}$ using forward substitution
+5. Solve $U\vec{x}=\vec{y}$ using backward substitution
+
+If no row swaps are needed, then $P$ is the identity matrix and the factorization can be written simply as $A=LU$.
+
+## Conclusion
+
+LU decomposition turns one system into two triangular systems. Its deeper value is that it separates information about the coefficient matrix from information about the constant vector. The factors $L$ and $U$ capture the elimination structure of $A$, while forward and backward substitution apply that structure to a particular $\vec{b}$.
+
+This separation makes LU decomposition efficient for repeated systems and useful for understanding pivots, determinants, singularity, and numerical stability. It is both a practical algorithm and a clear description of what Gaussian elimination is doing beneath the row operations.
