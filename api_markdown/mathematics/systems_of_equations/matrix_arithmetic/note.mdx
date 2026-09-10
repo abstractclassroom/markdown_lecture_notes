@@ -1,0 +1,661 @@
+# Matrix Arithmetic
+
+A matrix is a rectangular arrangement of values organized into rows and columns. Matrices provide a compact way to represent data, transformations, and systems of linear equations.
+
+A matrix with $m$ rows and $n$ columns is called an $m$ by $n$ matrix.
+
+$$
+A=
+\begin{bmatrix}
+a_{11} & a_{12} & \cdots & a_{1n} \\
+a_{21} & a_{22} & \cdots & a_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+a_{m1} & a_{m2} & \cdots & a_{mn}
+\end{bmatrix}
+$$
+
+The entry $a_{ij}$ is located in row $i$ and column $j$. The size of $A$ is written as
+
+$$
+A\in\mathbb{R}^{m\times n}
+$$
+
+when every entry is a real number.
+
+## Matrix Equality
+
+Two matrices are equal when they have the same dimensions and every pair of corresponding entries is equal.
+
+If
+
+$$
+A=B
+$$
+
+then
+
+$$
+a_{ij}=b_{ij}
+$$
+
+for every valid row $i$ and column $j$.
+
+For example
+
+$$
+\begin{bmatrix}
+2 & -1 \\
+4 & 3
+\end{bmatrix}
+=
+\begin{bmatrix}
+2 & -1 \\
+4 & 3
+\end{bmatrix}
+$$
+
+Changing even one entry makes the matrices unequal.
+
+## Matrix Addition
+
+Matrices can be added only when they have the same dimensions. Addition is performed entry by entry.
+
+$$
+(A+B)_{ij}=a_{ij}+b_{ij}
+$$
+
+Consider the matrices below.
+
+$$
+A=
+\begin{bmatrix}
+1 & 2 \\
+3 & 4
+\end{bmatrix}
+\qquad
+B=
+\begin{bmatrix}
+5 & -1 \\
+2 & 0
+\end{bmatrix}
+$$
+
+Their sum is
+
+$$
+A+B=
+\begin{bmatrix}
+1+5 & 2+(-1) \\
+3+2 & 4+0
+\end{bmatrix}
+=
+\begin{bmatrix}
+6 & 1 \\
+5 & 4
+\end{bmatrix}
+$$
+
+Matrix addition has several familiar properties.
+
+* $A+B=B+A$
+* $(A+B)+C=A+(B+C)$
+* $A+0=A$
+* $A+(-A)=0$
+
+The symbol $0$ represents a zero matrix with the same dimensions as $A$.
+
+## Matrix Subtraction
+
+Matrix subtraction also requires equal dimensions. It is performed entry by entry.
+
+$$
+(A-B)_{ij}=a_{ij}-b_{ij}
+$$
+
+Using the previous matrices gives
+
+$$
+A-B=
+\begin{bmatrix}
+1-5 & 2-(-1) \\
+3-2 & 4-0
+\end{bmatrix}
+=
+\begin{bmatrix}
+-4 & 3 \\
+1 & 4
+\end{bmatrix}
+$$
+
+Subtraction can also be understood as addition of the additive inverse.
+
+$$
+A-B=A+(-B)
+$$
+
+## Scalar Multiplication
+
+A scalar is a single value. Multiplying a matrix by a scalar multiplies every matrix entry by that value.
+
+$$
+(cA)_{ij}=ca_{ij}
+$$
+
+For example
+
+$$
+3
+\begin{bmatrix}
+1 & -2 \\
+0 & 4
+\end{bmatrix}
+=
+\begin{bmatrix}
+3 & -6 \\
+0 & 12
+\end{bmatrix}
+$$
+
+Scalar multiplication distributes over matrix addition.
+
+$$
+c(A+B)=cA+cB
+$$
+
+It also satisfies
+
+$$
+(c+d)A=cA+dA
+$$
+
+and
+
+$$
+c(dA)=(cd)A
+$$
+
+## Matrix Multiplication
+
+Matrix multiplication combines the rows of one matrix with the columns of another matrix. The number of columns in the first matrix must equal the number of rows in the second matrix.
+
+If
+
+$$
+A\in\mathbb{R}^{m\times n}
+$$
+
+and
+
+$$
+B\in\mathbb{R}^{n\times p}
+$$
+
+then
+
+$$
+AB\in\mathbb{R}^{m\times p}
+$$
+
+Each entry in the product is a row and column dot product.
+
+$$
+(AB)_{ij}=\sum_{k=1}^{n}a_{ik}b_{kj}
+$$
+
+Consider the matrices below.
+
+$$
+A=
+\begin{bmatrix}
+1 & 2 & 0 \\
+-1 & 3 & 1
+\end{bmatrix}
+\qquad
+B=
+\begin{bmatrix}
+2 & 1 \\
+0 & 4 \\
+3 & -2
+\end{bmatrix}
+$$
+
+The dimensions are
+
+$$
+(2\times 3)(3\times 2)
+$$
+
+so the product has dimensions $2\times 2$.
+
+The first entry is the dot product of row one of $A$ and column one of $B$.
+
+$$
+c_{11}=1(2)+2(0)+0(3)=2
+$$
+
+The other entries are found in the same way.
+
+$$
+AB=
+\begin{bmatrix}
+1(2)+2(0)+0(3) & 1(1)+2(4)+0(-2) \\
+-1(2)+3(0)+1(3) & -1(1)+3(4)+1(-2)
+\end{bmatrix}
+$$
+
+Therefore
+
+$$
+AB=
+\begin{bmatrix}
+2 & 9 \\
+1 & 9
+\end{bmatrix}
+$$
+
+Matrix multiplication has several important properties.
+
+* $(AB)C=A(BC)$
+* $A(B+C)=AB+AC$
+* $(A+B)C=AC+BC$
+* $AI=IA=A$
+* Matrix multiplication is generally not commutative
+
+In most cases
+
+$$
+AB\neq BA
+$$
+
+The dimensions may prevent $BA$ from existing even when $AB$ exists.
+
+## Parallel Matrix Multiplication with Three Threads
+
+Matrix multiplication contains many calculations that can be performed independently. Different rows of the output matrix can be assigned to different threads.
+
+This note assumes that matrices are stored in row-major order. In row-major storage, the entries of one row occupy consecutive memory locations.
+
+A direct implementation often follows an $i,j,k$ loop order. It selects an output entry $c_{ij}$ and computes
+
+$$
+c_{ij}=\sum_{k=1}^{n}a_{ik}b_{kj}
+$$
+
+This reads a row of $A$ efficiently. It reads a column of $B$ with a large distance between consecutive memory locations.
+
+$$
+b_{1j},b_{2j},b_{3j},\ldots,b_{nj}
+$$
+
+If each row of $B$ contains $p$ entries, consecutive values in this access pattern are separated by approximately $p$ stored values. A cache line may be loaded even though only one value from that line is needed immediately.
+
+### Improving the Access Pattern
+
+The loops can be reordered as $i,k,j$ without changing the mathematical result.
+
+For a fixed row $i$ and inner index $k$, first load
+
+$$
+a_{ik}
+$$
+
+Then update every entry across row $i$ of $C$.
+
+$$
+c_{ij}\leftarrow c_{ij}+a_{ik}b_{kj}
+$$
+
+for every column $j$.
+
+The inner loop now reads consecutive entries from a row of $B$.
+
+$$
+b_{k1},b_{k2},b_{k3},\ldots,b_{kp}
+$$
+
+It also updates consecutive entries from a row of $C$.
+
+$$
+c_{i1},c_{i2},c_{i3},\ldots,c_{ip}
+$$
+
+This arrangement has several advantages.
+
+* No copy of $A$ or $B$ is required
+* No transposed matrix is required
+* The value $a_{ik}$ can be reused from a processor register
+* Rows of $B$ are read in their stored order
+* Rows of $C$ are updated in their stored order
+* Cache lines provide several values that are used immediately
+* Consecutive values are suitable for vector instructions
+
+The processor cache still operates normally. The algorithm does not explicitly copy a column into a temporary array.
+
+### Assigning Work to Three Threads
+
+Suppose $A$ has six rows. The rows of the output matrix $C$ can be divided evenly among three threads.
+
+* Thread one computes rows one and two of $C$
+* Thread two computes rows three and four of $C$
+* Thread three computes rows five and six of $C$
+
+Each thread follows the same steps for its assigned rows.
+
+1. Set every entry in the assigned output rows to zero
+2. Select one assigned row $i$
+3. Load one value $a_{ik}$
+4. Move across row $k$ of $B$
+5. Update every $c_{ij}$ in the assigned output row
+6. Repeat for every value of $k$
+7. Repeat for every assigned row
+
+The matrices $A$ and $B$ are shared as read-only data. Each thread writes to a different set of rows in $C$. No two threads update the same output entry, so a lock is not required during multiplication.
+
+After all three threads finish, they join at one synchronization point. At that time every row of $C$ has been computed.
+
+### A Three-Thread Example
+
+Consider
+
+$$
+A=
+\begin{bmatrix}
+1 & 2 & 0 \\
+0 & 1 & 3 \\
+2 & -1 & 1 \\
+1 & 0 & 2 \\
+-1 & 2 & 1 \\
+3 & 1 & -1
+\end{bmatrix}
+$$
+
+and
+
+$$
+B=
+\begin{bmatrix}
+1 & 2 & 0 & -1 \\
+3 & 1 & 2 & 0 \\
+0 & -2 & 1 & 4
+\end{bmatrix}
+$$
+
+The dimensions are
+
+$$
+(6\times 3)(3\times 4)
+$$
+
+so $C$ has six rows and four columns.
+
+$$
+C=AB
+$$
+
+Thread one computes
+
+$$
+\begin{bmatrix}
+7 & 4 & 4 & -1 \\
+3 & -5 & 5 & 12
+\end{bmatrix}
+$$
+
+Thread two computes
+
+$$
+\begin{bmatrix}
+-1 & 1 & -1 & 2 \\
+1 & -2 & 2 & 7
+\end{bmatrix}
+$$
+
+Thread three computes
+
+$$
+\begin{bmatrix}
+5 & -2 & 5 & 5 \\
+6 & 9 & 1 & -7
+\end{bmatrix}
+$$
+
+After the three threads finish, the row groups form the complete result.
+
+$$
+C=
+\begin{bmatrix}
+7 & 4 & 4 & -1 \\
+3 & -5 & 5 & 12 \\
+-1 & 1 & -1 & 2 \\
+1 & -2 & 2 & 7 \\
+5 & -2 & 5 & 5 \\
+6 & 9 & 1 & -7
+\end{bmatrix}
+$$
+
+Each thread performs useful work independently. The final join combines no numerical values. It only waits until every assigned row is complete.
+
+### Load Balancing
+
+The number of rows may not be divisible by three. The extra rows should be distributed as evenly as possible.
+
+If $m=8$, one balanced assignment is
+
+* Thread one computes three rows
+* Thread two computes three rows
+* Thread three computes two rows
+
+The amount of work for each row is nearly the same for dense matrices, so row division gives predictable load balancing.
+
+Very wide matrices may benefit from dividing the output into rectangular blocks instead of complete rows. Every output block must still have one owner to prevent simultaneous writes to the same entries.
+
+### Cache Blocking
+
+Loop reordering improves sequential access, but a very large row may not remain in cache. Cache blocking divides the matrices into smaller regions that fit more comfortably in the cache.
+
+The same update is performed on a limited range of rows and columns.
+
+$$
+c_{ij}\leftarrow c_{ij}+a_{ik}b_{kj}
+$$
+
+Only a small group of indices is processed before moving to the next group. This encourages reuse of recently loaded values.
+
+Blocking does not require a copy of the complete matrix. It changes the order in which existing entries are visited. A carefully chosen block size can reduce memory traffic for large matrices.
+
+### Threading Costs
+
+Parallel execution is not free. Creating threads, assigning work, and waiting for completion require time.
+
+Three threads are most useful when
+
+* The matrices are large enough to provide substantial work per thread
+* At least three processor cores are available
+* Memory bandwidth is sufficient to serve the threads
+* Output rows can be divided evenly
+* Thread creation is reused or managed by a thread pool
+
+For small matrices, a single thread may finish before the threading overhead is recovered. Performance should be measured with realistic matrix sizes.
+
+### Numerical Considerations
+
+The $i,k,j$ order adds products to each output entry in increasing order of $k$. If another parallel method changes the order of addition, floating point rounding can produce slightly different results.
+
+The mathematical product remains the same, but floating point addition is not perfectly associative.
+
+$$
+(a+b)+c\neq a+(b+c)
+$$
+
+when the expressions are evaluated with limited precision.
+
+Assigning complete output rows to individual threads keeps the order of accumulation within each entry predictable. It also avoids a separate reduction across threads.
+
+## The Identity Matrix
+
+The identity matrix is a square matrix with $1$ on the main diagonal and $0$ everywhere else.
+
+$$
+I_3=
+\begin{bmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{bmatrix}
+$$
+
+Multiplying a compatible matrix by the identity matrix leaves it unchanged.
+
+$$
+AI=A
+$$
+
+and
+
+$$
+IA=A
+$$
+
+The identity matrix plays the same role in matrix multiplication that the number $1$ plays in ordinary multiplication.
+
+## Matrix Powers
+
+Powers are defined for square matrices.
+
+$$
+A^2=AA
+$$
+
+$$
+A^3=AAA
+$$
+
+The zeroth power of a square matrix is the identity matrix.
+
+$$
+A^0=I
+$$
+
+Matrix powers appear in repeated transformations, recurrence relations, graphs, and state transition models.
+
+## The Transpose
+
+The transpose of a matrix exchanges its rows and columns.
+
+$$
+(A^T)_{ij}=a_{ji}
+$$
+
+For example
+
+$$
+A=
+\begin{bmatrix}
+1 & 2 & 3 \\
+4 & 5 & 6
+\end{bmatrix}
+$$
+
+has transpose
+
+$$
+A^T=
+\begin{bmatrix}
+1 & 4 \\
+2 & 5 \\
+3 & 6
+\end{bmatrix}
+$$
+
+The transpose satisfies several useful properties.
+
+* $(A^T)^T=A$
+* $(A+B)^T=A^T+B^T$
+* $(cA)^T=cA^T$
+* $(AB)^T=B^TA^T$
+
+The order reverses when a product is transposed.
+
+## The Matrix Inverse
+
+An inverse exists only for an invertible square matrix. The inverse of $A$ is written as $A^{-1}$ and satisfies
+
+$$
+AA^{-1}=A^{-1}A=I
+$$
+
+For a two by two matrix
+
+$$
+A=
+\begin{bmatrix}
+a & b \\
+c & d
+\end{bmatrix}
+$$
+
+the inverse is
+
+$$
+A^{-1}=
+\frac{1}{ad-bc}
+\begin{bmatrix}
+d & -b \\
+-c & a
+\end{bmatrix}
+$$
+
+provided that
+
+$$
+ad-bc\neq 0
+$$
+
+The value $ad-bc$ is the determinant of the matrix. A zero determinant means the matrix is singular and has no inverse.
+
+For numerical systems of equations, explicitly constructing the inverse is usually less desirable than solving with a matrix factorization such as LU decomposition.
+
+## Systems of Equations
+
+A system of linear equations can be written as
+
+$$
+A\vec{x}=\vec{b}
+$$
+
+Matrix arithmetic makes the structure of the system clear.
+
+* $A$ contains the coefficients
+* $\vec{x}$ contains the unknown variables
+* $\vec{b}$ contains the constant values
+
+If $A$ is invertible, the relationship
+
+$$
+\vec{x}=A^{-1}\vec{b}
+$$
+
+describes the unique solution mathematically. In computation, Gaussian elimination or a factorization is generally used instead of forming $A^{-1}$ directly.
+
+## Common Errors
+
+Several mistakes occur frequently in matrix arithmetic.
+
+* Adding matrices with different dimensions
+* Multiplying matrices whose inner dimensions do not agree
+* Multiplying corresponding entries when a matrix product is required
+* Assuming that $AB=BA$
+* Forgetting that $(AB)^T=B^TA^T$
+* Attempting to invert a nonsquare or singular matrix
+* Ignoring floating point rounding in large calculations
+* Creating more threads than the amount of work can support
+
+Checking dimensions before performing an operation prevents many of these errors.
+
+## Conclusion
+
+Matrix arithmetic extends familiar numerical operations to rectangular collections of values. Addition, subtraction, and scalar multiplication operate entry by entry. Matrix multiplication combines rows and columns and requires matching inner dimensions.
+
+The implementation of matrix multiplication has an important effect on computer performance. For row-major matrices, the $i,k,j$ loop order accesses rows of $B$ and $C$ sequentially without copying or transposing either input. Dividing the output rows among three threads adds parallel execution without requiring locks on individual output entries.
+
+Understanding both the mathematics and the memory access pattern makes it possible to write matrix operations that are correct, efficient, and suitable for larger systems of equations.

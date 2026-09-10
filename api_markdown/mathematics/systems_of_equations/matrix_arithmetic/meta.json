@@ -1,0 +1,24 @@
+{
+    "subject": "Mathematics",
+    "topic": "Systems of Equations",
+    "subtopic": "Matrix Arithmetic",
+    "views" : "22591",
+    "datePublished": "June 5, 2021",
+    "dateUpdated" : "September 10, 2026",
+    "title" : "Matrix Arithmetic",
+    "description" : "This set of notes introduces matrix arithmetic and explains a cache-friendly three-thread method for multiplying row-major matrices without copying or transposing either input matrix.",
+    "objectives" : [
+        "Perform matrix addition, subtraction, and scalar multiplication",
+        "Determine whether two matrices have compatible dimensions for multiplication",
+        "Compute a matrix product using row and column dot products",
+        "Explain how loop order affects the memory access pattern of matrix multiplication",
+        "Divide matrix multiplication safely among three threads",
+        "Understand identity matrices, transposes, inverses, and matrix powers"
+    ],
+    "prerequisites" : [
+        "Basic understanding of arithmetic",
+        "Familiarity with algebraic expressions",
+        "Basic understanding of rows and columns",
+        "Basic understanding of computer memory and threads"
+    ]
+}
